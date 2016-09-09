@@ -12,6 +12,8 @@ It's recommended to use a Virtual Machine (VM) to run the application. The proje
 
 ## Running the application
 
-Within the main directory of this repository:
+To start the Docker containers, simply run the command below:
 
 `sudo docker-compose up` 
+
+You will be able to view the root of the application at 127.0.0.1
