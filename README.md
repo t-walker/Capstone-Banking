@@ -9,3 +9,9 @@ It's recommended to use a Virtual Machine (VM) to run the application. The proje
 `sudo apt install docker.io`
 
 `sudo apt install docker-compose`
+
+## Running the application
+
+Within the main directory of this repository:
+
+`sudo docker-compose up` 
