@@ -16,4 +16,4 @@ To start the Docker containers, simply run the command below:
 
 `sudo docker-compose up` 
 
-You will be able to view the root of the application at 127.0.0.1
+You will be able to view the root of the application at `127.0.0.1`.
