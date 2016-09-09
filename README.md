@@ -1,4 +1,4 @@
-# Varda Development Guide
+# Varda | Development Guide
 
 ## Getting Started 
 
