@@ -3,7 +3,7 @@ FROM python:alpine
 MAINTAINER Tyler Walker "twalkerweb@gmail.com"
 
 
-COPY server /server
+COPY backend /server
 WORKDIR /server
 RUN pip install -r requirements.txt
 RUN pip install gunicorn
