@@ -1,8 +1,7 @@
 import {Component, View} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 
-import {Layout} from 'layout/layout';
-import {Navbar} from 'navbar/navbar';
+import {Layout} from './layout/layout';
 
 @Component({
   selector: 'main'
