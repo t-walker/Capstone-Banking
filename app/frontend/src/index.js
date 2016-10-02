@@ -1,16 +1,16 @@
 import {Component, View} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
-import {Frontend} from 'frontend';
+
+import {Layout} from 'layout/layout';
+import {Navbar} from 'navbar/navbar';
 
 @Component({
   selector: 'main'
 })
 
 @View({
-  directives: [Frontend],
-  template: `
-    <frontend></frontend>
-  `
+  directives: [Layout],
+  template: `<layout><navbar></navbar></layout>`
 })
 
 class Main {
