@@ -1,10 +1,13 @@
 version: '2'
+
 services:
   api:
     build: app/backend/.
     container_name: api
     ports:
      - "5000:5000"
+    links:
+     - db
 
   www:
     build: app/frontend/.
@@ -15,3 +18,7 @@ services:
       - api
     depends_on:
       - api
+
+  db:
+    build: db/.
+    container_name: db

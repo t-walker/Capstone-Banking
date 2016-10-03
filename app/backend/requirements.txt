@@ -1,2 +1,5 @@
 Flask==0.10.1
+flask-sqlalchemy
+psycopg2
 gunicorn
+
