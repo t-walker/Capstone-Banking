@@ -13,4 +13,5 @@ WORKDIR /server
 RUN pip3 install -r requirements.txt
 RUN pip3 install gunicorn
 
-CMD gunicorn -b 0.0.0.0:5000 server:app
+# CMD gunicorn -c gunicorn.conf.py server:app
+CMD python3 server.py
