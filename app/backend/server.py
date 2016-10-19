@@ -8,15 +8,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 
-# MODELS
-string_maximum = 255
-
-class User(db.Model):
-    """This class represents a user on the system"""
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(string_maximum), unique=True)
-    email = db.Column(db.String(string_maximum), unique=True)
-
+from models import *
 
 # CREATE DATABASE
 db.create_all()
