@@ -1,7 +1,7 @@
 {
-  "name": "angular2-typescript-gulp",
-  "version": "1.0.0",
-  "description": "Angular2 with TypeScript and Gulp QuickStart",
+  "name": "Varda",
+  "version": "0.0.1",
+  "description": "Varda: Online Banking and Lending Application",
   "scripts": {
     "clean": "gulp clean",
     "compile": "gulp compile",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kolorobot/angular2-typescript-gulp.git"
+    "url": "https://github.eecs.wsu.edu/2016-CptS421-423/Varda/pulls"
   },
-  "author": "Rafał Borowiec",
+  "author": "Tyler Cruz, Tyler Walker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kolorobot/angular2-typescript-gulp/issues"
+    "url": "https://github.eecs.wsu.edu/2016-CptS421-423/Varda"
   },
   "dependencies": {
     "@angular/common": "2.0.0",
