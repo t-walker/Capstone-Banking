@@ -7,6 +7,6 @@ import {OnInit} from "@angular/core";
 export class AboutComponent implements OnInit {
 
     ngOnInit() {
-
+      console.log("About component initialized ...");
     }
 }
