@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: "navbar",
-  templateUrl: "./app/layout/navbar.html"
+  templateUrl: "./app/layout/navbar/navbar.html"
 })
 
 export class NavComponent implements OnInit {
@@ -10,4 +10,3 @@ export class NavComponent implements OnInit {
     console.log("Navbar component initialized ...");
   }
 }
-
