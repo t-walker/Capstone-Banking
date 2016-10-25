@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/var
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['DEBUG'] = True
 
-sleep(5)
+sleep(20)
 
 db = SQLAlchemy(app)
 
