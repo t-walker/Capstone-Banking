@@ -1,8 +1,8 @@
 from time import sleep # Wait for the DB to be ready.
 
 from flask import Flask, send_file, jsonify, request
-from flask_user import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/varda"
@@ -20,17 +20,33 @@ except:
 # MODELS
 string_maximum = 255
 
-class User(db.Model, UserMixin):
-    """This class represents a user on the system"""
-    # Primary Information
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(string_maximum), unique=True)
-    email = db.Column(db.String(string_maximum), unique=True)
-    password = db.Column(db.String(string_maximum), unique=False) # TODO: VERIFY UNIQUENESS
+    username = db.Column(db.String(80), unique=True)
+    first_name = db.Column(db.String(100), unique=True)
+    last_name = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(120), unique=True)
+    password_hash = db.Column(db.String(1000), unique=False)
 
-    confirmed_at = db.Column(db.DateTime())
-    reset_password_token = db.Column(db.String(string_maximum), nullable=False, server_default='')
-    active = db.Column(db.Boolean(), nullable=False, server_default='0')
+    def __init__(self, username, email, first_name, last_name, password):
+        self.username = username
+        self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
+        self.password_hash = self.set_password(password)
+
+    def set_password(self, password):
+        return generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+    def to_json(self):
+        return dict(id=self.id,first_name=self.first_name, last_name=self.last_name)
+
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
