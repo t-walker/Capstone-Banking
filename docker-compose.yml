@@ -24,3 +24,5 @@ services:
   db:
     build: db/.
     container_name: db
+    ports:
+      - "5432:5432"
