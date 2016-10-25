@@ -10,9 +10,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['DEBUG'] = True
 
 try:
+    print("Attempting to connect to the database.)
     db = SQLAlchemy(app)
 except:
-    sleep(5)
+    print("Could not connect to the database, trying again in 5 seconds.")
+    sleep()
     db = SQLAlchemy(app)
 
 # MODELS
