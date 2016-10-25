@@ -39,7 +39,7 @@ class Account(db.Model):
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     account_id = db.Column(db.Integer, unique=False)
-    tx_type = db.Column(db.Boolean(), unique=False)
+    tx_type = db.Column(db.String(1), unique=False)
     tx_from = db.Column(db.String(string_maximum), unique=False)
     tx_to = db.Column(db.String(string_maximum), unique=False)
     amount = db.Column(db.Float, unique=False)
