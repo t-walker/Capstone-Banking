@@ -34,11 +34,11 @@ class User(db.Model):
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     account_type = db.Column(db.String(string_maximum), unique=False)
-
+    transactions = relationship("Transaction", back_populates="account")
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    account_id = db.Column(db.Integer, unique=False)
+    account = relationship("Account", back_populates="transaction")
     tx_type = db.Column(db.String(1), unique=False)
     tx_from = db.Column(db.String(string_maximum), unique=False)
     tx_to = db.Column(db.String(string_maximum), unique=False)
