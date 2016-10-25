@@ -9,13 +9,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/var
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['DEBUG'] = True
 
-try:
-    print("Attempting to connect to the database.)
-    db = SQLAlchemy(app)
-except:
-    print("Could not connect to the database, trying again in 5 seconds.")
-    sleep()
-    db = SQLAlchemy(app)
+sleep(5)
+
+db = SQLAlchemy(app)
 
 # MODELS
 string_maximum = 255
