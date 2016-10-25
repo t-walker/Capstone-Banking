@@ -1,11 +1,14 @@
 from server import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# MODELS
+string_maximum = 255
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
-    first_name = db.Column(db.String(100), unique=True)
-    last_name = db.Column(db.String(100), unique=True)
+    first_name = db.Column(db.String(100), unique=False)
+    last_name = db.Column(db.String(100), unique=False)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(1000), unique=False)
 
@@ -27,3 +30,16 @@ class User(db.Model):
 
     def to_json(self):
         return dict(id=self.id,first_name=self.first_name, last_name=self.last_name)
+
+class Account(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    account_type = db.Column(db.String(string_maximum), unique=False)
+
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    account_id = db.Column(db.Integer, unique=False)
+    tx_type = db.Column(db.Boolean(), unique=False)
+    tx_from = db.Column(db.String(string_maximum), unique=False)
+    tx_to = db.Column(db.String(string_maximum), unique=False)
+    amount = db.Column(db.Float, unique=False)
