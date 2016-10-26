@@ -45,13 +45,20 @@ class Transaction(db.Model):
 
 # Schemas
 class UserSchema(ma.Schema):
-    class Meta:
-        model = User
+    id = fields.Int(dump_only=True)
+    username = fields.Str(required=True, validate=must_not_be_blank)
+    first_name = fields.Str(required=True, validate=must_not_be_blank)
+    last_name = fields.Str(required=True, validate=must_not_be_blank)
+    email = fields.Str(required=True, validate=must_not_be_blank)
+
 
 class AccountSchema(ma.Schema):
     class Meta:
         model = Account
 
 class TransactionSchema(ma.Schema):
-    class Meta:
-        model = Transaction
+    account_id = fields.Integer(required=True, validate=must_not_be_blank)
+    tx_type = fields.Str(required=True, validate=must_not_be_blank)
+    tx_from = fields.Str(required=True, validate=must_not_be_blank)
+    tx_to = fields.Str(required=True, validate=must_not_be_blank)
+    amount = fields.Integer(required=True, validate=must_not_be_blank)
