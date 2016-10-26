@@ -66,7 +66,7 @@ def get_account_transactions(account_id):
     for tx in transactions:
         values.append(transaction_schema.dump(tx).data)
 
-    return jsonify(values)
+    return values
 
 
 
