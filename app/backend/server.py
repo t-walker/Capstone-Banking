@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from werkzeug.security import generate_password_hash, check_password_hash
 
+sleep(5)
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/varda"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
