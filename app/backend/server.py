@@ -57,16 +57,11 @@ def get_account_transactions(account_id):
 
     account = db.session.query(Account).filter_by(id=account_id).first()
     transactions = account.transactions.all()
-    print(transactions)
 
-    values = []
+    result = transaction_schema.dump(transactions)
 
-    print(values)
 
-    for tx in transactions:
-        values.append(transaction_schema.dump(tx).data)
-
-    return values
+    return jsonify({'transactions': result.data})
 
 
 
