@@ -27,6 +27,7 @@ def index():
   obj['status'] = "running"
   return jsonify(**obj)
 
+
 @app.route('/api/register', methods=['POST'])
 def create_user():
     # {'username': '', email: '' }
@@ -37,7 +38,9 @@ def create_user():
         db.session.commit()
     except:
         db.session.rollback()
+
     return request.data
+
 
 @app.route('/api/transaction', methods=['POST'])
 def create_transaction():
@@ -49,20 +52,40 @@ def create_transaction():
         db.session.commit()
     except:
         db.session.rollback()
+
     return request.data
+
 
 @app.route('/api/account/<int:account_id>/transactions', methods=['GET'])
 def get_account_transactions(account_id):
-    transaction_schema = TransactionSchema()
+    transactions_schema = TransactionSchema(many=True)
 
     account = db.session.query(Account).filter_by(id=account_id).first()
     transactions = account.transactions.all()
 
-    result = transaction_schema.dump(transactions)
-
+    result = transactions_schema.dump(transactions)
 
     return jsonify({'transactions': result.data})
 
+
+@app.route('/api/user/<int:user_id>/accounts', methods=['GET'])
+def get_user_accounts(user_id):
+    accounts_schema = AccountSchema(many=True)
+
+    accounts = db.session.query(Account).filter_by(user_id=user_id).all()
+    result = accounts_schema.dump(accounts)
+
+    return jsonify({'accounts': result.data})
+
+
+@app.route('/api/accounts', methods=['GET'])
+def get_all_accounts():
+    accounts_schema = AccountSchema(many=True)
+
+    accounts = db.session.query(Account).all()
+    result = accounts_schema.dump(accounts)
+
+    return jsonify({'accounts': result.data})
 
 
 if __name__ == "__main__":

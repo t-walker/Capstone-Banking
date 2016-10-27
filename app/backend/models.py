@@ -34,6 +34,7 @@ class Account(db.Model):
     account_type = db.Column(db.String(string_maximum), unique=False)
     transactions = db.relationship("Transaction", backref="account", lazy="dynamic")
 
+
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
@@ -45,20 +46,15 @@ class Transaction(db.Model):
 
 # Schemas
 class UserSchema(ma.Schema):
-    id = fields.Int(dump_only=True)
-    username = fields.Str(required=True, validate=must_not_be_blank)
-    first_name = fields.Str(required=True, validate=must_not_be_blank)
-    last_name = fields.Str(required=True, validate=must_not_be_blank)
-    email = fields.Str(required=True, validate=must_not_be_blank)
+    class Meta:
+        fields = ('username', 'email', 'first_name', 'last_name', '')
 
 
 class AccountSchema(ma.Schema):
     class Meta:
-        model = Account
+        fields = ('user_id', 'account_type')
+
 
 class TransactionSchema(ma.Schema):
-    account_id = fields.Integer(required=True, validate=must_not_be_blank)
-    tx_type = fields.Str(required=True, validate=must_not_be_blank)
-    tx_from = fields.Str(required=True, validate=must_not_be_blank)
-    tx_to = fields.Str(required=True, validate=must_not_be_blank)
-    amount = fields.Integer(required=True, validate=must_not_be_blank)
+    class Meta:
+        fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount')
