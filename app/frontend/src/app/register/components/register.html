@@ -1,0 +1,28 @@
+<div class="container" id="registTitle" style="margin-bottom: 30px;">
+  <div class="row">
+    <div class="col-sm-4" style="">
+    </div>
+    <div class="col-lg-4" style="text-align: center; font-size: 30px">
+      REGISTER
+    </div>
+    <div class="col-lg-4" style="">
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-bottom: 10px;">
+	<input [(ngModel)]="email" id="email" type="text" style="display: block; margin: 0 auto;"placeholder='Email'/>
+</div>
+
+<div class="container" style="margin-bottom: 10px;">
+     <input [(ngModel)]="p1" id="password1" type="text" style="display: block; margin: 0 auto;" placeholder='Password'/>
+</div>
+
+<div class="container" style="margin-bottom: 30px;">
+	<input [(ngModel)]="p2" id="password2" type="text" style="display: block; margin: 0 auto;"
+	placeholder='Re-enter password'/>
+</div>
+
+<div class="container" style="margin-bottom: 10px;">
+	<button type="button" class="btn btn-success btn-lg" style="display: block; margin: 0 auto;" (click)="onClickRegister()">REGISTER</button>
+</div>

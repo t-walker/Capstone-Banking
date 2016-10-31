@@ -15,7 +15,7 @@ services:
     build: app/frontend/.
     container_name: www
     ports:
-     - "80:80"
+     - "8080:80"
     links:
       - api
     depends_on:

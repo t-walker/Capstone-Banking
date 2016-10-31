@@ -7,9 +7,10 @@ import {FooterComponent} from "./layout/footer/footer.component";
 
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/components/home.component";
+import {RegisterComponent} from "./register/components/register.component";
 
 import {routing, appRoutingProviders} from './app.routing';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import {FormsModule} from "@angular/forms";
         AppComponent,
         HomeComponent,
         AboutComponent,
+        RegisterComponent,
         NavComponent,
         FooterComponent
     ],
