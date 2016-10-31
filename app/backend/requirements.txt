@@ -1,5 +1,6 @@
 Flask==0.10.1
-flask-user
 flask-sqlalchemy
+flask_marshmallow
 psycopg2
 gunicorn
+marshmallow-sqlalchemy

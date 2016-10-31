@@ -2,55 +2,20 @@ from time import sleep # Wait for the DB to be ready.
 
 from flask import Flask, send_file, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from werkzeug.security import generate_password_hash, check_password_hash
+
+sleep(5)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/varda"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['DEBUG'] = True
 
-sleep(20)
-
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
-# MODELS
-string_maximum = 255
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    first_name = db.Column(db.String(100), unique=True)
-    last_name = db.Column(db.String(100), unique=True)
-    email = db.Column(db.String(120), unique=True)
-    password_hash = db.Column(db.String(1000), unique=False)
-
-    def __init__(self, username, email, first_name, last_name, password):
-        self.username = username
-        self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
-        self.password_hash = self.set_password(password)
-
-    def set_password(self, password):
-        return generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-    def to_json(self):
-        return dict(id=self.id,first_name=self.first_name, last_name=self.last_name)
-
-
-class Transaction(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, unique=False)
-    tx_type = db.Column(db.Boolean(), unique=False)
-    tx_from = db.Column(db.String(string_maximum), unique=False)
-    tx_to = db.Column(db.String(string_maximum), unique=False)
-    amount = db.Column(db.Float, unique=False)
+from models import *
 
 # CREATE DATABASE
 db.create_all()
@@ -62,13 +27,66 @@ def index():
   obj['status'] = "running"
   return jsonify(**obj)
 
+
 @app.route('/api/register', methods=['POST'])
 def create_user():
     # {'username': '', email: '' }
     user = User(**request.json)
-    db.session.add(user)
-    db.session.commit()
+
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except:
+        db.session.rollback()
+
     return request.data
+
+
+@app.route('/api/transaction', methods=['POST'])
+def create_transaction():
+    # {'account_id': '', 'tx_type': '', 'tx_from': '', tx_to: '', amount: ''}
+    tx = Transaction(**request.json)
+
+    try:
+        db.session.add(tx)
+        db.session.commit()
+    except:
+        db.session.rollback()
+
+    return request.data
+
+
+@app.route('/api/account/<int:account_id>/transactions', methods=['GET'])
+def get_account_transactions(account_id):
+    transactions_schema = TransactionSchema(many=True)
+
+    account = db.session.query(Account).filter_by(id=account_id).first()
+    transactions = account.transactions.all()
+
+    result = transactions_schema.dump(transactions)
+
+    return jsonify({'transactions': result.data})
+
+
+@app.route('/api/user/<int:user_id>/accounts', methods=['GET'])
+def get_user_accounts(user_id):
+    accounts_schema = AccountSchema(many=True)
+
+    accounts = db.session.query(Account).filter_by(user_id=user_id).all()
+    result = accounts_schema.dump(accounts)
+
+    return jsonify({'accounts': result.data})
+
+
+@app.route('/api/accounts', methods=['GET'])
+def get_all_accounts():
+    accounts_schema = AccountSchema(many=True)
+
+    accounts = db.session.query(Account).all()
+    result = accounts_schema.dump(accounts)
+
+    return jsonify({'accounts': result.data})
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
