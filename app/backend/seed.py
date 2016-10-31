@@ -1,3 +1,5 @@
+import random
+
 from server import db
 from models import *
 
@@ -21,6 +23,25 @@ users.append({'username': 'dmarks',
               'last_name': 'Marks',
               'password': 'password3'})
 
+users.append({'username': 'tcruz',
+              'email': 'tcruz@email.com',
+              'first_name': 'Tyler',
+              'last_name': 'Cruz',
+              'password': 'password4'})
+
+users.append({'username': 'acrandall',
+              'email': 'acrandall@email.com',
+              'first_name': 'Aaron',
+              'last_name': 'Crandall',
+              'password': 'password5'})
+
+users.append({'username': 'gsprint',
+              'email': 'gsprint@email.com',
+              'first_name': 'Gina',
+              'last_name': 'Sprint',
+              'password': 'password3'})
+              
+
 for user in users:
     u = User(**user)
 
@@ -38,7 +59,7 @@ for user in users:
 
     if not username_c and not email_c:
         try:
-            print("LOG: Trying to add user.")
+            print("LOG: Adding user: " + u.first_name)
             db.session.add(u)
             db.session.commit()
         except:
@@ -46,11 +67,25 @@ for user in users:
             db.session.rollback()
 
 transactions = []
-transactions.append({'account_id': 2, 'tx_type': 'D', 'tx_from': 'BANK', 'tx_to': 'twalker', 'amount': 500})
-transactions.append({'account_id': 4, 'tx_type': 'D', 'tx_from': 'BANK', 'tx_to': 'twalker', 'amount': 500})
-transactions.append({'account_id': 6, 'tx_type': 'D', 'tx_from': 'BANK', 'tx_to': 'twalker', 'amount': 500})
 
-for transaction in transactions:
-    t = Transaction(**transaction)
-    db.session.add(t)
-    db.session.commit()
+for user in db.session.query(User).all():
+    account = user.accounts.filter_by(account_type='checking').first()
+    print("LOG: Adding user: " + user.first_name + " transactions.")
+    for i in range(1000):
+        rand_wd = random.randint(0,1)
+        if rand_wd == 1:
+            wd = 'D'
+        else:
+            wd = 'W'
+
+        amount = random.randint(1, 500)
+
+        if wd == "W" and (account.total() - amount) > 0 or wd == "D":
+            if wd == "W":
+                tx = {'account_id': account.id, 'tx_type': wd, 'tx_from': user.first_name, 'tx_to': 'bank', 'amount': amount}
+            if wd == "D":
+                tx = {'account_id': account.id, 'tx_type': wd, 'tx_from': 'bank', 'tx_to': user.first_name, 'amount': amount}
+
+            transaction = Transaction(**tx)
+            db.session.add(transaction)
+            db.session.commit()

@@ -14,6 +14,7 @@ class User(db.Model):
 
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
+
     def __init__(self, username, email, first_name, last_name, password):
         self.username = username
         self.email = email
@@ -21,8 +22,10 @@ class User(db.Model):
         self.last_name = last_name
         self.password_hash = self.set_password(password)
 
+
     def set_password(self, password):
         return generate_password_hash(password)
+
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -33,6 +36,16 @@ class Account(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     account_type = db.Column(db.String(string_maximum), unique=False)
     transactions = db.relationship("Transaction", backref="account", lazy="dynamic")
+
+
+    def total(self):
+        total = 0
+        for tx in self.transactions:
+            if tx.tx_type == "D":
+                total += tx.amount
+            if tx.tx_type == "W":
+                total -= tx.amount
+        return total
 
 
 class Transaction(db.Model):
@@ -47,7 +60,7 @@ class Transaction(db.Model):
 # Schemas
 class UserSchema(ma.Schema):
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name', '')
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 
 class AccountSchema(ma.Schema):
