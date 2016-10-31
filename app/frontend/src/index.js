@@ -1,4 +1,6 @@
-import {Component, View} from 'angular2/core';
+i
+
+mport {Component, View} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 
 import {Layout} from './layout/layout';
