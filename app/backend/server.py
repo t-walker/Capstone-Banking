@@ -68,6 +68,16 @@ def get_account_transactions(account_id):
     return jsonify({'transactions': result.data})
 
 
+@app.route('/api/account/<int:account_id>/total', methods=['GET'])
+def get_account_total(account_id):
+    transactions_schema = TransactionSchema(many=True)
+
+    account = Account.query.filter_by(id=account_id).first()
+    result = account.total()
+
+    return jsonify({'total': result})
+
+
 @app.route('/api/user/<int:user_id>/accounts', methods=['GET'])
 def get_user_accounts(user_id):
     accounts_schema = AccountSchema(many=True)
