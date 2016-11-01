@@ -11,7 +11,6 @@ class User(db.Model):
     last_name = db.Column(db.String(100), unique=False)
     email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(1000), unique=False)
-
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
 

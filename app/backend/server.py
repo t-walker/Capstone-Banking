@@ -62,7 +62,6 @@ def get_account_transactions(account_id):
 
     account = db.session.query(Account).filter_by(id=account_id).first()
     transactions = account.transactions.all()
-
     result = transactions_schema.dump(transactions)
 
     return jsonify({'transactions': result.data})
@@ -76,6 +75,16 @@ def get_account_total(account_id):
     result = account.total()
 
     return jsonify({'total': result})
+
+
+@app.route('/api/user/all', methods=['GET'])
+def get_users():
+    users_schema = UserSchema(many=True)
+
+    users = db.session.query(User).all()
+    result = users_schema.dump(users)
+
+    return jsonify({'users': result.data})
 
 
 @app.route('/api/user/<int:user_id>/accounts', methods=['GET'])
