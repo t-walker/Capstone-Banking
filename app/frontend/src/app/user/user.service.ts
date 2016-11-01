@@ -1,7 +1,9 @@
 import { Injectable }     from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { User }           from './user';
-import { Observable }     from 'rxjs/Observable';
+import { Observable }     from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class HeroService {
