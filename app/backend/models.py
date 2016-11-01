@@ -1,10 +1,11 @@
 from server import db, ma
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # MODELS
 string_maximum = 255
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     first_name = db.Column(db.String(100), unique=False)
@@ -64,7 +65,7 @@ class UserSchema(ma.Schema):
 
 class AccountSchema(ma.Schema):
     class Meta:
-        fields = ('user_id', 'account_type')
+        fields = ('id', 'user_id', 'account_type')
 
 
 class TransactionSchema(ma.Schema):

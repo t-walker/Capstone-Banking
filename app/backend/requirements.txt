@@ -1,4 +1,5 @@
 Flask==0.10.1
+flask-login
 flask-sqlalchemy
 flask_marshmallow
 psycopg2
