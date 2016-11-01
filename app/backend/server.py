@@ -42,6 +42,7 @@ def login():
 
     if user.check_password(request.data.get('password')):
         flask_login.login_user(user)
+        return jsonify({'result': 'success'})
 
     return 'Bad login'
 
