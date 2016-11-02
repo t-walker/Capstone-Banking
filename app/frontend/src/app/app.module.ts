@@ -11,11 +11,13 @@ import {RegisterComponent} from "./register/components/register.component";
 
 import {routing, appRoutingProviders} from './app.routing';
 import {FormsModule} from '@angular/forms';
+import { HttpModule }    from '@angular/http';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
+        HttpModule,
         routing
     ],
     declarations: [
