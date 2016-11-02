@@ -33,6 +33,8 @@ def create_user():
     # {'username': '', email: '' }
     user = User(**request.json)
 
+    print(user)
+
     try:
         db.session.add(user)
         db.session.commit()

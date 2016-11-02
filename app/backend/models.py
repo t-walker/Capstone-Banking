@@ -30,6 +30,9 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def __repr__(self):
+        return "<User {0}>".format(username)
+
 
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
