@@ -1,7 +1,6 @@
-from flask_login import login_manager
-from server import db
+from server import db, lm
 
-@login_manager.user_loader
+@lm.user_loader
 def user_loader(email):
     user = db.session.query(User).filer_by(email=email).first()
 
@@ -11,7 +10,7 @@ def user_loader(email):
     return user
 
 
-@login_manager.request_loader
+@lm.request_loader
 def request_loader(request):
     email = request.data.get('email')
 

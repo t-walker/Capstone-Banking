@@ -1,11 +1,10 @@
+import pprint
 from time import sleep # Wait for the DB to be ready.
 
 from flask import Flask, send_file, jsonify, request # Basic flask functionality
-from flask_login import LoginManager # Basic flask authentication
-from flask_sqlalchemy import SQLAlchemy # Database management
-from flask_marshmallow import Marshmallow # Data serialization
-
-from authentication import user_loader, request_loader
+from flask.ext.login import LoginManager, login_user
+from flask.ext.sqlalchemy import SQLAlchemy # Database management
+from flask.ext.marshmallow import Marshmallow # Data serialization
 
 sleep(5) # Delay is required for allowing the Database to startup
 
@@ -20,6 +19,7 @@ ma = Marshmallow(app)
 lm = LoginManager()
 
 from models import *
+from authentication import *
 
 # CREATE DATABASE
 db.create_all()
@@ -36,15 +36,22 @@ def index():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    email = request.data['email']
+    body = request.json
 
-    user = db.session.query(User).filter_by(email=email).first()
+    user = db.session.query(User).filter_by(email=body['email']).first()
 
-    if user.check_password(request.data.get('password')):
-        flask_login.login_user(user)
+    if user is None:
+        return 'Bad Login'
+
+    if user.check_password(body['password']):
+        login_user(user)
         return jsonify({'result': 'success'})
 
     return 'Bad login'
+
+@app.route('/api/user/current')
+def current():
+    return lm.current_user
 
 @app.route('/api/register', methods=['POST'])
 def create_user():
