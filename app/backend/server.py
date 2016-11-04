@@ -2,7 +2,7 @@ import pprint
 from time import sleep # Wait for the DB to be ready.
 
 from flask import Flask, send_file, jsonify, request # Basic flask functionality
-from flask.ext.login import LoginManager, login_user
+from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy # Database management
 from flask.ext.marshmallow import Marshmallow # Data serialization
 
@@ -19,7 +19,6 @@ ma = Marshmallow(app)
 lm = LoginManager()
 
 from models import *
-from authentication import *
 
 # CREATE DATABASE
 db.create_all()
@@ -34,6 +33,7 @@ def index():
   obj['status'] = "running"
   return jsonify(**obj)
 
+
 @app.route('/api/login', methods=['POST'])
 def login():
     body = request.json
@@ -44,14 +44,26 @@ def login():
         return 'Bad Login'
 
     if user.check_password(body['password']):
-        login_user(user)
+        login_user(user, remember=False)
         return jsonify({'result': 'success'})
 
     return 'Bad login'
 
-@app.route('/api/user/current')
+
+@app.route('/api/logout', methods=['GET'])
+def logout():
+    logout_user()
+    return 'success'
+
+
+@app.route('/api/user/current', methods=['GET'])
 def current():
-    return lm.current_user
+    user_schema = UserSchema()
+    print(current_user)
+    result = user_schema.dump(current_user)
+
+    return jsonify({'current': result.data})
+
 
 @app.route('/api/register', methods=['POST'])
 def create_user():
@@ -149,6 +161,18 @@ def get_user_accounts_via_username(username):
         return "<h1>ERROR</h1>"
 
     return jsonify({'accounts': result.data})
+
+@app.route('/api/my/accounts')
+@login_required
+def my_accounts():
+    user = db.session.query(User).filter_by(id=current_user.id).first()
+
+    accounts_schema = AccountSchema(many=True)
+
+    result = accounts_schema.dump(user.accounts)
+
+    return jsonify({'accounts': result.data})
+
 
 @app.route('/api/accounts', methods=['GET'])
 def get_all_accounts():

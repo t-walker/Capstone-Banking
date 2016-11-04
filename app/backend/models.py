@@ -1,4 +1,4 @@
-from server import db, ma
+from server import db, ma, lm
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -29,6 +29,35 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_authenticated(self):
+        return True # If it's assigned to here, they are authenticated.
+
+
+@lm.user_loader
+def user_loader(id):
+    user = db.session.query(User).filter_by(id=id).first()
+
+    if user is None:
+        return
+
+    return user
+
+
+@lm.request_loader
+def request_loader(request):
+    email = request.data.get('email')
+
+    user = db.session.query(User).filer_by(email=email).first()
+
+    if user is None:
+        return
+
+    # DO NOT ever store passwords in plaintext and always compare password
+    # hashes using constant-time comparison!
+    user.is_authenticated = user.check_password(request.data.get('password'))
+
+    return user
 
 
 class Account(db.Model):
