@@ -26,3 +26,11 @@ services:
     container_name: db
     ports:
       - "5432:5432"
+
+  worker:
+    build: app/task/.
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
