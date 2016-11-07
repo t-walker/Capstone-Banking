@@ -33,9 +33,7 @@ services:
       - redis
 
   monitor:
-    build:
-      context: ./flask-celery
-      dockerfile: Dockerfile
+    build: app/task/.
     ports:
      - "5555:5555"
     entrypoint: flower
