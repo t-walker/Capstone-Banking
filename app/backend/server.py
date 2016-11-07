@@ -24,7 +24,7 @@ db.create_all()
 @app.route('/api/add/<int:param1>/<int:param2>')
 def add(param1,param2):
     task = celery.send_task('adding', args=[param1, param2], kwargs={})
-    return task.get()
+    return jsonify({'result': task.get()})
 
 @app.route('/api/')
 def index():
