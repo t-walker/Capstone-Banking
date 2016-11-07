@@ -17,7 +17,6 @@ class CeleryConfig:
   timezone='Europe/Oslo'
   enable_utc=True
 
-
 celery.config_from_object(CeleryConfig)
 
 @celery.task(name='add')
