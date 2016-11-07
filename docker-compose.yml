@@ -31,6 +31,7 @@ services:
     build: app/task/.
     depends_on:
       - redis
+      - api
 
   monitor:
     build: app/task/.
