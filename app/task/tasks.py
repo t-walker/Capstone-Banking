@@ -19,6 +19,7 @@ class CeleryConfig:
 
 celery.config_from_object(CeleryConfig)
 
+
 @celery.task(name='add')
 def add(x, y):
     time.sleep(5) # lets sleep for a while before doing the gigantic addition task!
