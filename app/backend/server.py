@@ -21,6 +21,12 @@ from models import *
 db.create_all()
 
 # ROUTES
+@app.route('/add/<int:param1>/<int:param2>')
+def add(param1,param2):
+    task = celery.send_task('mytasks.add', args=[param1, param2], kwargs={})
+    return "<a href='{url}'>check status of {id} </a>".format(id=task.id,
+                url=url_for('check_task',id=task.id,_external=True))
+
 @app.route('/api/')
 def index():
   obj = {}
