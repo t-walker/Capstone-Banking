@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 
 RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev
+RUN apt-get install -y python3-pip python3-dev
 
 ENV CELERY_BROKER_URL redis://redis:6379/0
 ENV CELERY_RESULT_BACKEND redis://redis:6379/0
@@ -14,6 +14,7 @@ COPY . /flask-celery
 WORKDIR /flask-celery
 
 # install requirements
+RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
 
 

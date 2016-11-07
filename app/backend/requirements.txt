@@ -1,6 +1,8 @@
 Flask==0.10.1
 flask-sqlalchemy
 flask_marshmallow
+flask-celery
+redis
 psycopg2
 gunicorn
 marshmallow-sqlalchemy
