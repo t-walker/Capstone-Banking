@@ -14,7 +14,7 @@ COPY . /flask-celery
 WORKDIR /flask-celery
 
 # install requirements
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 
 # run the worker
