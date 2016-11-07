@@ -10,9 +10,17 @@ celery= Celery('tasks',
                 broker=CELERY_BROKER_URL,
                 backend=CELERY_RESULT_BACKEND)
 
-celery.config_from_object('celeryconfig')
+class CeleryConfig:
+  task_serializer='json'
+  accept_content=['json'] # Ignore other content
+  result_serializer='json'
+  timezone='Europe/Oslo'
+  enable_utc=True
 
-@celery.task(serializer='json', name='mytasks.add')
+
+celery.config_from_object(CeleryConfig)
+
+@celery.task(name='add')
 def add(x, y):
     time.sleep(5) # lets sleep for a while before doing the gigantic addition task!
     return x + y
