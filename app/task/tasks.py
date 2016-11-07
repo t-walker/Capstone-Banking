@@ -12,7 +12,7 @@ celery= Celery('tasks',
 
 celery.config_from_object('celeryconfig')
 
-@celery.task(name='mytasks.add')
+@celery.task(serializer='json', name='mytasks.add')
 def add(x, y):
     time.sleep(5) # lets sleep for a while before doing the gigantic addition task!
     return x + y

@@ -23,7 +23,7 @@ db.create_all()
 # ROUTES
 @app.route('/api/add/<int:param1>/<int:param2>')
 def add(param1,param2):
-    task = celery.send_task('mytasks.add', args=[param1, param2], kwargs={})
+    task = celery.send_task('add', args=[param1, param2], kwargs={})
     return task.get()
 
 @app.route('/api/')

@@ -31,10 +31,11 @@ services:
     build: app/task/.
     depends_on:
       - redis
+      - api
 
   monitor:
     build:
-      context: ./flask-celery
+      context: app/task/.
       dockerfile: Dockerfile
     ports:
      - "5555:5555"
