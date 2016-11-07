@@ -1,7 +1,7 @@
 Flask==0.10.1
 flask-sqlalchemy
 flask_marshmallow
-celery=4.0.0
+celery==4.0.0
 redis
 psycopg2
 gunicorn
