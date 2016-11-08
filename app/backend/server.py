@@ -80,7 +80,7 @@ def get_account_total(account_id):
     transactions_schema = TransactionSchema(many=True)
 
     account = Account.query.filter_by(id=account_id).first()
-    result = account.total()
+    result = account.total
 
     return jsonify({'total': result})
 

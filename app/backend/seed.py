@@ -40,7 +40,7 @@ users.append({'username': 'gsprint',
               'first_name': 'Gina',
               'last_name': 'Sprint',
               'password': 'password3'})
-              
+
 
 for user in users:
     u = User(**user)
@@ -80,12 +80,10 @@ for user in db.session.query(User).all():
 
         amount = random.randint(1, 500)
 
-        if wd == "W" and (account.total() - amount) > 0 or wd == "D":
+        if wd == "W" and (account.total - amount) > 0 or wd == "D":
             if wd == "W":
-                tx = {'account_id': account.id, 'tx_type': wd, 'tx_from': user.first_name, 'tx_to': 'bank', 'amount': amount}
+                account.deposit(amount, 'bank')
             if wd == "D":
-                tx = {'account_id': account.id, 'tx_type': wd, 'tx_from': 'bank', 'tx_to': user.first_name, 'amount': amount}
+                account.withdraw(amount, 'bank')
 
-            transaction = Transaction(**tx)
-            db.session.add(transaction)
-            db.session.commit()
+db.session.commit()

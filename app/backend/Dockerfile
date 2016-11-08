@@ -15,5 +15,5 @@ RUN pip3 install -r requirements.txt
 
 CMD python3 seed.py
 
-# CMD gunicorn -c gunicorn.conf.py server:app
+#CMD gunicorn -c gunicorn.conf.py server:app
 CMD python3 server.py
