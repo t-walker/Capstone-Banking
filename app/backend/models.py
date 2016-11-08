@@ -33,6 +33,9 @@ class User(db.Model, UserMixin):
     def is_authenticated(self):
         return True # If it's assigned to here, they are authenticated.
 
+    def is_anonymous(self):
+        return False
+
 
 @lm.user_loader
 def user_loader(id):
@@ -46,17 +49,7 @@ def user_loader(id):
 
 @lm.request_loader
 def request_loader(request):
-    email = request.data.get('email')
-
-    user = db.session.query(User).filer_by(email=email).first()
-
-    if user is None:
-        return
-
-    # DO NOT ever store passwords in plaintext and always compare password
-    # hashes using constant-time comparison!
-    user.is_authenticated = user.check_password(request.data.get('password'))
-
+    user = current_user
     return user
 
 

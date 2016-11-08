@@ -162,10 +162,10 @@ def get_user_accounts_via_username(username):
 
     return jsonify({'accounts': result.data})
 
-@app.route('/api/my/accounts')
 @login_required
+@app.route('/api/my/accounts')
 def my_accounts():
-    user = db.session.query(User).filter_by(id=current_user.id).first()
+    user = current_user
 
     accounts_schema = AccountSchema(many=True)
 
