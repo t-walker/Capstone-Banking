@@ -1,6 +1,6 @@
 from time import sleep # Wait for the DB to be ready.
-
-from flask import Flask, send_file, jsonify, request
+from worker import celery
+from flask import Flask, send_file, jsonify, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,6 +21,11 @@ from models import *
 db.create_all()
 
 # ROUTES
+@app.route('/api/add/<int:param1>/<int:param2>')
+def add(param1,param2):
+    task = celery.send_task('add', args=[param1, param2], kwargs={})
+    return jsonify({'result': task.get()})
+
 @app.route('/api/')
 def index():
   obj = {}
@@ -75,7 +80,7 @@ def get_account_total(account_id):
     transactions_schema = TransactionSchema(many=True)
 
     account = Account.query.filter_by(id=account_id).first()
-    result = account.total()
+    result = account.total
 
     return jsonify({'total': result})
 
