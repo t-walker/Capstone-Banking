@@ -82,8 +82,8 @@ for user in db.session.query(User).all():
 
         if wd == "W" and (account.total - amount) > 0 or wd == "D":
             if wd == "W":
-                account.deposit(amount, 'bank')
-            if wd == "D":
                 account.withdraw(amount, 'bank')
+            if wd == "D":
+                account.deposit(amount, 'bank')
 
 db.session.commit()
