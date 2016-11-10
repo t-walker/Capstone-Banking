@@ -7,6 +7,7 @@ from flask.ext.marshmallow import Marshmallow # Data serialization
 
 sleep(5) # Delay is required for allowing the Database to startup
 
+
 app = Flask(__name__)
 app.secret_key = "ASECRETKEYGOESHERE"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/varda"
@@ -26,6 +27,11 @@ db.create_all()
 lm.init_app(app)
 
 # ROUTES
+@app.route('/api/add/<int:param1>/<int:param2>')
+def add(param1,param2):
+    task = celery.send_task('add', args=[param1, param2], kwargs={})
+    return jsonify({'result': task.get()})
+
 @app.route('/api/')
 def index():
   obj = {}
@@ -68,7 +74,11 @@ def current():
 @app.route('/api/register', methods=['POST'])
 def create_user():
     # {'username': '', email: '' }
+    print (request)
+
     user = User(**request.json)
+
+    print(user)
 
     try:
         db.session.add(user)
@@ -114,11 +124,8 @@ def get_account_transactions(account_id):
 def get_account_total(account_id):
     transactions_schema = TransactionSchema(many=True)
 
-    try:
-        account = Account.query.filter_by(id=account_id).first()
-        result = account.total()
-    except:
-        return "<h1>ERROR</h1>"
+    account = Account.query.filter_by(id=account_id).first()
+    result = account.total
 
     return jsonify({'total': result})
 

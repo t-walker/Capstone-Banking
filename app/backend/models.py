@@ -48,6 +48,7 @@ def user_loader(id):
 
     return user
 
+
 @lm.unauthorized_handler
 def unauthorized_handler():
     return '<h1>UNAUTHORIZED</h1>'
@@ -56,19 +57,23 @@ def unauthorized_handler():
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    total = db.Column(db.Float, default=0.0, unique=False)
     account_type = db.Column(db.String(string_maximum), unique=False)
     transactions = db.relationship("Transaction", backref="account", lazy="dynamic")
 
+    def deposit(self, amount, tx_from):
+        tx = {'account_id': self.id, 'tx_type': 'D', 'tx_from': str(tx_from), 'tx_to': str(self.user_id), 'amount': amount}
+        tx = Transaction(**tx)
+        db.session.add(tx)
+        db.session.commit()
+        self.total += amount
 
-    def total(self):
-        total = 0
-        for tx in self.transactions:
-            if tx.tx_type == "D":
-                total += tx.amount
-            if tx.tx_type == "W":
-                total -= tx.amount
-        return total
-
+    def withdraw(self, amount, tx_to):
+        tx = {'account_id': self.id, 'tx_type': 'W', 'tx_from': str(self.user_id), 'tx_to': str(tx_to), 'amount': amount}
+        tx = Transaction(**tx)
+        db.session.add(tx)
+        db.session.commit()
+        self.total -= amount
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
