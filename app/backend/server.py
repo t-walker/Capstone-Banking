@@ -1,6 +1,5 @@
-import pprint
+import sys
 from time import sleep # Wait for the DB to be ready.
-
 from flask import Flask, send_file, jsonify, request # Basic flask functionality
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy # Database management
@@ -31,6 +30,7 @@ lm.init_app(app)
 def index():
   obj = {}
   obj['status'] = "running"
+  print(obj, file=sys.stdout)
   return jsonify(**obj)
 
 
@@ -162,8 +162,8 @@ def get_user_accounts_via_username(username):
 
     return jsonify({'accounts': result.data})
 
-@login_required
 @app.route('/api/my/accounts')
+@login_required
 def my_accounts():
     user = current_user
 

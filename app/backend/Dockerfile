@@ -17,4 +17,4 @@ WORKDIR /server
 CMD python3 seed.py
 
 # CMD gunicorn -c gunicorn.conf.py server:app
-CMD python3 server.py
+CMD python3 -u server.py
