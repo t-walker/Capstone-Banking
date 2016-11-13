@@ -31,6 +31,7 @@ def index():
 @app.route('/api/register', methods=['POST'])
 def create_user():
     # {'username': '', email: '' }
+    print ("my request: ")
     print (request)
 
     user = User(**request.json)
