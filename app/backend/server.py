@@ -3,6 +3,7 @@ from worker import celery
 from flask import Flask, send_file, jsonify, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask.ext.seasurf import SeaSurf
 from werkzeug.security import generate_password_hash, check_password_hash
 
 sleep(5)
@@ -14,7 +15,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-
+csrf = SeaSurf(app)
 from models import *
 
 # CREATE DATABASE
