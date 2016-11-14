@@ -13,12 +13,9 @@ export class RegisterService {
 
   createUser(registerObject) {
 		var headers = new Headers();
-		var body = registerObject;
-
-		console.log("HI REGISTER, FROM REG SERVICE NOV 13 !!");
-		console.log(body);
-
 		headers.append('Content-Type', 'application/json');
+
+		var body = registerObject;
 
 	 	return this._http.post('api/register', body, { headers: headers })
 	 		.map(res => res.json());
