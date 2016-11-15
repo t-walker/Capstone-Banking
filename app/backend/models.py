@@ -1,7 +1,8 @@
 from server import db, ma, lm
 from flask_login import UserMixin, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from marshmallow import fields
+from marshmallow_sqlalchemy import ModelSchema
 # MODELS
 string_maximum = 255
 
@@ -85,16 +86,22 @@ class Transaction(db.Model):
 
 
 # Schemas
-class UserSchema(ma.Schema):
+class UserSchema(ModelSchema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name')
 
-
-class AccountSchema(ma.Schema):
-    class Meta:
-        fields = ('id', 'user_id', 'account_type')
-
-
-class TransactionSchema(ma.Schema):
+class TransactionSchema(ModelSchema):
+    account_id = fields.Integer()
+    tx_type = fields.String()
+    tx_from = fields.String()
+    tx_to = fields.String()
+    amount = fields.Float()
+    
     class Meta:
         fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount')
+
+class AccountSchema(ModelSchema):
+    transactions = fields.Nested(TransactionSchema, many=True, required=True)
+
+    class Meta:
+        fields = ('id', 'user_id', 'account_type', 'transactions')
