@@ -8,6 +8,7 @@ import {FooterComponent} from "./layout/footer/footer.component";
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/components/home.component";
 import {RegisterComponent} from "./register/components/register.component";
+import {LoginComponent} from "./login/components/login.component";
 
 import {routing, appRoutingProviders} from './app.routing';
 import {FormsModule} from '@angular/forms';
@@ -28,7 +29,8 @@ import { HttpModule }    from '@angular/http';
         AboutComponent,
         RegisterComponent,
         NavComponent,
-        FooterComponent
+        FooterComponent,
+        LoginComponent
     ],
     providers: [
         appRoutingProviders
