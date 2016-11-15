@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     loginObject['email'] = this.email;
     loginObject['password'] = this.password;
 
-    this.loginService.createUser(loginObject)
+    this.loginService.loginUser(loginObject)
       .subscribe(
       data => console.log(data),
       err => console.log(err),
