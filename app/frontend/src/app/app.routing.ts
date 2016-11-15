@@ -12,7 +12,6 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent, data: {title: 'Home'}},
     {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
     {path: 'login', component: LoginComponent, data: {title: 'Login'}}
-
     ];
 
 export const appRoutingProviders: any[] = [];
