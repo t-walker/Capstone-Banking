@@ -47,13 +47,13 @@ def login():
     user = db.session.query(User).filter_by(email=body['email']).first()
 
     if user is None:
-        return 'Bad Login'
+        return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
         login_user(user, remember=False)
-        return jsonify({'result': 'success'})
+        return jsonify({'result': 'success'}), 200
 
-    return 'Bad login'
+    return jsonify({'error': 'could not find user'}), 500
 
 
 @app.route('/api/logout', methods=['GET'])

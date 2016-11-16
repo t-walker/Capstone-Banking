@@ -13,16 +13,14 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(100), unique=False)
     last_name = db.Column(db.String(100), unique=False)
     password_hash = db.Column(db.String(1000), unique=False)
-    role = db.Column(db.String(10), unique=False)
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
 
-    def __init__(self, username= "", email="", role="", first_name="", last_name="", password=""):
+    def __init__(self, username= "", email="", first_name="", last_name="", password=""):
         self.email = email
         self.username = username
         self.first_name = first_name
         self.last_name = last_name
-        self.role = role
         self.password_hash = self.set_password(password)
 
 
@@ -96,7 +94,7 @@ class TransactionSchema(ModelSchema):
     tx_from = fields.String()
     tx_to = fields.String()
     amount = fields.Float()
-    
+
     class Meta:
         fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount')
 
