@@ -1,23 +1,24 @@
-from server import db, ma
+from server import db, ma, lm
+from flask_login import UserMixin, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from marshmallow import fields
+from marshmallow_sqlalchemy import ModelSchema
 # MODELS
 string_maximum = 255
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True)
     username = db.Column(db.String(80), unique=True)
     first_name = db.Column(db.String(100), unique=False)
     last_name = db.Column(db.String(100), unique=False)
-    email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(1000), unique=False)
-
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
 
-    def __init__(self, username, email, first_name, last_name, password):
-        self.username = username
+    def __init__(self, username= "", email="", first_name="", last_name="", password=""):
         self.email = email
+        self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.password_hash = self.set_password(password)
@@ -30,8 +31,26 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __repr__(self):
-        return "<User {0}>".format(self.username)
+    def is_authenticated(self):
+        return True # If it's assigned to here, they are authenticated.
+
+    def is_anonymous(self):
+        return False
+
+
+@lm.user_loader
+def user_loader(id):
+    user = db.session.query(User).filter_by(id=id).first()
+
+    if user is None:
+        return
+
+    return user
+
+
+@lm.unauthorized_handler
+def unauthorized_handler():
+    return '<h1>UNAUTHORIZED</h1>'
 
 
 class Account(db.Model):
@@ -65,16 +84,22 @@ class Transaction(db.Model):
 
 
 # Schemas
-class UserSchema(ma.Schema):
+class UserSchema(ModelSchema):
     class Meta:
         fields = ('username', 'email', 'first_name', 'last_name')
 
+class TransactionSchema(ModelSchema):
+    account_id = fields.Integer()
+    tx_type = fields.String()
+    tx_from = fields.String()
+    tx_to = fields.String()
+    amount = fields.Float()
 
-class AccountSchema(ma.Schema):
-    class Meta:
-        fields = ('user_id', 'account_type')
-
-
-class TransactionSchema(ma.Schema):
     class Meta:
         fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount')
+
+class AccountSchema(ModelSchema):
+    transactions = fields.Nested(TransactionSchema, many=True, required=True)
+
+    class Meta:
+        fields = ('id', 'user_id', 'account_type', 'transactions')
