@@ -31,7 +31,6 @@ services:
     build: app/task/.
     depends_on:
       - redis
-      - api
 
   monitor:
     build: app/task/.
@@ -44,3 +43,5 @@ services:
 
   redis:
     build: redis/.
+    volumes:
+      - ./redis_fs:/var/lib/redis
