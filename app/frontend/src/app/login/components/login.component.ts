@@ -27,11 +27,13 @@ export class LoginComponent implements OnInit {
 
     this.loginService.loginUser(loginObject)
       .subscribe(
-      data => console.log(data),
-      err => console.log(err),
+      data => {
+        this.router.navigate(['/home']);
+      },
+      err => {
+        console.log(err);
+      },
       () => console.log('finished'));
-
-    this.router.navigate(['/home']);
   }
 
 }
