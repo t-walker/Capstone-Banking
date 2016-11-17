@@ -27,21 +27,19 @@ services:
     ports:
       - "5432:5432"
 
-  worker:
-    build: app/task/.
-    depends_on:
-      - redis
+  # worker:
+  #   build: app/task/.
+  #   depends_on:
+  #     - redis
 
-  monitor:
-    build: app/task/.
-    ports:
-     - "5555:5555"
-    entrypoint: flower
-    command:  -A tasks --port=5555 --broker=redis://redis:6379/0
-    depends_on:
-      - redis
+  # monitor:
+  #   build: app/task/.
+  #   ports:
+  #    - "5555:5555"
+  #   entrypoint: flower
+  #   command:  -A tasks --port=5555 --broker=redis://redis:6379/0
+  #   depends_on:
+  #     - redis
 
-  redis:
-    build: redis/.
-    volumes:
-      - ./redis_fs:/var/lib/redis
+  # redis:
+  #   build: redis/.
