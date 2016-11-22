@@ -1,12 +1,13 @@
 import sys
-from time import sleep # Wait for the DB to be ready.
+from time import sleep  # Wait for the DB to be ready.
 from worker import celery
-from flask import Flask, send_file, jsonify, request # Basic flask functionality
-from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required # Login Management
-from flask.ext.sqlalchemy import SQLAlchemy # Database management
-from flask.ext.marshmallow import Marshmallow # Data serialization
+from flask import Flask, send_file, jsonify, request  # Basic flask functionality
+# Login Management
+from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
+from flask.ext.sqlalchemy import SQLAlchemy  # Database management
+from flask.ext.marshmallow import Marshmallow  # Data serialization
 
-sleep(5) # Delay is required for allowing the Database to startup
+sleep(5)  # Delay is required for allowing the Database to startup
 
 
 app = Flask(__name__)
@@ -28,17 +29,21 @@ db.create_all()
 lm.init_app(app)
 
 # ROUTES
+
+
 @app.route('/api/add/<int:param1>/<int:param2>')
-def add(param1,param2):
+def add(param1, param2):
     task = celery.send_task('add', args=[param1, param2], kwargs={})
     return jsonify({'result': task.get()})
 
+
 @app.route('/api/')
 def index():
-  obj = {}
-  obj['status'] = "running"
-  print(obj, file=sys.stdout)
-  return jsonify(**obj)
+    obj = {}
+    obj['status'] = "running"
+    print(obj, file=sys.stdout)
+    return jsonify(**obj)
+
 
 @app.route('/api/current_user', methods=['GET'])
 def current():
@@ -53,6 +58,7 @@ def current():
         return jsonify({'error': "no user logged in"}), 500
 
     return jsonify({'result': result.data}), 200
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -69,10 +75,12 @@ def login():
 
     return jsonify({'error': 'could not find user'}), 500
 
+
 @app.route('/api/logout', methods=['GET'])
 def logout():
     logout_user()
     return jsonify({'result': 'successful logout'}), 200
+
 
 @app.route('/api/register', methods=['POST'])
 def create_user():
@@ -90,7 +98,6 @@ def create_user():
     except:
         db.session.rollback()
         return "<h1>ERROR</h1>"
-
 
     return request.data
 
@@ -160,18 +167,21 @@ def get_user_accounts_via_id(user_id):
 
     return jsonify({'result': result.data})
 
+
 @app.route('/api/user/<string:username>/accounts', methods=['GET'])
 def get_user_accounts_via_username(username):
     accounts_schema = AccountSchema(many=True)
 
     try:
-        user_id = db.session.query(User.id).filter_by(username=username).first()
+        user_id = db.session.query(User.id).filter_by(
+            username=username).first()
         accounts = db.session.query(Account).filter_by(user_id=user_id).all()
         result = accounts_schema.dump(accounts)
     except:
         return jsonify({'error': "accounts invalid"}), 500
 
     return jsonify({'result': result.data}), 200
+
 
 @app.route('/api/my/accounts')
 @login_required

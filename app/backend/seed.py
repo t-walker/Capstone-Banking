@@ -72,7 +72,7 @@ for user in db.session.query(User).all():
     account = user.accounts.filter_by(account_type='checking').first()
     print("LOG: Adding user: " + user.first_name + " transactions.")
     for i in range(1000):
-        rand_wd = random.randint(0,1)
+        rand_wd = random.randint(0, 1)
         if rand_wd == 1:
             wd = 'D'
         else:
