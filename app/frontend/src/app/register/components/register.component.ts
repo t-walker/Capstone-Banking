@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   public username = "";
 
   ngOnInit() {
-    console.log("NEW Register component initialized ...");
+    console.log("Register component initialized ...");
   }
 
   constructor(private _registerService: RegisterService) { }
