@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     console.log("Register component initialized ...");
   }
 
-  constructor(private _registerService: RegisterService) { }
+  constructor(private registerService: RegisterService) { }
 
   onClickRegister() {
     let registerObject = {};
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
     console.log(registerObject);
 
-    this._registerService.createUser(registerObject)
+    this.registerService.createUser(registerObject)
       .subscribe(
       data => console.log(data),
       err => console.log(err),
