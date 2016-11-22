@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 
-import { RegisterService } from './register.service';
+import { RegisterService } from '../services/register.service';
 
 @Component({
   templateUrl: './app/register/components/register.html',
@@ -39,5 +39,4 @@ export class RegisterComponent implements OnInit {
       err => console.log(err),
       () => console.log('finished'));
   }
-
 }
