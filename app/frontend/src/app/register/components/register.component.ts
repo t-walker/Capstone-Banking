@@ -23,10 +23,6 @@ export class RegisterComponent implements OnInit {
   constructor(private _registerService: RegisterService) { }
 
   onClickRegister() {
-    console.log(this.email);
-    console.log(this.p1);
-    console.log(this.p2);
-
     let registerObject = {};
 
     registerObject['email'] = this.email;
@@ -41,12 +37,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
       data => console.log(data),
       err => console.log(err),
-      () => console.log('finished')
-      );
-
-
-    // this._registerService.getMotivated()
-    //     .subscribe(data => console.log(data));
+      () => console.log('finished'));
   }
 
 }
