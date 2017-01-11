@@ -36,8 +36,6 @@ export class RegisterComponent implements OnInit {
         err => console.log(err),
         () => console.log('finished'));
     }
-    else {
-      console.log("FAILED.");
-    }
+  
   }
 }
