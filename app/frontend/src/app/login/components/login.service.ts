@@ -10,7 +10,7 @@ export class LoginService {
   constructor(private http: Http) { }
   // Uses http.get() to load a single JSON file
 
-  createUser(loginObject) {
+  loginUser(loginObject) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 

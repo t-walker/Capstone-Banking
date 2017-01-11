@@ -1,11 +1,20 @@
 import sys
 from time import sleep # Wait for the DB to be ready.
+<<<<<<< HEAD
+from worker import celery
+from flask import Flask, send_file, jsonify, request, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from flask.ext.seasurf import SeaSurf
+from werkzeug.security import generate_password_hash, check_password_hash
+=======
 from flask import Flask, send_file, jsonify, request # Basic flask functionality
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy # Database management
 from flask.ext.marshmallow import Marshmallow # Data serialization
 
 sleep(5) # Delay is required for allowing the Database to startup
+>>>>>>> master
 
 
 app = Flask(__name__)
@@ -16,8 +25,10 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+csrf = SeaSurf(app)
 lm = LoginManager()
 
+>>>>>>> master
 from models import *
 
 # CREATE DATABASE
@@ -47,13 +58,13 @@ def login():
     user = db.session.query(User).filter_by(email=body['email']).first()
 
     if user is None:
-        return 'Bad Login'
+        return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
         login_user(user, remember=False)
-        return jsonify({'result': 'success'})
+        return jsonify({'result': 'success'}), 200
 
-    return 'Bad login'
+    return jsonify({'error': 'could not find user'}), 500
 
 
 @app.route('/api/logout', methods=['GET'])
