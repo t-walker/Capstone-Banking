@@ -1,8 +1,15 @@
 import sys
-from time import sleep  # Wait for the DB to be ready.
+
+from time import sleep # Wait for the DB to be ready.
+
 from worker import celery
-from flask import Flask, send_file, jsonify, request  # Basic flask functionality
-# Login Management
+from flask import Flask, send_file, jsonify, request, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from flask.ext.seasurf import SeaSurf
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask.ext.seasurf import SeaSurf
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy  # Database management
 from flask.ext.marshmallow import Marshmallow  # Data serialization
@@ -18,6 +25,7 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+csrf = SeaSurf(app)
 lm = LoginManager()
 
 from models import *
