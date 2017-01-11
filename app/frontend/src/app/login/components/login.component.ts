@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router } from '@angular/router';
 
-import { LoginService } from './login.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   templateUrl: './app/login/components/login.html',
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         console.log(err);
+        // Flash ERROR
       },
       () => console.log('finished'));
   }
