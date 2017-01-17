@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   public last_name = "";
   public password_orig = "";
   public password_conf = "";
+  public username = "";
 
   ngOnInit() {
     console.log("Register component initialized ...");
@@ -25,10 +26,14 @@ export class RegisterComponent implements OnInit {
     if (this.password_orig === this.password_conf) {
       let registerObject = {};
 
+      registerObject['username'] = this.username;
       registerObject['first_name'] = this.first_name;
       registerObject['last_name'] = this.last_name;
       registerObject['email'] = this.email;
       registerObject['password'] = this.password_orig;
+
+      console.log("register object test: ");
+      console.log(registerObject);
 
       this.registerService.createUser(registerObject)
         .subscribe(
