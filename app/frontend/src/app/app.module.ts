@@ -13,7 +13,8 @@ import {LoginComponent} from "./login/components/login.component";
 import {routing, appRoutingProviders} from './app.routing';
 import {FormsModule} from '@angular/forms';
 
-import { HttpModule }    from '@angular/http';
+import {HttpModule}    from '@angular/http';
+import {LocalStorageModule} from 'angular-2-local-storage';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { HttpModule }    from '@angular/http';
         HttpModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        LocalStorageModule.withConfig({prefix: 'app', storageType: 'localStorage'})
     ],
     declarations: [
         AppComponent,
