@@ -9,6 +9,7 @@ import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/components/home.component";
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
+import {UserService} from "./user/services/user.service";
 
 import {routing, appRoutingProviders} from './app.routing';
 import {FormsModule} from '@angular/forms';
@@ -23,7 +24,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         FormsModule,
         HttpModule,
         routing,
-        LocalStorageModule.withConfig({prefix: 'app', storageType: 'localStorage'})
+        LocalStorageModule.withConfig({prefix: 'app', storageType: 'sessionStorage'})
     ],
     declarations: [
         AppComponent,
@@ -35,7 +36,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoginComponent
     ],
     providers: [
-        appRoutingProviders
+        appRoutingProviders,
+        UserService
     ],
     bootstrap: [AppComponent]
 })

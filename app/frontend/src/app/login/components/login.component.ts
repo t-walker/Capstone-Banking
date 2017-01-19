@@ -1,12 +1,12 @@
 import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router } from '@angular/router';
+import { Headers, RequestOptions} from '@angular/http';
 
-import { LoginService } from '../services/login.service';
+import { UserService } from '../../user/services/user.service';
 
 @Component({
   templateUrl: './app/login/components/login.html',
-  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     console.log("Login component initialized ...");
   }
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   onClickLogin() {
     let loginObject = {};
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
     loginObject['email'] = this.email;
     loginObject['password'] = this.password;
 
-    this.loginService.loginUser(loginObject)
+
+    this.loginUser(loginObject)
       .subscribe(
       data => {
         this.router.navigate(['/home']);
@@ -37,4 +38,9 @@ export class LoginComponent implements OnInit {
       () => console.log('finished'));
   }
 
+  loginUser(loginObject) {
+    var body = loginObject;
+
+    return this.userService.login(loginObject['email'], loginObject['password']);
+  }
 }
