@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 
 import { RegisterService } from '../services/register.service';
+import { UserService } from '../../user/services/user.service';
 
 @Component({
   templateUrl: './app/register/components/register.html',
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
     console.log("Register component initialized ...");
   }
 
-  constructor(private registerService: RegisterService) { }
+  constructor(private registerService: RegisterService, private userService: UserService) { }
 
   onClickRegister() {
     if (this.password_orig === this.password_conf) {
@@ -37,10 +38,13 @@ export class RegisterComponent implements OnInit {
 
       this.registerService.createUser(registerObject)
         .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          var loginObject = {'email': registerObject['email'], 'password': registerObject['password']};
+          this.userService.login(registerObject['email'], registerObject['password']);
+        },
         err => console.log(err),
         () => console.log('finished'));
     }
-  
   }
 }

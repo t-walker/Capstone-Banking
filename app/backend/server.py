@@ -25,7 +25,11 @@ app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+<<<<<<< HEAD
+# csrf = SeaSurf(app)
+=======
 #csrf = SeaSurf(app)
+>>>>>>> master
 lm = LoginManager()
 
 from models import *
