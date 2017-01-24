@@ -107,4 +107,4 @@ class AccountSchema(ModelSchema):
     transactions = fields.Nested(TransactionSchema, many=True, required=True)
 
     class Meta:
-        fields = ('id', 'user_id', 'account_type', 'transactions')
+        fields = ('id', 'user_id', 'account_type', 'transactions', 'total')
