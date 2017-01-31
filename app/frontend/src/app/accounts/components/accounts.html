@@ -1,0 +1,15 @@
+<h1>Accounts</h1>
+
+<create-account></create-account>
+
+<div class="container">
+
+<ul>
+<li *ngFor="let account of accounts">
+	{{account.type}} {{account.amount | currency:'USD':true}}
+</li>
+</ul>
+
+<h3>accounts above</h3>
+
+</div>
