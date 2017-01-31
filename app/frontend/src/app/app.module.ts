@@ -9,6 +9,10 @@ import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/components/home.component";
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
+import {AccountsComponent} from "./accounts/components/accounts.component";
+import {CreateAccountComponent} from "./accounts/components/create.component";
+
+
 import {UserService} from "./user/services/user.service";
 
 import {routing, appRoutingProviders} from './app.routing';
@@ -33,7 +37,9 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         RegisterComponent,
         NavComponent,
         FooterComponent,
-        LoginComponent
+        LoginComponent,
+        AccountsComponent,
+        CreateAccountComponent
     ],
     providers: [
         appRoutingProviders,
