@@ -192,7 +192,7 @@ def get_user_accounts_via_username(username):
 
 
 @app.route('/api/my/accounts')
-#@login_required
+@login_required
 def my_accounts():
     user = current_user
 
