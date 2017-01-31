@@ -15,7 +15,7 @@ export class NavComponent implements OnInit {
   private subscription: Subscription;
 
   constructor(private userService: UserService) {
-    this.subscription = this.userService.isLoggedIn.subscribe(value => {this.isLoggedIn = value; console.log(value)} );
+    this.subscription = this.userService.isLoggedIn.subscribe(value => {this.isLoggedIn = value; console.log(value); } );
   }
 
   logout() {
