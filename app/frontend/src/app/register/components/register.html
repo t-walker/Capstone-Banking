@@ -1,0 +1,67 @@
+<!-- email username firstname lastname password1 password2 -->
+<div style="margin-top: 10px;"></div>
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <h2>Register</h2>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Username</label>
+          <input [(ngModel)]="username" type="text" class="form-control" placeholder="Username">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email Address</label>
+          <input [(ngModel)]="email" type="email" class="form-control" placeholder="Email">
+          <small class="form-text text-muted">We'll never share your password with anyone else.</small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="exampleInputPassword1">First Name</label>
+          <input [(ngModel)]="first_name" type="text" class="form-control" placeholder="First Name">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Last Name</label>
+          <input [(ngModel)]="last_name" type="text" class="form-control" placeholder="First Name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input [(ngModel)]="password_orig" type="password" class="form-control" placeholder="Password">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="exampleInputPassword1">Confirm Password</label>
+          <input [(ngModel)]="password_conf" type="password" class="form-control" placeholder="Password">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-success" (click)="onClickRegister()">Login</button>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
