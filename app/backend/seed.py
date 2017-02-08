@@ -5,38 +5,32 @@ from models import *
 
 users = []
 
-users.append({'username': 'twalker',
-              'email': 'twalker@email.com',
+users.append({'email': 'twalker@email.com',
               'first_name': 'Tyler',
               'last_name': 'Walker',
               'password': 'password1'})
 
-users.append({'username': 'jswanby',
-              'email': 'jswanby@email.com',
+users.append({'email': 'jswanby@email.com',
               'first_name': 'Jason',
               'last_name': 'Swanby',
               'password': 'password2'})
 
-users.append({'username': 'dmarks',
-              'email': 'dmarks@email.com',
+users.append({'email': 'dmarks@email.com',
               'first_name': 'Des',
               'last_name': 'Marks',
               'password': 'password3'})
 
-users.append({'username': 'tcruz',
-              'email': 'tcruz@email.com',
+users.append({'email': 'tcruz@email.com',
               'first_name': 'Tyler',
               'last_name': 'Cruz',
               'password': 'password4'})
 
-users.append({'username': 'acrandall',
-              'email': 'acrandall@email.com',
+users.append({'email': 'acrandall@email.com',
               'first_name': 'Aaron',
               'last_name': 'Crandall',
               'password': 'password5'})
 
-users.append({'username': 'gsprint',
-              'email': 'gsprint@email.com',
+users.append({'email': 'gsprint@email.com',
               'first_name': 'Gina',
               'last_name': 'Sprint',
               'password': 'password3'})
@@ -45,7 +39,6 @@ users.append({'username': 'gsprint',
 for user in users:
     u = User(**user)
 
-    username_c = len(User.query.filter_by(username=user['username']).all())
     email_c = len(User.query.filter_by(email=user['email']).all())
 
     accounts = []
@@ -57,7 +50,7 @@ for user in users:
         a = Account(**account)
         u.accounts.append(a)
 
-    if not username_c and not email_c:
+    if not email_c:
         try:
             print("LOG: Adding user: " + u.first_name)
             db.session.add(u)
