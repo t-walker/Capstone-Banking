@@ -5,8 +5,8 @@
 <div class="container">
 
 <ul>
-<li *ngFor="let account of accounts">
-	{{account.type}} {{account.amount | currency:'USD':true}}
+<li *ngFor="let account of accounts" >
+	<a href="#" (click)="goToAccountDetail(account)">{{account.type}}</a> ... <div style="float:right;">{{account.amount | currency:'USD':true}}</div>
 </li>
 </ul>
 

@@ -28,6 +28,46 @@ export class UserService {
       .map(res => res.json())
       .map((res) => {
         if (res.success) {
+
+          localStorage.setItem('auth_token', res.auth_token);
+          this.isLoggedIn.next(true);
+
+        }
+        return res.success;
+      });
+  }
+
+   getAccounts() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+   // this.isLoggedIn.next(true);
+
+    return this.http
+      .get(
+        '/api/my/accounts'
+      ).map(data => {
+                data.json();
+                console.log("I CAN SEE DATA HERE: ", data.json());
+        });
+
+  }
+
+  createAccount(email, password) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.isLoggedIn.next(true);
+
+    return this.http
+      .post(
+        '/api/login',
+        JSON.stringify({ email, password }),
+        { headers }
+      )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
           localStorage.setItem('auth_token', res.auth_token);
           this.isLoggedIn.next(true);
         }

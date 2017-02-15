@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
+import { UserService } from '../../user/services/user.service';
 
 //import { UserService } from '../../user/services/user.service';
 
@@ -15,6 +16,9 @@ export class CreateAccountComponent implements OnInit {
     ngOnInit() {
       console.log("Create Accounts component initialized ...");
     }
+
+    constructor(private userService: UserService, private router: Router) { }
+
 
     public ShowForm = false;
 
