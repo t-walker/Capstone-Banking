@@ -39,31 +39,31 @@ export class AccountsComponent implements OnInit {
 
 
       //mock data
-   // this.accounts = [
+   this.accounts = [
 
-   // {account_type: "checking", total : 500, id: 1, transactions:[]}, {account_type: "checking", total : 200, id: 2, transactions:[{
-   //        "account_id": 7,
-   //        "amount": 112.0,
-   //        "tx_from": "bank",
-   //        "tx_to": "4",
-   //        "tx_type": "D"
-   //      },
-   //      {
-   //        "account_id": 7,
-   //        "amount": 300.0,
-   //        "tx_from": "bank",
-   //        "tx_to": "4",
-   //        "tx_type": "D"
-   //      },
-   //      {
-   //        "account_id": 7,
-   //        "amount": 313.0,
-   //        "tx_from": "4",
-   //        "tx_to": "bank",
-   //        "tx_type": "W"
-   //      }]}, {account_type: "savings", total : 1000, id: 3, transactions:[]}
+   {account_type: "checking", total : 500, id: 1, transactions:[]}, {account_type: "checking", total : 200, id: 2, transactions:[{
+          "account_id": 7,
+          "amount": 112.0,
+          "tx_from": "bank",
+          "tx_to": "4",
+          "tx_type": "D"
+        },
+        {
+          "account_id": 7,
+          "amount": 300.0,
+          "tx_from": "bank",
+          "tx_to": "4",
+          "tx_type": "D"
+        },
+        {
+          "account_id": 7,
+          "amount": 313.0,
+          "tx_from": "4",
+          "tx_to": "bank",
+          "tx_type": "W"
+        }]}, {account_type: "savings", total : 1000, id: 3, transactions:[]}
 
-   // ];
+   ];
       
     }
 
