@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import {BehaviorSubject} from 'rxjs/Rx';
 
 import { LocalStorageService } from 'angular-2-local-storage';
@@ -46,11 +46,20 @@ export class UserService {
     return this.http
       .get(
         '/api/my/accounts'
-      ).map(data => {
-                data.json();
-                console.log("I CAN SEE DATA HERE: ", data.json());
-        });
+      ).map(this.extractData).catch(err => {
 
+        console.log("it's ok don't cry " + err);
+        
+      });
+
+  }
+
+   private extractData(res: Response) {
+    let body = res.json();
+
+    console.log("extract data");
+    console.log(body);
+    return body.result || [];
   }
 
   createAccount(email, password) {
