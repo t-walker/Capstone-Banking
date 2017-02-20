@@ -1,21 +1,131 @@
 <div class="row">
   <div class="col-md-12">
-    <h1>Apply for a Loan</h1>
-    <hr />
+    <h3>Initial Loan Application</h3>
+    <p style="font-size: 90%">
+      Loans serviced by Varda can be serviced by a variety of means. Use this application
+      to submit an initial request which will be reviewed.
+      <br />
+      If it is approved, we will request more information from you at that time.
+    </p>
   </div>
 </div>
-
 <div class="row">
   <div class="col-md-12">
-    <form>
-      <div class="form-group">
-        <label for="loan_name">Loan Name</label>
-        <input type="text" class="form-control" id="loan_name" placeholder="Enter a loan name..." />
-      </div>
-      <div class="form-group">
-        <label for="loan_name">Loan Amount</label>
-        <input type="text" class="form-control" id="loan_name" placeholder="Enter a dollar amount..." />
-      </div>
-    </form>
+    <h3>Loan Description &amp; Information</h3>
   </div>
 </div>
+<form>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="loanName"><b>Loan Name</b> <small>(a short title)</small></label>
+      <input type="text" class="form-control" id="loanName" placeholder="Example: '2017 Equipment Upgrades'">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="exampleSelect1"><b>Type</b></label>
+      <select class="form-control" id="exampleSelect1" placeholder="">
+        <option>Personal</option>
+        <option>Business</option>
+        <option>Non-Profit</option>
+        <option>Community</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="loanAmount"><b>Requested Amount</b></label>
+      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon">$</div>
+        <input type="text" class="form-control" id="loanAmount" placeholder="500.00">
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="exampleSelect1"><b>Term</b></label>
+      <select class="form-control" id="exampleSelect1" placeholder="">
+        <option>1 Mo.</option>
+        <option>2 Mo.</option>
+        <option>3 Mo.</option>
+        <option>6 Mo.</option>
+        <option>1 Yr.</option>
+        <option>2 Yr.</option>
+        <option>3 Yr.</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-group">
+        <label for="exampleTextarea"><b>Description</b> <small>(general description)</small></label>
+        <textarea style="height: 200px;" class="form-control" id="exampleTextarea" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label><b>Purpose</b></label>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> Agriculture
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> Technology
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"> Education
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4"> Health &amp; Wellness
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option5"> Safety &amp; Security
+      </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="option6"> Community Improvement
+      </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Requested Terms</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="exampleSelect2"><b>Funding Sources</b></label>
+          <select class="form-control" id="exampleSelect2" placeholder="">
+            <option>Direct Loan (Bank)</option>
+            <option>Peer Loan (Single-Payer)</option>
+            <option>Community Loan (Multiple-Payer)</option>
+          </select>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <label for="exampleSelect2"><b>Payment Options</b></label>
+          <select class="form-control" id="exampleSelect2" placeholder="">
+            <option>Lump Sum</option>
+            <option>Monthly</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+      <a class="btn btn-success float-md-right" href="">Submit</a>
+    </div>
+  </div>
+</form>
