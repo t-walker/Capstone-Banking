@@ -84,16 +84,24 @@ class Transaction(db.Model):
     amount = db.Column(db.Float, unique=False)
 
 
+loan_loantag = db.Table('loan_loantag',
+    db.Column('loan_id', db.Integer, db.ForeignKey('loanapplication.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('loantag.id'))
+)
+
+
 class LoanApplication(db.Model):
+    __tablename__ = "loanapplication"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(200), unique=False)
     serial = db.Column(db.String(200), unique=True)
     requested_amount = db.Column(db.Integer, unique=False)
     tags = db.relationship(
-        "LoanTag", backref="loanapplication", lazy="dynamic")
+        "LoanTag", secondary=loan_loantag)
 
 class LoanTag(db.Model):
+    __tablename__ = "loantag"
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(200), unique=False)
 

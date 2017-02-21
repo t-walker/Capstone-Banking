@@ -42,11 +42,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoginComponent,
         AccountsComponent,
         CreateAccountComponent,
-<<<<<<< HEAD
-        LoanApplicationComponent
-=======
+        LoanApplicationComponent,
         AccountDetailsComponent
->>>>>>> master
     ],
     providers: [
         appRoutingProviders,

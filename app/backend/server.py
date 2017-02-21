@@ -215,8 +215,6 @@ def my_account_transactions(account_id):
     return jsonify({'result': result.data})
 
 
-
-
 #create account route
 # @app.route('/api/create/account', methods=['POST'])
 # @login_required
