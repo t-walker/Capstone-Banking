@@ -1,36 +1,28 @@
 import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
+import { UserService } from '../../user/services/user.service';
 
 import {CreateAccountComponent} from "./create.component";
 
 @Component({
-    templateUrl: './app/accounts/components/accounts.html'
+  templateUrl: './app/accounts/components/accounts.html'
 })
 
 
 export class AccountsComponent implements OnInit {
 
-	public accounts = [
+  public accounts;
 
-	{type: "checking", amount : 500}, {type: "checking", amount : 200}, {type: "savings", amount : 1000}
+  ngOnInit() {
+    console.log("Account component initialized ............");
 
-	];
+    this.userService.getAccounts().subscribe(accounts => {
+      this.accounts = accounts;
+    });
+  }
 
-    ngOnInit() {
-      console.log("Accounts component initialized ............");
-      // console.log("account: " + this.accounts);
+  constructor(private userService: UserService, private router: Router) { }
 
-      // for (var i = this.accounts.length - 1; i >= 0; i--) {
-      // 	console.log(this.accounts[i]); 
-      // }
-
-      
-    }
-
-    // createAccount()
-    // {
-    // 	this.accounts.push({type: "new", amount : 4000});
-    // }
 }
