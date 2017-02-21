@@ -10,7 +10,7 @@ import { UserService } from '../../user/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  public email = "";
+  private email = "";
   public first_name = "";
   public last_name = "";
   public password_orig = "";

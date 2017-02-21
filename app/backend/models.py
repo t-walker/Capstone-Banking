@@ -1,8 +1,13 @@
+import datetime
+import hashlib
+
 from server import db, ma, lm
 from flask_login import UserMixin, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import fields
 from marshmallow_sqlalchemy import ModelSchema
+from sqlalchemy import events
+
 # MODELS
 string_maximum = 255
 
@@ -85,23 +90,30 @@ class Transaction(db.Model):
 
 
 loan_loantag = db.Table('loan_loantag',
-    db.Column('loan_id', db.Integer, db.ForeignKey('loanapplication.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('loantag.id'))
+    db.Column('loan_id', db.Integer, db.ForeignKey('initial_loan_application.id')),
+    db.Column('tag_id', db.Integer, db.ForeignKey('loan_tag.id'))
 )
 
 
-class LoanApplication(db.Model):
-    __tablename__ = "loanapplication"
+class InitialLoanApplication(db.Model):
+    __tablename__ = "initial_loan_application"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(200), unique=False)
-    serial = db.Column(db.String(200), unique=True)
+    type = db.Column(db.String(50), unique=False)
     requested_amount = db.Column(db.Integer, unique=False)
+    term = db.Column(db.String(50), unique=False)
+    description = db.Column(db.String(2000), unique=False)
+    funding = db.Column(db.String(50), unique=False)
+    payment = db.Column(db.String(50), unique=False)
+    submitted = db.Column(db.DateTime, default=datetime.datetime.now)
     tags = db.relationship(
         "LoanTag", secondary=loan_loantag)
 
+
+
 class LoanTag(db.Model):
-    __tablename__ = "loantag"
+    __tablename__ = "loan_tag"
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(200), unique=False)
 
