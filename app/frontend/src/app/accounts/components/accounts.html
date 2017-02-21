@@ -1,15 +1,26 @@
-<h1>Accounts</h1>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Accounts</h1>
+	</div>
+</div>
 
-<create-account></create-account>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table">
+			<tr>
+				<th>Account</th>
+				<th class="text-md-right">Total</th>
+			</tr>
+			<tr *ngFor="let account of accounts">
+				<td><a [routerLink]="['/account', account.id]">{{account.account_type}}</a></td>
+				<td class="text-md-right">{{account.total | currency:'USD':true}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
 
-<div class="container">
-
-<ul>
-<li *ngFor="let account of accounts">
-	{{account.type}} {{account.amount | currency:'USD':true}}
-</li>
-</ul>
-
-<h3>accounts above</h3>
-
+<div class="row">
+	<div class="col-md-12">
+		<create-account></create-account>
+	</div>
 </div>

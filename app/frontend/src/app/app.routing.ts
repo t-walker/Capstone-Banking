@@ -7,7 +7,7 @@ import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
 import {AccountsComponent} from "./accounts/components/accounts.component";
 import {LoanApplicationComponent} from "./loan/application/application.component";
-
+import {AccountDetailsComponent} from "./accounts/components/account-details.component";
 
 const appRoutes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -17,7 +17,8 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent, data: {title: 'Login'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
     {path: 'initial_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}}
-    ];
+    {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}}
+];
 
 export const appRoutingProviders: any[] = [];
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, { useHash: true });

@@ -2,26 +2,30 @@ import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
+import { UserService } from '../../user/services/user.service';
 
 //import { UserService } from '../../user/services/user.service';
 
 @Component({
-    templateUrl: './app/accounts/components/create.html',
-    selector: 'create-account'
+  templateUrl: './app/accounts/components/create.html',
+  selector: 'create-account'
 })
 
 export class CreateAccountComponent implements OnInit {
 
-    ngOnInit() {
-      console.log("Create Accounts component initialized ...");
-    }
+  ngOnInit() {
+    console.log("Create Accounts component initialized ...");
+  }
 
-    public ShowForm = false;
+  constructor(private userService: UserService, private router: Router) { }
 
-   public types = [ 'choose...', 'Checking', 'Savings' ];
 
-   public order = {
-      type: 'choose...'          
+  public ShowForm = false;
+
+  public types = ['choose...', 'Checking', 'Savings'];
+
+  public order = {
+    type: 'choose...'
   };
 
   callType(value) {
@@ -30,23 +34,22 @@ export class CreateAccountComponent implements OnInit {
   }
 
   hideFormAccount() {
-  	this.ShowForm = false;
+    this.ShowForm = false;
   }
 
   showFormAccount() {
-  	this.ShowForm = true;
+    this.ShowForm = true;
   }
 
   createAccount() {
-  	console.log("hi");
+    console.log("hi");
 
-  	if (this.order.type === "choose...") {
-  		return;
-  	}
+    if (this.order.type === "choose...") {
+      return;
+    }
 
-  	//send request
-  
-  	this.hideFormAccount();
+    //send request
+    this.hideFormAccount();
   }
 
 }

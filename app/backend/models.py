@@ -10,7 +10,6 @@ string_maximum = 255
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True)
-    username = db.Column(db.String(80), unique=True)
     first_name = db.Column(db.String(100), unique=False)
     last_name = db.Column(db.String(100), unique=False)
     password_hash = db.Column(db.String(1000), unique=False)
@@ -83,6 +82,20 @@ class Transaction(db.Model):
     tx_from = db.Column(db.String(string_maximum), unique=False)
     tx_to = db.Column(db.String(string_maximum), unique=False)
     amount = db.Column(db.Float, unique=False)
+
+
+class LoanApplication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    name = db.Column(db.String(200), unique=False)
+    serial = db.Column(db.String(200), unique=True)
+    requested_amount = db.Column(db.Integer, unique=False)
+    tags = db.relationship(
+        "LoanTag", backref="loanapplication", lazy="dynamic")
+
+class LoanTag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag = db.Column(db.String(200), unique=False)
 
 
 # Schemas

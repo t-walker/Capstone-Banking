@@ -191,7 +191,7 @@ def get_user_accounts_via_username(username):
     return jsonify({'result': result.data}), 200
 
 
-@app.route('/api/my/accounts')
+@app.route('/api/my/accounts', methods=['GET'])
 @login_required
 def my_accounts():
     user = current_user
@@ -201,6 +201,36 @@ def my_accounts():
     result = accounts_schema.dump(user.accounts)
 
     return jsonify({'result': result.data}), 200
+
+@app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
+def my_account_transactions(account_id):
+    transaction_schema = TransactionSchema(many=True)
+
+    try:
+        transactions = db.session.query(Transaction).filter_by(account_id=account_id).all()
+        result = transaction_schema.dump(transactions)
+    except:
+        return jsonify({'error': "accounts invalid"}), 500
+
+    return jsonify({'result': result.data})
+
+
+
+
+#create account route
+# @app.route('/api/create/account', methods=['POST'])
+# @login_required
+# def my_accounts():
+#     user = current_user
+
+#     new_account = Account(**{'account_type': 'checking'})
+
+#     user.accounts.append(new_account)
+
+#     db.session.add(user)
+#     db.session.commit()
+
+#     return jsonify({'result': 'account create test'}), 200
 
 
 @app.route('/api/accounts', methods=['GET'])
