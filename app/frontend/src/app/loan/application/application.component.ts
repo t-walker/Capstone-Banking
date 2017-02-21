@@ -7,6 +7,5 @@ import {Component, OnInit} from "@angular/core";
 export class LoanApplicationComponent implements OnInit {
   ngOnInit() {
     console.log("LoanApplication component initialized ...");
-  }
-  
+  }  
 }
