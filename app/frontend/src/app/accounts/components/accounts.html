@@ -1,31 +1,27 @@
-<h1>Accounts</h1>
+<div class="row">
+	<div class="col-md-12">
+		<h1>Accounts</h1>
+	</div>
+</div>
 
-<create-account></create-account>
+<div class="row">
+	<create-account></create-account>
+</div>
 
-<div class="container">
-	<style type="text/css">
-		.w{
-			background-color: red;
-			color:white;
-		}
-
-		.d{
-			background-color: lime;
-			color: white;
-		}
-	</style>
-
-<ul>
-<li *ngFor="let account of accounts" >
-	<a href="#" (click)="goToAccountDetail(account)">{{account.account_type}}</a> ... <div style="float:right;">{{account.total | currency:'USD':true}}</div>
-	<ul>
-	<li *ngFor="let transaction of account.transactions" >
-		<div [ngClass] = "{d: transaction.tx_type == 'D', w: transaction.tx_type == 'W'}">{{transaction.amount | currency:'USD':true}}{{transaction.tx_type}}</div>
-	</li>
-	</ul>
-</li>
-</ul>
-
-<h3>accounts above</h3>
-
+<div class="row">
+	<div class="col-md-12">
+		<table class="table">
+			<tr *ngFor="let account of accounts">
+				<td><a [routerLink]="['/account', account.id]">{{account.account_type}}</a></td>
+				<td>
+					<div style="float:right;">{{account.total | currency:'USD':true}}</div>
+				</td>
+				<!-- <ul>
+			<li *ngFor="let transaction of account.transactions" >
+				<div [ngClass] = "{d: transaction.tx_type == 'D', w: transaction.tx_type == 'W'}">{{transaction.amount | currency:'USD':true}}{{transaction.tx_type}}</div>
+			</li>
+			</ul> -->
+			</tr>
+		</table>
+	</div>
 </div>

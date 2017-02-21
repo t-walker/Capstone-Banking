@@ -1,20 +1,31 @@
 import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
 import { UserService } from '../../user/services/user.service';
 
 import {CreateAccountComponent} from "./create.component";
 
 @Component({
-    templateUrl: './app/accounts/components/account-details.html'
+  templateUrl: './app/accounts/components/account-details.html'
 })
 
 
 export class AccountDetailsComponent implements OnInit {
 
-ngOnInit() {}
+  private accountId: number;
+  private transactions;
 
-    constructor(private userService: UserService, private router: Router) { }
+  ngOnInit() {
+    console.log("Account-Details component initialized ............");
 
+    this.route.params.subscribe(params => {
+      this.accountId = +params['id'];
+      this.userService.getTransactions(this.accountId).subscribe(transactions => {
+        this.transactions = transactions;
+      });
+    });
+  }
+
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 }

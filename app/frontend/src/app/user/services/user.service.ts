@@ -46,13 +46,21 @@ export class UserService {
     return this.http
       .get(
         '/api/my/accounts'
-      ).map(this.extractData).catch(err => {
-
-        console.log("it's ok don't cry " + err);
-        
-      });
-
+      ).map(this.extractData);
   }
+
+  getTransactions(id) {
+   let headers = new Headers();
+   headers.append('Content-Type', 'application/json');
+
+  // this.isLoggedIn.next(true);
+
+   return this.http
+     .get(
+       '/api/my/accounts/' + id + "/transactions"
+     ).map(this.extractData);
+
+ }
 
    private extractData(res: Response) {
     let body = res.json();

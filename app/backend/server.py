@@ -200,8 +200,19 @@ def my_accounts():
 
     result = accounts_schema.dump(user.accounts)
 
-    return jsonify({'result': result.data}), 200 
+    return jsonify({'result': result.data}), 200
 
+@app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
+def my_account_transactions(account_id):
+    transaction_schema = TransactionSchema(many=True)
+
+    try:
+        transactions = db.session.query(Transaction).filter_by(account_id=account_id).all()
+        result = transaction_schema.dump(transactions)
+    except:
+        return jsonify({'error': "accounts invalid"}), 500
+
+    return jsonify({'result': result.data})
 
 
 
