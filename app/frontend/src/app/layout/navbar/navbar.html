@@ -9,11 +9,11 @@
       <li class="nav-item">
         <a class="nav-link"  *ngIf="!isLoggedIn" [routerLink]="['about']" [routerLinkActive]="['is-active']">About</a>
       </li>
-      <li class="nav-item float-md-left">
-        <a class="nav-link" *ngIf="isLoggedIn" [routerLink]="['initial_application']">Loan Application</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link"  *ngIf="isLoggedIn" [routerLink]="['accounts']" [routerLinkActive]="['is-active']">Accounts</a>
+      </li>
+      <li class="nav-item float-md-left">
+        <a class="nav-link" *ngIf="isLoggedIn" [routerLink]="['initial_application']">Loan Application</a>
       </li>
       <li class="nav-item float-md-right">
         <a class="nav-link" *ngIf="isLoggedIn" (click)="logout()">Logout</a>
