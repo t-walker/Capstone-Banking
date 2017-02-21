@@ -2,7 +2,7 @@
 	<div class="col-md-4">
 		<form class="form-inline">
 			<div class="container" *ngIf="ShowForm">
-				<label class="mr-sm-3" for="inlineFormCustomSelect">type:</label>
+				<label for="inlineFormCustomSelect">type:</label>
 				<select class="form-control" #t (change)="callType(t.value)">
 					<option *ngFor="let type of types" [value]="type">{{type}}</option>
 				</select>
