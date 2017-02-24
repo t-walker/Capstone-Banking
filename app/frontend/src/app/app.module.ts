@@ -12,7 +12,7 @@ import {LoginComponent} from "./login/components/login.component";
 import {AccountsComponent} from "./accounts/components/accounts.component";
 import {CreateAccountComponent} from "./accounts/components/create.component";
 import {AccountDetailsComponent} from "./accounts/components/account-details.component";
-
+import {TransferComponent} from "./transfer/components/transfer.component";
 
 import {UserService} from "./user/services/user.service";
 
@@ -41,7 +41,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoginComponent,
         AccountsComponent,
         CreateAccountComponent,
-        AccountDetailsComponent
+        AccountDetailsComponent,
+        TransferComponent
     ],
     providers: [
         appRoutingProviders,

@@ -61,7 +61,7 @@ def current():
         if current_user.is_authenticated():
             result = user_schema.dump(current_user)
         else:
-            return jsonify({'error': "no user logged in"}), 500
+           return jsonify({'error': "no user logged in ... not authenticated"}), 500
     except:
         return jsonify({'error': "no user logged in"}), 500
 
@@ -78,7 +78,7 @@ def login():
         return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
-        login_user(user, remember=False)
+        login_user(user, remember=True)
         return jsonify({'result': 'success'}), 200
 
     return jsonify({'error': 'could not find user'}), 500
