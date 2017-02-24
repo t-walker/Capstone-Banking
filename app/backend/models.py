@@ -17,7 +17,6 @@ class User(db.Model, UserMixin):
 
     def __init__(self, username="", email="", first_name="", last_name="", password=""):
         self.email = email
-        self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.password_hash = self.set_password(password)
@@ -102,7 +101,7 @@ class Transaction(db.Model):
 class UserSchema(ModelSchema):
 
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name')
 
 
 class TransactionSchema(ModelSchema):

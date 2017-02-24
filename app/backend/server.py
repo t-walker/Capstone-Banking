@@ -153,12 +153,14 @@ def get_account_total(account_id):
 def get_users():
     """ THIS SHOULD NOT MAKE IT TO PRODUCTION """
     users_schema = UserSchema(many=True)
-
+    result = {}
     try:
         users = db.session.query(User).all()
         result = users_schema.dump(users)
-    except:
-        return "<h1>ERROR</h1>"
+        #result['data'] = ["one", "two", "three"]
+    except Exception as inst:
+        s = '<h1>ERROR GET USERS .{0}. .{1}. .{2}.</h1>'.format(type(inst), inst.args, inst)
+        return s
 
     return jsonify({'result': result.data})
 
