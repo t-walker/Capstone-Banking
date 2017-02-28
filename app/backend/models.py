@@ -110,7 +110,6 @@ class InitialLoanApplication(db.Model):
         "LoanTag", secondary=loan_loantag)
 
 
-
 class LoanTag(db.Model):
     __tablename__ = "loan_tag"
     id = db.Column(db.Integer, primary_key=True)
