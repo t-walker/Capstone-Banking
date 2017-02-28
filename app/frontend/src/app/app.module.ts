@@ -11,6 +11,7 @@ import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
 import {AccountsComponent} from "./accounts/components/accounts.component";
 import {CreateAccountComponent} from "./accounts/components/create.component";
+import {LoanApplicationComponent} from "./loan/application/application.component";
 import {AccountDetailsComponent} from "./accounts/components/account-details.component";
 
 
@@ -41,6 +42,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoginComponent,
         AccountsComponent,
         CreateAccountComponent,
+        LoanApplicationComponent,
         AccountDetailsComponent
     ],
     providers: [
