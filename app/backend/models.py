@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(1000), unique=False)
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
-    def __init__(self, username="", email="", first_name="", last_name="", password=""):
+    def __init__(self, email="", first_name="", last_name="", password=""):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
