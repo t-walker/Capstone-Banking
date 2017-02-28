@@ -14,15 +14,15 @@
     <h3>Loan Description &amp; Information</h3>
   </div>
 </div>
-<form>
+<form (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="form-group col-md-6">
       <label for="loanName"><b>Loan Name</b> <small>(a short title)</small></label>
-      <input type="text" class="form-control" id="loanName" placeholder="Example: '2017 Equipment Upgrades'">
+      <input [(ngModel)]="name" name="name" type="text" class="form-control" id="loanName" placeholder="Example: '2017 Equipment Upgrades'">
     </div>
     <div class="form-group col-md-6">
       <label for="exampleSelect1"><b>Type</b></label>
-      <select class="form-control" id="exampleSelect1" placeholder="">
+      <select [(ngModel)]="type" name="type" class="form-control" id="exampleSelect1" placeholder="">
         <option>Personal</option>
         <option>Business</option>
         <option>Non-Profit</option>
@@ -35,12 +35,12 @@
       <label for="loanAmount"><b>Requested Amount</b></label>
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon">$</div>
-        <input type="text" class="form-control" id="loanAmount" placeholder="500.00">
+        <input [(ngModel)]="requested_amount" name="requested_amount" type="text" class="form-control" id="loanAmount" placeholder="500.00">
       </div>
     </div>
     <div class="form-group col-md-6">
       <label for="exampleSelect1"><b>Term</b></label>
-      <select class="form-control" id="exampleSelect1" placeholder="">
+      <select [(ngModel)]="term" name="term" class="form-control" id="exampleSelect1" placeholder="">
         <option>1 Mo.</option>
         <option>2 Mo.</option>
         <option>3 Mo.</option>
@@ -55,7 +55,7 @@
     <div class="col-md-8">
       <div class="form-group">
         <label for="exampleTextarea"><b>Description</b> <small>(general description)</small></label>
-        <textarea style="height: 200px;" class="form-control" id="exampleTextarea" rows="3"></textarea>
+        <textarea [(ngModel)]="description" name="description" style="height: 200px;" class="form-control" id="exampleTextarea" rows="3"></textarea>
       </div>
     </div>
     <div class="col-md-4">
@@ -102,7 +102,7 @@
       <div class="row">
         <div class="col-md-12">
           <label for="exampleSelect2"><b>Funding Sources</b></label>
-          <select class="form-control" id="exampleSelect2" placeholder="">
+          <select [(ngModel)]="funding" name="funding" class="form-control" id="exampleSelect2" placeholder="">
             <option>Direct Loan (Bank)</option>
             <option>Peer Loan (Single-Payer)</option>
             <option>Community Loan (Multiple-Payer)</option>
@@ -113,7 +113,7 @@
       <div class="row">
         <div class="col-md-12">
           <label for="exampleSelect2"><b>Payment Options</b></label>
-          <select class="form-control" id="exampleSelect2" placeholder="">
+          <select [(ngModel)]="payment" name="payment" class="form-control" id="exampleSelect2" placeholder="">
             <option>Lump Sum</option>
             <option>Monthly</option>
           </select>
@@ -125,7 +125,7 @@
   <div class="row">
     <div class="col-md-10"></div>
     <div class="col-md-2">
-      <a class="btn btn-success float-md-right" href="">Submit</a>
+      <button type="submit" class="btn btn-success float-md-right">Submit</button>
     </div>
-  </div> 
+  </div>
 </form>

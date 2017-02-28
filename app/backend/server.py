@@ -215,6 +215,21 @@ def my_account_transactions(account_id):
     return jsonify({'result': result.data})
 
 
+@app.route('/api/loan/apply', methods=['POST'])
+def create_loan_application():
+    loan = InitialLoanApplication(**request.json)
+    loan.user_id = current_user.id
+
+    try:
+        db.session.add(loan)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        return jsonify({'error': "accounts invalid"}), 500
+
+    return request.data
+
+
 #create account route
 # @app.route('/api/create/account', methods=['POST'])
 # @login_required
