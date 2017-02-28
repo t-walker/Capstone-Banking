@@ -20,9 +20,8 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(1000), unique=False)
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
 
-    def __init__(self, username="", email="", first_name="", last_name="", password=""):
+    def __init__(self, email="", first_name="", last_name="", password=""):
         self.email = email
-        self.username = username
         self.first_name = first_name
         self.last_name = last_name
         self.password_hash = self.set_password(password)
@@ -122,7 +121,7 @@ class LoanTag(db.Model):
 class UserSchema(ModelSchema):
 
     class Meta:
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name')
 
 
 class TransactionSchema(ModelSchema):
