@@ -11,6 +11,6 @@ export class LoanListingService {
 
   getLoans() {
     return this.http.get('api/my/loans')
-      .map(res => res.json());
+      .map(res => res.json().result);
   }
 }

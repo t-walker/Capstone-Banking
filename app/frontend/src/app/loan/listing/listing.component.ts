@@ -20,8 +20,8 @@ export class LoanListingComponent implements OnInit {
   getListings() {
     this.listingService.getLoans()
       .subscribe(
-      data => {
-        this.loans = data;
+      loans => {
+        this.loans = loans;
         console.log(this.loans);
       },
       err => console.log(err),
