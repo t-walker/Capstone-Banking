@@ -13,6 +13,8 @@ import {AccountDetailsComponent} from "./accounts/components/account-details.com
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";
 
+import {LandingComponent} from "./landing/components/landing.component";
+
 
 const appRoutes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -20,6 +22,7 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent, data: {title: 'Home'}},
     {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
     {path: 'login', component: LoginComponent, data: {title: 'Login'}},
+    {path: 'landing', component: LandingComponent, data: {title: 'Landing'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
     {path: 'application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
     {path: 'loans', component: LoanListingComponent, data: {title: 'Loans'}},

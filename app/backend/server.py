@@ -73,13 +73,15 @@ def login():
     body = request.json
 
     user = db.session.query(User).filter_by(email=body['email']).first()
+    user_schema = UserSchema(many=False)
 
     if user is None:
         return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
         login_user(user, remember=False)
-        return jsonify({'result': 'success'}), 200
+        result = user_schema.dump(current_user)
+        return jsonify({'result': result})
 
     return jsonify({'error': 'could not find user'}), 500
 
