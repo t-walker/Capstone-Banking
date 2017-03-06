@@ -9,8 +9,8 @@ import { LocalStorageService } from 'angular-2-local-storage';
 export class UserService {
 
   public isLoggedIn = new BehaviorSubject<boolean>(false);
-  public user = new BehaviorSubject({})
-
+  public user = new BehaviorSubject({});
+  
   constructor(private http: Http, private localStorage: LocalStorageService, private router: Router) {
     this.isLoggedIn.next(!!localStorage.get('auth_token'));
   }

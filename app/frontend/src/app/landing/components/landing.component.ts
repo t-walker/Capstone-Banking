@@ -13,10 +13,9 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     console.log("Landing component initialized ...");
-
   }
 
   constructor(private userService: UserService) {
-    this.userService.user.subscribe(value => {this.user = value; console.log("USER"); console.log(this.user) } );
+    this.userService.user.subscribe(value => {this.user = value; console.log("USER"); console.log(this.user); } );
   }
 }
