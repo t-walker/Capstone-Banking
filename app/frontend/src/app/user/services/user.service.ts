@@ -92,7 +92,7 @@ export class UserService {
   logout() {
     this.isLoggedIn.next(false);
     this.http.get('/api/logout');
-    this.router.navigate(['landing']);
+    this.router.navigate(['home']);
 
   }
 }

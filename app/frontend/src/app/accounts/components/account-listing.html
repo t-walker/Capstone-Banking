@@ -1,14 +1,10 @@
-<div class="row">
-	<div class="col-md-12">
-		<table class="table">
-			<tr>
-				<th>Account</th>
-				<th class="text-md-right">Total</th>
-			</tr>
-			<tr *ngFor="let account of accounts">
-				<td><a [routerLink]="['/account', account.id]">{{account.account_type}}</a></td>
-				<td class="text-md-right">{{account.total | currency:'USD':true}}</td>
-			</tr>
-		</table>
-	</div>
-</div>
+<table class="table">
+	<tr>
+		<th>Account</th>
+		<th class="text-md-right">Total</th>
+	</tr>
+	<tr *ngFor="let account of accounts">
+		<td><a [routerLink]="['/account', account.id]">{{account.account_type}}</a></td>
+		<td class="text-md-right">{{account.total | currency:'USD':true}}</td>
+	</tr>
+</table>
