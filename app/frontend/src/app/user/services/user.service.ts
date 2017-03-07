@@ -10,7 +10,7 @@ export class UserService {
 
   public isLoggedIn = new BehaviorSubject<boolean>(false);
   public user = new BehaviorSubject({});
-  
+
   constructor(private http: Http, private localStorage: LocalStorageService, private router: Router) {
     this.isLoggedIn.next(!!localStorage.get('auth_token'));
   }
@@ -19,7 +19,6 @@ export class UserService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    this.isLoggedIn.next(true);
 
     return this.http
       .post(
@@ -29,6 +28,7 @@ export class UserService {
       )
       .map(res => res.json())
       .map((res) => {
+        this.isLoggedIn.next(true);
         this.user.next(res.result[0]);
         this.isLoggedIn.next(true);
       });
