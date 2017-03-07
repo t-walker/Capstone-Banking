@@ -126,15 +126,7 @@ export class UserService {
         JSON.stringify(body),
         { headers }
       )
-      .map(res => res.json())
-      .map((res) => {
-
-        console.log(res);
-        if (res.success) {
-          
-        }
-        return res.success;
-      });
+      .map(this.extractBody);
   }
 
 

@@ -217,7 +217,17 @@ def my_account_transactions(account_id):
     return jsonify({'result': result.data})
 
 
+@app.route('/api/transfer', methods=['POST'])
+@login_required
+def transfer():
+    user = current_user
+    body = request.json
 
+    print (body)
+    
+    print ('to: {0} from: {1} ${2}'.format(body['to'], body['from'], body['amount']))
+
+    return jsonify({'result': result.data, "success" : "yea", magic : jsonify(body)}), 200
 
 #create account route
 # @app.route('/api/create/account', methods=['POST'])
