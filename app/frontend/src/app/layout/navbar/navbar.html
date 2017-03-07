@@ -13,6 +13,9 @@
       <li class="nav-item">
         <a class="nav-link" *ngIf="isLoggedIn" [routerLink]="['accounts']" [routerLinkActive]="['is-active']">Accounts</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="isLoggedIn" [routerLink]="['loans']" [routerLinkActive]="['is-active']">Loans</a>
+      </li>
       <li class="nav-item float-md-left">
         <a class="nav-link" *ngIf="isLoggedIn" [routerLink]="['application']">Loan Application</a>
       </li>

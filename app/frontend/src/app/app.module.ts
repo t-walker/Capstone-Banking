@@ -18,6 +18,7 @@ import {AccountListingComponent} from "./accounts/components/account-listing.com
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";
+import {LoanApprovalComponent} from "./loan/approval/approval.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
 

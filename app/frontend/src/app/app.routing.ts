@@ -12,6 +12,7 @@ import {AccountDetailsComponent} from "./accounts/components/account-details.com
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";
+import {LoanApprovalComponent} from "./loan/approval/approval.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
 
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
     {path: 'landing', component: LandingComponent, data: {title: 'Landing'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
     {path: 'application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
+    {path: 'approve/:id', component: LoanApprovalComponent, data: {title: 'Loan Approval'}},
     {path: 'loans', component: LoanListingComponent, data: {title: 'Loans'}},
     {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}}
 ];

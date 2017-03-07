@@ -231,18 +231,19 @@ def create_loan_application():
 
     return request.data
 
-@app.route('/api/my/loans', methods=['GET'])
-def my_loans():
-    loan_schema = InitialLoanApplicationSchema(many=True)
+@app.route('/api/loans/<int:loan_id>', methods=['GET'])
+def loan_approval(loan_id):
+    loan_schema = InitialLoanApplicationSchema(many=False)
 
     try:
-        loans = db.session.query(InitialLoanApplication).all()
+        loans = db.session.query(InitialLoanApplication).where(loan_id=loan_id).first()
         result = loan_schema.dump(loans)
     except:
         db.session.rollback()
         return jsonify({'error': "accounts invalid"}), 500
 
     return jsonify({'result': result.data})
+
 
 #create account route
 # @app.route('/api/create/account', methods=['POST'])
