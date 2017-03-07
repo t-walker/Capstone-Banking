@@ -53,6 +53,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoanListingComponent,
         AccountDetailsComponent,
         AccountListingComponent,
+        LoanApprovalComponent,
         LandingComponent
     ],
     providers: [
