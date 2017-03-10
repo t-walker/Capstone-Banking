@@ -67,27 +67,65 @@ export class UserService {
     return body.result || [];
   }
 
-  createAccount(email, password) {
+     getCurrentUser() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    this.isLoggedIn.next(true);
+   // this.isLoggedIn.next(true);
+
+    return this.http
+      .get(
+        '/api/current_user'
+      ).map(this.extractBody);
+  }
+
+     private extractBody(res: Response) {
+    let body = res.json();
+
+    console.log("extract body");
+    console.log(body);
+    return body || {};
+  }
+
+  // createAccount(email, password) {
+  //   let headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+
+  //   this.isLoggedIn.next(true);
+
+  //   return this.http
+  //     .post(
+  //       '/api/login',
+  //       JSON.stringify({ email, password }),
+  //       { headers }
+  //     )
+  //     .map(res => res.json())
+  //     .map((res) => {
+  //       if (res.success) {
+  //         localStorage.setItem('auth_token', res.auth_token);
+  //         this.isLoggedIn.next(true);
+  //       }
+  //       return res.success;
+  //     });
+  // }
+
+  transferFunds(to, from, amount) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    var body = {"to" : to, "from": from, "amount" : amount};
+
+    console.log(body);
 
     return this.http
       .post(
-        '/api/login',
-        JSON.stringify({ email, password }),
+        '/api/transfer',
+        JSON.stringify(body),
         { headers }
       )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
-          this.isLoggedIn.next(true);
-        }
-        return res.success;
-      });
+      .map(this.extractBody);
   }
+
 
   logout() {
     this.isLoggedIn.next(false);

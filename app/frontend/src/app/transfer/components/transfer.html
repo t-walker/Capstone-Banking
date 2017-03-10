@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Transfer Funds</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <tr>
+        <th>From</th>
+        <th class="text-md-middle">Amount</th>
+        <th class="text-md-right">To</th>
+      </tr>
+      <tr>
+        <td>{{current_user}}</td>
+        <td>$<input [(ngModel)]="amount"></td>
+        <td class="text-md-right"><input [(ngModel)]="to_user" ></td>
+      </tr>
+      <tr>
+        <button type="submit" class="btn btn-success" (click)="sendMoney()">Send</button>
+      </tr>
+    </table>
+  </div>
+</div>
+
