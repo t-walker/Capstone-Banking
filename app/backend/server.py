@@ -79,14 +79,10 @@ def login():
         return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
-<<<<<<< HEAD
         login_user(user, remember=False)
         result = user_schema.dump(current_user)
         return jsonify({'result': result})
-=======
-        login_user(user, remember=True)
-        return jsonify({'result': 'success'}), 200
->>>>>>> master
+
 
     return jsonify({'error': 'could not find user'}), 500
 
