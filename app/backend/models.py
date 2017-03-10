@@ -101,6 +101,7 @@ class InitialLoanApplication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(200), unique=False)
+    status = db.Column(db.String(200), unique=False, default="Pending")
     type = db.Column(db.String(50), unique=False)
     requested_amount = db.Column(db.Integer, unique=False)
     term = db.Column(db.String(50), unique=False)
@@ -118,6 +119,10 @@ class UserSchema(ModelSchema):
     class Meta:
         fields = ('email', 'first_name', 'last_name')
 
+class InitialLoanApplicationSchema(ModelSchema):
+
+    class Meta:
+        fields = ('id', 'name', 'status', 'requested_amount', 'term', 'description')
 
 class TransactionSchema(ModelSchema):
     account_id = fields.Integer()

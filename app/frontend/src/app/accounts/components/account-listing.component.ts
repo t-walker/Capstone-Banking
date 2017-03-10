@@ -5,20 +5,24 @@ import { Headers, RequestOptions} from '@angular/http';
 import { UserService } from '../../user/services/user.service';
 
 import {CreateAccountComponent} from "./create.component";
-import {AccountListingComponent} from "./account-listing.component";
 
 @Component({
-  templateUrl: './app/accounts/components/accounts.html'
+  templateUrl: './app/accounts/components/account-listing.html',
+  selector: "accounts"
 })
 
-export class AccountsComponent implements OnInit {
+export class AccountListingComponent implements OnInit {
 
   public accounts;
 
   ngOnInit() {
     console.log("AccountListing component initialized ............");
+
+    this.userService.getAccounts().subscribe(accounts => {
+      this.accounts = accounts;
+    });
   }
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
 }

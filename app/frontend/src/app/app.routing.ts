@@ -3,12 +3,20 @@ import {ModuleWithProviders} from "@angular/core";
 
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/components/home.component";
+
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
+
 import {AccountsComponent} from "./accounts/components/accounts.component";
-import {LoanApplicationComponent} from "./loan/application/application.component";
 import {AccountDetailsComponent} from "./accounts/components/account-details.component";
 import {TransferComponent} from "./transfer/components/transfer.component";
+
+import {LoanApplicationComponent} from "./loan/application/application.component";
+import {LoanListingComponent} from "./loan/listing/listing.component";
+import {LoanReviewComponent} from "./loan/review/review.component";
+
+import {LandingComponent} from "./landing/components/landing.component";
+
 
 const appRoutes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -16,11 +24,14 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent, data: {title: 'Home'}},
     {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
     {path: 'login', component: LoginComponent, data: {title: 'Login'}},
+    {path: 'landing', component: LandingComponent, data: {title: 'Landing'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
+    {path: 'application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
+    {path: 'loans/review/:id', component: LoanReviewComponent, data: {title: 'Loan Approval'}},
+    {path: 'loans', component: LoanListingComponent, data: {title: 'Loans'}},
     {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}},
     {path: 'transfer', component: TransferComponent, data: {title: 'Transfer'}},
     {path: 'initial_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
-    {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}}
 ];
 
 export const appRoutingProviders: any[] = [];

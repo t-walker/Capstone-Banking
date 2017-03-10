@@ -73,13 +73,16 @@ def login():
     body = request.json
 
     user = db.session.query(User).filter_by(email=body['email']).first()
+    user_schema = UserSchema(many=False)
 
     if user is None:
         return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
-        login_user(user, remember=True)
-        return jsonify({'result': 'success'}), 200
+        login_user(user, remember=False)
+        result = user_schema.dump(current_user)
+        return jsonify({'result': result})
+
 
     return jsonify({'error': 'could not find user'}), 500
 
@@ -204,6 +207,19 @@ def my_accounts():
 
     return jsonify({'result': result.data}), 200
 
+
+@app.route('/api/my/loans', methods=['GET'])
+@login_required
+def my_loan_applications():
+    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+
+    applications = db.session.query(InitialLoanApplication).filter_by(user_id=current_user.id).all()
+
+    result = loanapplication_schema.dump(applications)
+
+    return jsonify({'result': result.data}), 200
+
+
 @app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
 def my_account_transactions(account_id):
     transaction_schema = TransactionSchema(many=True)
@@ -242,20 +258,16 @@ def create_loan_application():
 
     return request.data
 
-#create account route
-# @app.route('/api/create/account', methods=['POST'])
-# @login_required
-# def my_accounts():
-#     user = current_user
 
-#     new_account = Account(**{'account_type': 'checking'})
+@app.route('/api/loan/<int:loan_id>', methods=['GET'])
+def loan_approval(loan_id):
+    loan_schema = InitialLoanApplicationSchema(many=False)
 
-#     user.accounts.append(new_account)
+    loans = db.session.query(InitialLoanApplication).filter_by(id=int(loan_id)).first()
+    result = loan_schema.dump(loans)
 
-#     db.session.add(user)
-#     db.session.commit()
 
-#     return jsonify({'result': 'account create test'}), 200
+    return jsonify({'result': result.data})
 
 
 @app.route('/api/accounts', methods=['GET'])
