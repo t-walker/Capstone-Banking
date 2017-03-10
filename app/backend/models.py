@@ -87,12 +87,14 @@ class Transaction(db.Model):
     tx_to = db.Column(db.String(string_maximum), unique=False)
     amount = db.Column(db.Float, unique=False)
 
+class LoanTag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag = db.Column(db.String(200), unique=False)
 
 loan_loantag = db.Table('loan_loantag',
     db.Column('loan_id', db.Integer, db.ForeignKey('initial_loan_application.id')),
     db.Column('tag_id', db.Integer, db.ForeignKey('loan_tag.id'))
 )
-
 
 class InitialLoanApplication(db.Model):
     __tablename__ = "initial_loan_application"
@@ -108,12 +110,6 @@ class InitialLoanApplication(db.Model):
     submitted = db.Column(db.DateTime, default=datetime.datetime.now)
     tags = db.relationship(
         "LoanTag", secondary=loan_loantag)
-
-
-class LoanTag(db.Model):
-    __tablename__ = "loan_tag"
-    id = db.Column(db.Integer, primary_key=True)
-    tag = db.Column(db.String(200), unique=False)
 
 
 # Schemas

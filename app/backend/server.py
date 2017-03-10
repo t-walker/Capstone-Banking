@@ -61,7 +61,7 @@ def current():
         if current_user.is_authenticated():
             result = user_schema.dump(current_user)
         else:
-            return jsonify({'error': "no user logged in"}), 500
+           return jsonify({'error': "no user logged in ... not authenticated"}), 500
     except:
         return jsonify({'error': "no user logged in"}), 500
 
@@ -78,7 +78,7 @@ def login():
         return jsonify({'error': 'could not find user'}), 500
 
     if user.check_password(body['password']):
-        login_user(user, remember=False)
+        login_user(user, remember=True)
         return jsonify({'result': 'success'}), 200
 
     return jsonify({'error': 'could not find user'}), 500
@@ -153,12 +153,14 @@ def get_account_total(account_id):
 def get_users():
     """ THIS SHOULD NOT MAKE IT TO PRODUCTION """
     users_schema = UserSchema(many=True)
-
+    result = {}
     try:
         users = db.session.query(User).all()
         result = users_schema.dump(users)
-    except:
-        return "<h1>ERROR</h1>"
+        #result['data'] = ["one", "two", "three"]
+    except Exception as inst:
+        s = '<h1>ERROR GET USERS .{0}. .{1}. .{2}.</h1>'.format(type(inst), inst.args, inst)
+        return s
 
     return jsonify({'result': result.data})
 
@@ -215,6 +217,17 @@ def my_account_transactions(account_id):
     return jsonify({'result': result.data})
 
 
+@app.route('/api/transfer', methods=['POST'])
+@login_required
+def transfer():
+    user = current_user
+    body = request.json
+
+    print (body)
+
+    print ('to: {0} from: {1} ${2}'.format(body['to'], body['from'], body['amount']))
+
+
 @app.route('/api/loan/apply', methods=['POST'])
 def create_loan_application():
     loan = InitialLoanApplication(**request.json)
@@ -228,7 +241,6 @@ def create_loan_application():
         return jsonify({'error': "accounts invalid"}), 500
 
     return request.data
-
 
 #create account route
 # @app.route('/api/create/account', methods=['POST'])
