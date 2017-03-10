@@ -8,7 +8,6 @@ const tsc = require("gulp-typescript");
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject("tsconfig.json");
 const tslint = require('gulp-tslint');
-const minify = require('gulp-minifier');
 
 /**
  * Remove build directory.
