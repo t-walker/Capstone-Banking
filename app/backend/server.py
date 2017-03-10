@@ -204,6 +204,19 @@ def my_accounts():
 
     return jsonify({'result': result.data}), 200
 
+
+@app.route('/api/my/loans', methods=['GET'])
+@login_required
+def my_loan_applications():
+    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+
+    applications = db.session.query(InitialLoanApplication).filter_by(user_id=current_user.id).all()
+
+    result = loanapplication_schema.dump(applications)
+
+    return jsonify({'result': result.data}), 200
+
+
 @app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
 def my_account_transactions(account_id):
     transaction_schema = TransactionSchema(many=True)
@@ -231,16 +244,13 @@ def create_loan_application():
 
     return request.data
 
-@app.route('/api/loans/<int:loan_id>', methods=['GET'])
+@app.route('/api/loan/<int:loan_id>', methods=['GET'])
 def loan_approval(loan_id):
     loan_schema = InitialLoanApplicationSchema(many=False)
 
-    try:
-        loans = db.session.query(InitialLoanApplication).where(loan_id=loan_id).first()
-        result = loan_schema.dump(loans)
-    except:
-        db.session.rollback()
-        return jsonify({'error': "accounts invalid"}), 500
+    loans = db.session.query(InitialLoanApplication).filter_by(id=int(loan_id)).first()
+    result = loan_schema.dump(loans)
+
 
     return jsonify({'result': result.data})
 

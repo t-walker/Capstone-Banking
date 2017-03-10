@@ -13,6 +13,9 @@
         <td>{{loan.name}}</td>
         <td>{{loan.requested_amount | currency:'USD':true}}</td>
         <td class="text-md-right">{{loan.status}}</td>
+        <td class="text-md-right">{{loan.status}}</td>
+        <td><a [routerLink]="['review', loan.id]">Review</a></td>
+
       </tr>
     </table>
   </div>

@@ -18,7 +18,7 @@ import {AccountListingComponent} from "./accounts/components/account-listing.com
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";
-import {LoanApprovalComponent} from "./loan/approval/approval.component";
+import {LoanReviewComponent} from "./loan/review/review.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
 
@@ -53,7 +53,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         LoanListingComponent,
         AccountDetailsComponent,
         AccountListingComponent,
-        LoanApprovalComponent,
+        LoanReviewComponent,
         LandingComponent
     ],
     providers: [

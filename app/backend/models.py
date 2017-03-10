@@ -126,7 +126,7 @@ class UserSchema(ModelSchema):
 class InitialLoanApplicationSchema(ModelSchema):
 
     class Meta:
-        fields = ('name', 'status', 'requested_amount', 'term', 'description')
+        fields = ('id', 'name', 'status', 'requested_amount', 'term', 'description')
 
 class TransactionSchema(ModelSchema):
     account_id = fields.Integer()
