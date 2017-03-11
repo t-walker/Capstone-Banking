@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <h3>Initial Loan Application</h3>
-    <p style="font-size: 90%">
+    <p>
       Loans serviced by Varda can be serviced by a variety of means. Use this application
       to submit an initial request which will be reviewed.
       <br />
@@ -23,7 +23,8 @@
     </div>
     <div class="form-group col-md-6">
       <label for="exampleSelect1"><b>Type</b></label>
-      <select [(ngModel)]="type" name="type" class="form-control" id="exampleSelect1" placeholder="">
+      <select [(ngModel)]="type" name="type" class="form-control" id="exampleSelect1" placeholder="Select One..." ngModel>
+        <option value="" disabled="true" [selected]="true">Choose One...</option>
         <option>Personal</option>
         <option>Business</option>
         <option>Non-Profit</option>
@@ -42,6 +43,7 @@
     <div class="form-group col-md-6">
       <label for="exampleSelect1"><b>Term</b></label>
       <select [(ngModel)]="term" name="term" class="form-control" id="exampleSelect1" placeholder="">
+        <option value="" disabled="true" [selected]="true">Choose One...</option>
         <option>1 Mo.</option>
         <option>2 Mo.</option>
         <option>3 Mo.</option>
@@ -104,6 +106,7 @@
         <div class="col-md-12">
           <label for="exampleSelect2"><b>Funding Sources</b></label>
           <select [(ngModel)]="funding" name="funding" class="form-control" id="exampleSelect2" placeholder="">
+            <option value="" disabled="true" [selected]="true">Choose One...</option>
             <option>Direct Loan (Bank)</option>
             <option>Peer Loan (Single-Payer)</option>
             <option>Community Loan (Multiple-Payer)</option>
@@ -115,6 +118,7 @@
         <div class="col-md-12">
           <label for="exampleSelect2"><b>Payment Options</b></label>
           <select [(ngModel)]="payment" name="payment" class="form-control" id="exampleSelect2" placeholder="">
+            <option value="" disabled="true" [selected]="true">Choose One...</option>
             <option>Lump Sum</option>
             <option>Monthly</option>
           </select>
