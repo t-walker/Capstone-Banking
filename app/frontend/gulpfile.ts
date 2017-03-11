@@ -2,8 +2,8 @@
 
 const gulp = require("gulp");
 const del = require("del");
-const sass = require('gulp-sass');
 const cleanCSS = require('gulp-clean-css');
+const sass = require("gulp-sass");
 const tsc = require("gulp-typescript");
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject("tsconfig.json");
@@ -91,9 +91,19 @@ gulp.task('watch', function () {
     });
 });
 
+gulp.task('sass', function () {
+  return gulp.src('./src/app/**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build/app/css'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('./src/app/**/*.scss', ['sass']);
+});
+
 /**
  * Build the project.
  */
-gulp.task("build", ['compile', 'sass', 'resources', 'libs'], () => {
+gulp.task("build", ['compile', 'resources', 'libs', 'sass'], () => {
     console.log("Building the project ...");
 });
