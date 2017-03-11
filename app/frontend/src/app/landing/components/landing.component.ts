@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 
+import {LoanListingComponent} from "../../loan/listing/listing.component";
 import {AccountListingComponent} from "../../accounts/components/account-listing.component";
 import { UserService } from '../../user/services/user.service';
 
