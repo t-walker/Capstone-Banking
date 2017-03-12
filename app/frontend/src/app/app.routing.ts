@@ -7,8 +7,8 @@ import {HomeComponent} from "./home/components/home.component";
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
 
-import {AccountsComponent} from "./accounts/components/accounts.component";
-import {AccountDetailsComponent} from "./accounts/components/account-details.component";
+import {AccountsComponent} from "./account/account/accounts.component";
+import {AccountDetailsComponent} from "./account/details/details.component";
 import {TransferComponent} from "./transfer/components/transfer.component";
 
 import {LoanApplicationComponent} from "./loan/application/application.component";

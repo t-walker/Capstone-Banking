@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
 import { UserService } from '../../user/services/user.service';
 
-import {CreateAccountComponent} from "./create.component";
+import {CreateAccountComponent} from "../create/create.component";
 
 @Component({
   templateUrl: './app/accounts/components/account-listing.html',

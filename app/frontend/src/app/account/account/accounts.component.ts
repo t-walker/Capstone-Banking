@@ -4,11 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
 import { UserService } from '../../user/services/user.service';
 
-import {CreateAccountComponent} from "./create.component";
-import {AccountListingComponent} from "./account-listing.component";
+import {CreateAccountComponent} from "../create/create.component";
+import {AccountListingComponent} from "../listing/listing.component";
 
 @Component({
-  templateUrl: './app/accounts/components/accounts.html'
+  templateUrl: './app/account/account/accounts.html'
 })
 
 export class AccountsComponent implements OnInit {
