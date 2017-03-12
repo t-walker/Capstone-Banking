@@ -2,13 +2,12 @@
 
 const gulp = require("gulp");
 const del = require("del");
+const sass = require('gulp-sass');
 const cleanCSS = require('gulp-clean-css');
-const sass = require("gulp-sass");
 const tsc = require("gulp-typescript");
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject("tsconfig.json");
 const tslint = require('gulp-tslint');
-const imagemin = require('gulp-imagemin');
 
 /**
  * Remove build directory.
@@ -61,15 +60,6 @@ gulp.task("resources", () => {
 });
 
 /**
- * Copy all images.
- */
-gulp.task('images', () =>
-    gulp.src('src/img/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest('build/images'))
-);
-
-/**
  * Copy all required libraries into build directory.
  */
 gulp.task("libs", () => {
@@ -101,19 +91,9 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('sass', function () {
-  return gulp.src('./src/app/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./build/app/css'));
-});
-
-gulp.task('sass:watch', function () {
-  gulp.watch('./src/app/**/*.scss', ['sass']);
-});
-
 /**
  * Build the project.
  */
-gulp.task("build", ['compile', 'resources', 'libs', 'sass', 'images'], () => {
+gulp.task("build", ['compile', 'sass', 'resources', 'libs'], () => {
     console.log("Building the project ...");
 });
