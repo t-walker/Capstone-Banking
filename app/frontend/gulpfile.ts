@@ -8,6 +8,7 @@ const tsc = require("gulp-typescript");
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject("tsconfig.json");
 const tslint = require('gulp-tslint');
+const imagemin = require('gulp-imagemin');
 
 /**
  * Remove build directory.
@@ -60,6 +61,15 @@ gulp.task("resources", () => {
 });
 
 /**
+ * Copy all images.
+ */
+gulp.task('images', () =>
+    gulp.src('src/img/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('build/images'))
+);
+
+/**
  * Copy all required libraries into build directory.
  */
 gulp.task("libs", () => {
@@ -104,6 +114,6 @@ gulp.task('sass:watch', function () {
 /**
  * Build the project.
  */
-gulp.task("build", ['compile', 'resources', 'libs', 'sass'], () => {
+gulp.task("build", ['compile', 'resources', 'libs', 'sass', 'images'], () => {
     console.log("Building the project ...");
 });
