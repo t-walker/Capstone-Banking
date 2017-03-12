@@ -11,10 +11,10 @@ import {HomeComponent} from "./home/components/home.component";
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
 
-import {AccountsComponent} from "./accounts/components/accounts.component";
-import {CreateAccountComponent} from "./accounts/components/create.component";
-import {AccountDetailsComponent} from "./accounts/components/account-details.component";
-import {AccountListingComponent} from "./accounts/components/account-listing.component";
+import {AccountsComponent} from "./account/account/accounts.component";
+import {CreateAccountComponent} from "./account/create/create.component";
+import {AccountDetailsComponent} from "./account/details/details.component";
+import {AccountListingComponent} from "./account/listing/listing.component";
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";

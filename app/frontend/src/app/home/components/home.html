@@ -1,7 +1,53 @@
+<style type="text/css">
+  .jumbotron {
+    background: -moz-linear-gradient(top, rgba(71,106,48,0.65) 0%, rgba(43,64,29,0.65) 40%, rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(71,106,48,0.65) 0%,rgba(43,64,29,0.65) 40%,rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(71,106,48,0.65) 0%,rgba(43,64,29,0.65) 40%,rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6476a30', endColorstr='#00000000',GradientType=0 ), url('../../images/hero-bg.jpg'); /* IE6-9 */
+
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+  }
+
+  .jumbotron-text {
+    text-shadow: black 1px 1px 1px;
+  }
+</style>
+
 <div class="jumbotron">
-   <div class="container">
-     <h1 class="display-3">Varda</h1>
-     <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-   </div>
- </div>
+  <div class="container">
+    <h1 class="display-3 jumbotron-text" style="color:white">Varda</h1>
+    <h2 class="jumbotron-text" style="color:white">Online Banking and Investing</h2>
+
+    <p><a class="btn btn-secondary" href="#" role="button">Learn more &raquo;</a></p>
+  </div>
+</div>
+
+<!-- Example row of columns -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Save</h2>
+      <p>
+        Online banking gives everyone the opportunity to save regardless of how far away a brick and mortar bank may be. Our tools will help you store your money in a secure location with competive interest rates.<br />
+      </p>
+      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Invest</h2>
+      <p>
+        Investors can view our investment marketplace to find other users who are looking to fund their businesses and personal lives. Short term peer-to-peer lending is a great way to take control of your financial future.
+      </p>
+      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Grow</h2>
+      <p>
+        Our online tools help small communities save and invest their money. With our online transferring system you can securely transfer funds to friends, family and others as well as pay for the things you need.
+      </p>
+      <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </div>
+  </div>
+</div>

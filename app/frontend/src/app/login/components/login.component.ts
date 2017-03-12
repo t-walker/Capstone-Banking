@@ -10,8 +10,9 @@ import { UserService } from '../../user/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  public email = "";
-  public password = "";
+  private email = "";
+  private password = "";
+  private loginError = false;
 
   ngOnInit() {
     console.log("Login component initialized ...");
@@ -32,8 +33,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['landing']);
       },
       err => {
-        console.log(err);
-        // Flash ERROR
+        this.loginError = true;
+        console.log('error');
       },
       () => console.log('finished'));
   }

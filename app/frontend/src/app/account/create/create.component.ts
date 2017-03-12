@@ -2,12 +2,11 @@ import {Component} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
+
 import { UserService } from '../../user/services/user.service';
 
-//import { UserService } from '../../user/services/user.service';
-
 @Component({
-  templateUrl: './app/accounts/components/create.html',
+  templateUrl: './app/account/create/create.html',
   selector: 'create-account'
 })
 
