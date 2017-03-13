@@ -96,7 +96,7 @@ gulp.task('watch', function () {
 gulp.task('images', () =>
     gulp.src('src/images/*')
         .pipe(imagemin())
-        .pipe(gulp.dest('dist/images'))
+        .pipe(gulp.dest('build/images'))
 );
 
 /**
