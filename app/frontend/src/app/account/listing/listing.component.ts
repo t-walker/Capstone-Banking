@@ -7,7 +7,7 @@ import { UserService } from '../../user/services/user.service';
 import {CreateAccountComponent} from "../create/create.component";
 
 @Component({
-  templateUrl: './app/accounts/components/account-listing.html',
+  templateUrl: './app/account/listing/listing.html',
   selector: "accounts"
 })
 
