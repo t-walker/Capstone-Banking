@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Transfer Funds</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-5 col-sm-12">
+    <label for="exampleInputEmail1">Destination E-mail</label>
+    <input [(ngModel)]="destination" type="email" class="form-control" placeholder="Enter email">
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-5 col-sm-12">
+    <label for="exampleSelect1"><b>Term</b></label>
+    <select [(ngModel)]="account" name="account" class="form-control" id="account" placeholder="">
+    <option value="" disabled="true" [selected]="true">Choose an Account...</option>
+    <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+  </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-5 col-sm-12">
+    <label for="amount"><b>Amount</b></label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+      <div class="input-group-addon">$</div>
+      <input [(ngModel)]="amount" name="requested_amount" type="text" class="form-control" id="amount">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+
+    <button type="submit" class="btn btn-success" (click)="sendMoney()">Send</button>
+  </div>
+</div>

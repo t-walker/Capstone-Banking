@@ -21,7 +21,7 @@ import {LoanListingComponent} from "./loan/listing/listing.component";
 import {LoanReviewComponent} from "./loan/review/review.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
-import {TransferComponent} from "./transfer/components/transfer.component";
+import {TransferComponent} from "./transfer/transfer/transfer.component";
 
 import {UserService} from "./user/services/user.service";
 
