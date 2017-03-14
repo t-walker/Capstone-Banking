@@ -63,16 +63,28 @@ class Account(db.Model):
         "Transaction", backref="account", lazy="dynamic")
 
     def deposit(self, amount, tx_from):
-        tx = {'account_id': self.id, 'tx_type': 'D', 'tx_from': str(
-            tx_from), 'tx_to': str(self.user_id), 'amount': amount}
+        user = User.query.filter_by(id=self.user_id).first()
+
+        if user:
+            user = user.email
+        else:
+            user = self.user_id
+
+        tx = {'account_id': self.id, 'tx_type': 'D', 'tx_from': str(tx_from), 'tx_to': user, 'amount': amount}
         tx = Transaction(**tx)
         db.session.add(tx)
         db.session.commit()
         self.total += amount
 
     def withdraw(self, amount, tx_to):
-        tx = {'account_id': self.id, 'tx_type': 'W', 'tx_from': str(
-            self.user_id), 'tx_to': str(tx_to), 'amount': amount}
+        user = User.query.filter_by(id=self.user_id).first()
+
+        if user:
+            user = user.email
+        else:
+            user = self.user_id
+
+        tx = {'account_id': self.id, 'tx_type': 'W', 'tx_from': user, 'tx_to': str(tx_to), 'amount': amount}
         tx = Transaction(**tx)
         db.session.add(tx)
         db.session.commit()
@@ -86,6 +98,7 @@ class Transaction(db.Model):
     tx_from = db.Column(db.String(string_maximum), unique=False)
     tx_to = db.Column(db.String(string_maximum), unique=False)
     amount = db.Column(db.Float, unique=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
 class LoanTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)

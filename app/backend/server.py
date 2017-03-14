@@ -239,10 +239,33 @@ def transfer():
     user = current_user
     body = request.json
 
-    print (body)
+    try:
+        destination = db.session.query(User).filter_by(email=body['destination']).first()
+    except:
+        return jsonify({result: "User does not exist"})
 
-    print ('to: {0} from: {1} ${2}'.format(body['to'], body['from'], body['amount']))
+    try:
+        amount = abs(float(body['amount']))
+    except:
+        return jsonify({'result': "Amount invalid"}), 500
 
+    try:
+        from_account = current_user.accounts.filter_by(id=int(body['account'])).first()
+    except:
+        return jsonify({'result': "From account invalid"}), 500
+
+    try:
+        to_account = destination.accounts.all()[0]
+    except:
+        return jsonify({'result': "To account invalid"}), 500
+
+
+    from_account.withdraw(amount, destination.email)
+    to_account.deposit(amount, current_user.email)
+
+    db.session.commit()
+
+    return jsonify({'result': "Transaction successful"}), 200
 
 @app.route('/api/loan/apply', methods=['POST'])
 def create_loan_application():

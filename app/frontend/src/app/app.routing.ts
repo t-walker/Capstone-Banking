@@ -9,7 +9,7 @@ import {LoginComponent} from "./login/components/login.component";
 
 import {AccountsComponent} from "./account/account/accounts.component";
 import {AccountDetailsComponent} from "./account/details/details.component";
-import {TransferComponent} from "./transfer/components/transfer.component";
+import {TransferComponent} from "./transfer/transfer/transfer.component";
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {LoanListingComponent} from "./loan/listing/listing.component";

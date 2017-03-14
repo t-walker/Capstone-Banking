@@ -22,9 +22,9 @@ export class UserService {
 
     return this.http
       .post(
-        '/api/login',
-        JSON.stringify({ email, password }),
-        { headers }
+      '/api/login',
+      JSON.stringify({ email, password }),
+      { headers }
       )
       .map(res => res.json())
       .map((res) => {
@@ -34,32 +34,32 @@ export class UserService {
       });
   }
 
-   getAccounts() {
+  getAccounts() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-   // this.isLoggedIn.next(true);
+    // this.isLoggedIn.next(true);
 
     return this.http
       .get(
-        '/api/my/accounts'
+      '/api/my/accounts'
       ).map(this.extractData);
   }
 
   getTransactions(id) {
-   let headers = new Headers();
-   headers.append('Content-Type', 'application/json');
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-  // this.isLoggedIn.next(true);
+    // this.isLoggedIn.next(true);
 
-   return this.http
-     .get(
-       '/api/my/accounts/' + id + "/transactions"
-     ).map(this.extractData);
+    return this.http
+      .get(
+      '/api/my/accounts/' + id + "/transactions"
+      ).map(this.extractData);
 
- }
+  }
 
-   private extractData(res: Response) {
+  private extractData(res: Response) {
     let body = res.json();
 
     console.log("extract data");
@@ -67,70 +67,26 @@ export class UserService {
     return body.result || [];
   }
 
-     getCurrentUser() {
+  getCurrentUser() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-   // this.isLoggedIn.next(true);
+    // this.isLoggedIn.next(true);
 
     return this.http
       .get(
-        '/api/current_user'
+      '/api/current_user'
       ).map(this.extractBody);
   }
 
-     private extractBody(res: Response) {
+  private extractBody(res: Response) {
     let body = res.json();
-
-    console.log("extract body");
-    console.log(body);
     return body || {};
   }
-
-  // createAccount(email, password) {
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-
-  //   this.isLoggedIn.next(true);
-
-  //   return this.http
-  //     .post(
-  //       '/api/login',
-  //       JSON.stringify({ email, password }),
-  //       { headers }
-  //     )
-  //     .map(res => res.json())
-  //     .map((res) => {
-  //       if (res.success) {
-  //         localStorage.setItem('auth_token', res.auth_token);
-  //         this.isLoggedIn.next(true);
-  //       }
-  //       return res.success;
-  //     });
-  // }
-
-  transferFunds(to, from, amount) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    var body = {"to" : to, "from": from, "amount" : amount};
-
-    console.log(body);
-
-    return this.http
-      .post(
-        '/api/transfer',
-        JSON.stringify(body),
-        { headers }
-      )
-      .map(this.extractBody);
-  }
-
 
   logout() {
     this.isLoggedIn.next(false);
     this.http.get('/api/logout');
     this.router.navigate(['home']);
-
   }
 }
