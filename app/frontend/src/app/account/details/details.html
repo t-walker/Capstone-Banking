@@ -4,15 +4,17 @@
     <table class="table table-striped table-hover table-sm">
       <thead>
         <tr>
-          <th>To</th>
+          <th>Date</th>
           <th>From</th>
+          <th>To</th>
           <th class="text-md-right">Amount</th>
         </tr>
       </thead>
       <tr *ngFor="let tx of transactions">
-        <td>{{tx.tx_to}}</td>
+        <td>{{tx.timestamp | date: 'MM/dd/yyyy'}}</td>
         <td>{{tx.tx_from}}</td>
-        <td class="text-md-right">{{tx.amount | currency:'USD':true}}</td>
+        <td>{{tx.tx_to}}</td>
+        <td class="text-md-right" [ngClass]="{'text-success': tx.tx_type=="D", 'text-danger': tx.tx_type=="W" }">{{tx.amount | currency:'USD':true}}</td>
       </tr>
     </table>
   </div>

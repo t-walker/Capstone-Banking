@@ -134,7 +134,8 @@ def get_account_transactions(account_id):
 
     try:
         account = db.session.query(Account).filter_by(id=account_id).first()
-        transactions = account.transactions.all()
+        transactions = account.transactions.order_by(desc(Transaction.amount)).limit(500).all()
+        transactions = transactions[::-1]
         result = transactions_schema.dump(transactions)
     except:
         return "<h1>ERROR</h1>"
@@ -225,7 +226,7 @@ def my_account_transactions(account_id):
     transaction_schema = TransactionSchema(many=True)
 
     try:
-        transactions = db.session.query(Transaction).filter_by(account_id=account_id).all()
+        transactions = db.session.query(Transaction).filter_by(account_id=account_id).order_by(Transaction.timestamp.desc()).limit(500).all()
         result = transaction_schema.dump(transactions)
     except:
         return jsonify({'error': "accounts invalid"}), 500

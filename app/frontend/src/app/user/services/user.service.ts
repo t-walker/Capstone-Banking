@@ -12,7 +12,7 @@ export class UserService {
   public user = new BehaviorSubject({});
 
   constructor(private http: Http, private localStorage: LocalStorageService, private router: Router) {
-    this.isLoggedIn.next(!!localStorage.get('auth_token'));
+    this.isLoggedIn.next(!!localStorage.get('user'));
   }
 
   login(email, password) {
@@ -31,6 +31,7 @@ export class UserService {
         this.isLoggedIn.next(true);
         this.user.next(res.result[0]);
         this.isLoggedIn.next(true);
+        this.localStorage.set('logged_in', 'true');
       });
   }
 
@@ -43,7 +44,7 @@ export class UserService {
     return this.http
       .get(
       '/api/my/accounts'
-      ).map(this.extractData);
+      ).map(res => res.json());
   }
 
   getTransactions(id) {
@@ -55,7 +56,7 @@ export class UserService {
     return this.http
       .get(
       '/api/my/accounts/' + id + "/transactions"
-      ).map(this.extractData);
+      ).map(res => res.json());
 
   }
 
@@ -76,12 +77,7 @@ export class UserService {
     return this.http
       .get(
       '/api/current_user'
-      ).map(this.extractBody);
-  }
-
-  private extractBody(res: Response) {
-    let body = res.json();
-    return body || {};
+      ).map(res => res.json());
   }
 
   logout() {

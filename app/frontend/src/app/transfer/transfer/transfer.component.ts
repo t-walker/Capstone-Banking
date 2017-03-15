@@ -27,7 +27,7 @@ export class TransferComponent implements OnInit {
     console.log("Transfer component initialized ............");
 
     this.userService.getAccounts().subscribe(accounts => {
-      this.accounts = accounts;
+      this.accounts = accounts.result;
     });
   }
 
