@@ -145,11 +145,9 @@ class TransactionSchema(ModelSchema):
     amount = fields.Float()
 
     class Meta:
-        fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount')
+        fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount', 'timestamp')
 
 
 class AccountSchema(ModelSchema):
-    transactions = fields.Nested(TransactionSchema, many=True, required=True)
-
     class Meta:
-        fields = ('id', 'user_id', 'account_type', 'transactions', 'total')
+        fields = ('id', 'user_id', 'account_type', 'total')

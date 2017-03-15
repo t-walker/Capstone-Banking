@@ -19,7 +19,7 @@ export class AccountListingComponent implements OnInit {
     console.log("AccountListing component initialized ............");
 
     this.userService.getAccounts().subscribe(accounts => {
-      this.accounts = accounts;
+      this.accounts = accounts.result;
     });
   }
 

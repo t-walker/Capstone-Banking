@@ -22,7 +22,7 @@ export class AccountDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.accountId = +params['id'];
       this.userService.getTransactions(this.accountId).subscribe(transactions => {
-        this.transactions = transactions;
+        this.transactions = transactions.result;
       });
     });
   }

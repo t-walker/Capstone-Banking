@@ -6,14 +6,14 @@
 
 <div class="row">
   <div class="form-group col-md-5 col-sm-12">
-    <label for="exampleInputEmail1">Destination E-mail</label>
+    <label for="exampleInputEmail1">To</label>
     <input [(ngModel)]="destination" type="email" class="form-control" placeholder="Enter email">
   </div>
 </div>
 
 <div class="row">
   <div class="form-group col-md-5 col-sm-12">
-    <label for="exampleSelect1"><b>Term</b></label>
+    <label for="exampleSelect1"><b>Accounts</b></label>
     <select [(ngModel)]="account" name="account" class="form-control" id="account" placeholder="">
     <option value="" disabled="true" [selected]="true">Choose an Account...</option>
     <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>

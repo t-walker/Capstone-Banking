@@ -17,6 +17,6 @@ export class LandingComponent implements OnInit {
   }
 
   constructor(private userService: UserService) {
-    this.userService.user.subscribe(value => {this.user = value; console.log("USER"); console.log(this.user); } );
+    this.userService.user.subscribe(user => {this.user = user; } );
   }
 }
