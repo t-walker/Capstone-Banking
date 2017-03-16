@@ -240,29 +240,48 @@ def transfer():
     user = current_user
     body = request.json
 
-    try:
-        destination = db.session.query(User).filter_by(email=body['destination']).first()
-    except:
-        return jsonify({result: "User does not exist"})
+    if body['type'] == 'user':
+        # try:
+        #     origin = db.session.query(Account).filter_by(id=body['accountF']).first()
+        # except:
+        #     return jsonify({'result': "Origin account does not exist"}), 500
 
-    try:
-        amount = abs(float(body['amount']))
-    except:
-        return jsonify({'result': "Amount invalid"}), 500
+        origin = db.session.query(Account).filter_by(id=body['accountF']).first()
 
-    try:
-        from_account = current_user.accounts.filter_by(id=int(body['account'])).first()
-    except:
-        return jsonify({'result': "From account invalid"}), 500
+        try:
+            destination = db.session.query(Account).filter_by(id=body['accountT']).first()
+        except:
+            return jsonify({'result': "Destination does not exist"}), 500
 
-    try:
-        to_account = destination.accounts.all()[0]
-    except:
-        return jsonify({'result': "To account invalid"}), 500
+        origin.withdraw(body['amount'], destination.account_type)
+        destination.deposit(body['amount'], origin.account_type)
+    elif body['type'] == 'internal':
+        try:
+            destination = db.session.query(User).filter_by(email=body['destination']).first()
+        except:
+            return jsonify({result: "User does not exist"})
 
+        try:
+            amount = abs(float(body['amount']))
+        except:
+            return jsonify({'result': "Amount invalid"}), 500
 
-    from_account.withdraw(amount, destination.email)
-    to_account.deposit(amount, current_user.email)
+        try:
+            from_account = current_user.accounts.filter_by(id=int(body['account'])).first()
+        except:
+            return jsonify({'result': "From account invalid"}), 500
+
+        try:
+            to_account = destination.accounts.all()[0]
+        except:
+            return jsonify({'result': "To account invalid"}), 500
+
+        from_account.withdraw(amount, destination.email)
+        to_account.deposit(amount, current_user.email)
+    elif body['type'] == 'external':
+        pass
+    else:
+        return jsonify({result: "Bad transfer type"}), 500
 
     db.session.commit()
 

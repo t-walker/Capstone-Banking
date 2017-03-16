@@ -1,0 +1,58 @@
+<style type="text/css">
+  .jumbotron {
+    background: -moz-linear-gradient(top, rgba(115,124,113,0.4) 0%, rgba(54,58,53,0.4) 53%, rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(115,124,113,0.4) 0%,rgba(54,58,53,0.4) 53%,rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(115,124,113,0.4) 0%,rgba(54,58,53,0.4) 53%,rgba(0,0,0,0) 100%), url('../../images/hero-bg.jpg'); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66737c71', endColorstr='#00000000',GradientType=0 ), url('../../images/hero-bg.jpg'); /* IE6-9 */
+
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+  }
+
+  .jumbotron-text {
+    text-shadow: black 1px 1px 1px;
+  }
+</style>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3 jumbotron-text" style="color:white">Varda</h1>
+    <h2 class="jumbotron-text" style="color:white">Online Banking and Investing</h2>
+    <p><a class="btn btn-success" [routerLink]="['/about']" role="button">Learn more &raquo;</a></p>
+  </div>
+</div>
+
+<!-- Example row of columns -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Save &amp; Invest</h2>
+      <p>
+        Online banking gives everyone the opportunity to save and invest regardless
+        of how far away a physical bank may be. Our tools will help you store your
+        money in a secure location with competive interest rates.
+      </p>
+      <p><a class="btn btn-outline-primary" href="#" role="button">Save &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Transfer Funds</h2>
+      <p>
+        Instead of carrying around physical cash, you will be able to transfer funds
+        to users within our system and to local businesses. Rest assured that you
+        will you access to your funds anywhere you are in the world.
+      </p>
+      <p><a class="btn btn-outline-primary" href="#" role="button">Share &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+      <h2>Build Communities</h2>
+      <p>
+        By funding community and individual loans, you can loan directly to business
+        owners and community organziers in your area. Watch your investments thrive in
+        real-time from your front porch.
+      </p>
+      <p><a class="btn btn-outline-primary" href="#" role="button">Build &raquo;</a></p>
+    </div>
+  </div>
+</div>

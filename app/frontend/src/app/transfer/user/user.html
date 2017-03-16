@@ -1,0 +1,26 @@
+<form>
+  <div class="col-md-5 col-md-12">
+    <div class="form-group">
+      <label for="accountF"><b>From</b></label>
+      <select [(ngModel)]="accountF" name="accountF" class="form-control" id="accountF" placeholder="">
+      <option value="" disabled="true" selected>Choose an Account...</option>
+      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    </select>
+    </div>
+    <div class="form-group">
+      <label for="accountT"><b>To</b></label>
+      <select [(ngModel)]="accountT" name="accountT" class="form-control" id="accountT" placeholder="">
+      <option value="" disabled="true" selected>Choose an Account...</option>
+      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    </select>
+    </div>
+    <div class="form-group">
+      <label for="amount"><b>Amount</b></label>
+      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon">$</div>
+        <input [(ngModel)]="amount" name="amount" type="text" class="form-control" id="amount">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success" (click)="transferMoney()">Send</button>
+  </div>
+</form>

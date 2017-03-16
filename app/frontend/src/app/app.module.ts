@@ -6,7 +6,7 @@ import {NavComponent} from "./layout/navbar/navbar.component";
 import {FooterComponent} from "./layout/footer/footer.component";
 
 import {AboutComponent} from "./about/components/about.component";
-import {HomeComponent} from "./home/components/home.component";
+import {HomeComponent} from "./home/home/home.component";
 
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
@@ -21,7 +21,10 @@ import {LoanListingComponent} from "./loan/listing/listing.component";
 import {LoanReviewComponent} from "./loan/review/review.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
+
 import {TransferComponent} from "./transfer/transfer/transfer.component";
+import { TransferUserComponent } from './transfer/user/user.component';
+import { TransferInternalComponent } from './transfer/internal/internal.component';
 
 import {UserService} from "./user/services/user.service";
 
@@ -56,7 +59,9 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         AccountListingComponent,
         LoanReviewComponent,
         LandingComponent,
-        TransferComponent
+        TransferComponent,
+        TransferInternalComponent,
+        TransferUserComponent
     ],
     providers: [
         appRoutingProviders,

@@ -1,17 +1,19 @@
 <div class="row" *ngIf="loans.length > 0">
   <div class="col-md-12">
-    <table class="table table-striped table-hover table-sm">
+    <table class="table table-sm">
       <thead>
         <tr>
-          <th style="width:90%" class="text-md-left">Name</th>
-          <th style="width:10%" class="text-md-right">Status</th>
+          <th style="width:90%" class="text-md-left text-sm-left">Name</th>
+          <th style="width:10%" class="text-md-right text-sm-left">Status</th>
         </tr>
       </thead>
-      <tr *ngFor="let loan of loans">
-        <td>{{loan.name}}</td>
-        <td class="text-md-right">{{loan.status}}</td>
-        <!-- <td><a [routerLink]="['review', loan.id]">Review</a></td> -->
-      </tr>
+      <tbody>
+        <tr *ngFor="let loan of loans">
+          <td>{{loan.name}}</td>
+          <td class="text-md-right text-sm-right">{{loan.status}}</td>
+          <!-- <td><a [routerLink]="['review', loan.id]">Review</a></td> -->
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
