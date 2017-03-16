@@ -12,15 +12,36 @@ export class TransferService {
   constructor(private http: Http) { }
   // Uses http.get() to load a single JSON file
 
-  transferFunds(destination, amount, accountId) {
+  transferFundsUser(accountF, accountT, amount) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     let body = {};
 
-    body["destination"] = destination;
-    body["amount"] = amount;
-    body["account"] = accountId;
+    body['type'] = 'user';
+    body['accountF'] = +accountF;
+    body['accountT'] = +accountT;
+    body['amount'] = +amount;
+
+    return this.http
+      .post(
+      '/api/transfer',
+      JSON.stringify(body),
+      { headers }
+      )
+      .map(res => res.json());
+  }
+
+  transferFundsInternal(destination, amount, accountId) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let body = {};
+
+    body['type'] = 'internal';
+    body['destination'] = destination;
+    body['amount'] = +amount;
+    body['account'] = +accountId;
 
     return this.http
       .post(
