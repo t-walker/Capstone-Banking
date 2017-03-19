@@ -19,12 +19,17 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(100), unique=False)
     password_hash = db.Column(db.String(1000), unique=False)
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
+    role = db.Column(db.String(120), default="user")
 
-    def __init__(self, email="", first_name="", last_name="", password=""):
+    def __init__(self, email="", first_name="", last_name="", password="", role=""):
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
         self.password_hash = self.set_password(password)
+
+        if role:
+            self.role = role
+
 
     def set_password(self, password):
         return generate_password_hash(password)

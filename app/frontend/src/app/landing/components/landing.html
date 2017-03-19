@@ -1,16 +1,29 @@
 <div class="row">
   <div class="col-md-12">
     <h3>Welcome, {{user.first_name}}</h3>
+    <br />
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <br />
-    <h5>Your Accounts</h5>
-    <accounts></accounts>
-    <br />
-    <h5>Your Loans</h5>
-    <loanlisting></loanlisting>
+    <button class='btn btn-outline-primary btn-sm'>Open an Account</button>
+    <button class='btn btn-outline-primary btn-sm'>Apply for a Loan</button>
+  </div>
+</div>
+
+<div class="row">
+  <br />
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <accounts [title]="true"></accounts>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <loanlisting [title]="true"></loanlisting>
   </div>
 </div>

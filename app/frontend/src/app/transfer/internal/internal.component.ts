@@ -19,7 +19,9 @@ export class TransferInternalComponent implements OnInit {
   private amount: number;
   private account: number;
 
-  private accounts;
+  private accounts = [];
+  private hasError = false;
+  private errorMsg = "";
 
   constructor(private transferService: TransferService, private userService: UserService, private router: Router) {
   }
@@ -41,7 +43,8 @@ export class TransferInternalComponent implements OnInit {
         });
       },
       err => {
-
+        this.hasError = true;
+        this.errorMsg = err.json().result;
       },
       () => {
 

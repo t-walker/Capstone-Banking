@@ -8,11 +8,12 @@ users = []
 users.append({'email': 'twalker@email.com',
               'first_name': 'Tyler',
               'last_name': 'Walker',
-              'password': 'password1'})
+              'password': 'password1',
+              'role': 'admin'})
 
-users.append({'email': 'jswanby@email.com',
-              'first_name': 'Jason',
-              'last_name': 'Swanby',
+users.append({'email': 'mjenkins@email.com',
+              'first_name': 'Micah',
+              'last_name': 'Jenkins',
               'password': 'password2'})
 
 users.append({'email': 'dmarks@email.com',
