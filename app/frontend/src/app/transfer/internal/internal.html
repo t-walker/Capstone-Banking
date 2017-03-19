@@ -1,23 +1,26 @@
+<div class="alert alert-dismissible alert-danger" *ngIf="hasError">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Oh snap!</strong> {{errorMsg}}
+</div>
+
 <form>
-  <div class="col-md-5 col-md-12">
-    <div class="form-group">
-      <label for="destination">To</label>
-      <input [(ngModel)]="destination" name="destination" type="email" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="account"><b>Accounts</b></label>
-      <select [(ngModel)]="account" name="account" class="form-control" id="account">
-            <option value="" disabled="true" selected>Choose an Account...</option>
-            <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
-        </select>
-    </div>
-    <div class="form-group">
-      <label for="amount"><b>Amount</b></label>
-      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-        <div class="input-group-addon">$</div>
-        <input [(ngModel)]="amount" name="requested_amount" type="text" class="form-control" id="amount">
-      </div>
-    </div>
-    <button type="submit" class="btn btn-success" (click)="transferMoney()">Send</button>
+  <div class="form-group" [ngClass]="{'has-danger': hasError}">
+    <label for="destination">To</label>
+    <input [(ngModel)]="destination" name="destination" type="email" class="form-control">
   </div>
+  <div class="form-group" [ngClass]="{'has-danger': hasError}">
+    <label for="account"><b>Accounts</b></label>
+    <select [(ngModel)]="account" name="account" class="form-control" id="account">
+      <option value="" disabled="true" selected>Choose an Account...</option>
+      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    </select>
+  </div>
+  <div class="form-group" [ngClass]="{'has-danger': hasError}">
+    <label for="amount"><b>Amount</b></label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+      <div class="input-group-addon">$</div>
+      <input [(ngModel)]="amount" name="requested_amount" type="text" class="form-control" id="amount">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success" (click)="transferMoney()">Send</button>
 </form>

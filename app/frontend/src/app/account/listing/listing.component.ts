@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {OnInit} from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
@@ -13,10 +13,13 @@ import {CreateAccountComponent} from "../create/create.component";
 
 export class AccountListingComponent implements OnInit {
 
-  public accounts;
+  public accounts = [];
+  @Input() title: string;
 
   ngOnInit() {
     console.log("AccountListing component initialized ............");
+    console.log("TITLE");
+    console.log(this.title);
 
     this.userService.getAccounts().subscribe(accounts => {
       this.accounts = accounts.result;

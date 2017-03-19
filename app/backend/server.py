@@ -240,44 +240,51 @@ def transfer():
     user = current_user
     body = request.json
 
-    if body['type'] == 'user':
-        # try:
-        #     origin = db.session.query(Account).filter_by(id=body['accountF']).first()
-        # except:
-        #     return jsonify({'result': "Origin account does not exist"}), 500
+    if body['amount'] < 0:
+        return jsonify({'result': "Transfer value must be positive."}), 500
 
-        origin = db.session.query(Account).filter_by(id=body['accountF']).first()
+    if body['type'] == 'user':
+        try:
+            origin = db.session.query(Account).filter_by(id=body['accountF']).first()
+        except:
+            return jsonify({'result': "Origin account does not exist."}), 500
 
         try:
             destination = db.session.query(Account).filter_by(id=body['accountT']).first()
         except:
-            return jsonify({'result': "Destination does not exist"}), 500
+            return jsonify({'result': "Destination account does not exist."}), 500
 
-        origin.withdraw(body['amount'], destination.account_type)
-        destination.deposit(body['amount'], origin.account_type)
+        if origin.total < amount:
+            return jsonify({'result': "You do not have sufficent funds."}), 500
+        else:
+            origin.withdraw(body['amount'], destination.account_type)
+            destination.deposit(body['amount'], origin.account_type)
     elif body['type'] == 'internal':
         try:
             destination = db.session.query(User).filter_by(email=body['destination']).first()
         except:
-            return jsonify({result: "User does not exist"})
+            return jsonify({result: "The user you are sending to does not exist."})
 
         try:
             amount = abs(float(body['amount']))
         except:
-            return jsonify({'result': "Amount invalid"}), 500
+            return jsonify({'result': "You did not provide a valid account."}), 500
 
         try:
             from_account = current_user.accounts.filter_by(id=int(body['account'])).first()
         except:
-            return jsonify({'result': "From account invalid"}), 500
+            return jsonify({'result': "Your account choice is invalid."}), 500
 
         try:
             to_account = destination.accounts.all()[0]
         except:
-            return jsonify({'result': "To account invalid"}), 500
+            return jsonify({'result': "The destination account is invalid."}), 500
 
-        from_account.withdraw(amount, destination.email)
-        to_account.deposit(amount, current_user.email)
+        if from_account.total < amount:
+            return jsonify({'result': "You have insufficent funds."}), 500
+        else:
+            from_account.withdraw(amount, destination.email)
+            to_account.deposit(amount, current_user.email)
     elif body['type'] == 'external':
         pass
     else:
