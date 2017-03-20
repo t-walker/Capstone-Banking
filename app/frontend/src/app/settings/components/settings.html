@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+      <h3>General Settings</h3>
+    </div>
+</div>
+
+<br/>
+
+<style type="text/css">
+   
+
+    .edit-row:hover { 
+    background-color: rgba(155, 241, 243, 0.5);
+
+
+    }
+
+    a.edit-button {
+      display: inline;
+    }
+
+    a.edit-button:hover {
+      text-decoration: underline;
+      color: blue;
+      cursor: pointer;
+    }
+
+</style>
+
+
+  <div class="row edit-row">
+    <div class="col-md-4">
+      <label>Name</label>
+    </div>
+    <div class="col-md-4">
+      <p>{{fname}} {{lname}}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="edit-button" (click)="onEdit()">Edit</a>
+    </div>
+  </div>
+
+  <div class="row edit-row">
+    
+    <div class="col-md-4">
+      <label>Username</label>
+    </div>
+    <div class="col-md-4">
+      <p>{{username}}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="edit-button" (click)="onEdit()">Edit</a>
+    </div>
+  </div>
+
+    <div class="row edit-row">
+      <div class="col-md-4">
+        <label>Password</label>
+      </div>
+      <div class="col-md-4">
+        <p>{{password}}</p>
+      </div>
+      <div class="col-md-4">
+        <a class="edit-button" (click)="onEdit()">Edit</a>
+      </div>
+    </div>
+
+  <br/>
+
+  <div class="row">
+    <button class="btn-danger" (click)="deactivate()"><strong>Deactivate Account</strong></button>
+  </div>
