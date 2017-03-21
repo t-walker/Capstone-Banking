@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class LoanListingService {
+export class UserLoanListingService {
 
   constructor(private http: Http) { }
 

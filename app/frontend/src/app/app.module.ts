@@ -17,14 +17,16 @@ import {AccountDetailsComponent} from "./account/details/details.component";
 import {AccountListingComponent} from "./account/listing/listing.component";
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
-import {LoanListingComponent} from "./loan/listing/listing.component";
+import {UserLoanListingComponent} from "./loan/userlisting/userlisting.component";
+import {OfficerLoanListingComponent} from "./loan/officerlisting/officerlisting.component";
+
 import {LoanReviewComponent} from "./loan/review/review.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
 
 import {TransferComponent} from "./transfer/transfer/transfer.component";
-import { TransferUserComponent } from './transfer/user/user.component';
-import { TransferInternalComponent } from './transfer/internal/internal.component';
+import {TransferUserComponent} from './transfer/user/user.component';
+import {TransferInternalComponent} from './transfer/internal/internal.component';
 
 import {UserService} from "./user/services/user.service";
 
@@ -54,7 +56,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         AccountsComponent,
         CreateAccountComponent,
         LoanApplicationComponent,
-        LoanListingComponent,
+        UserLoanListingComponent,
+        OfficerLoanListingComponent,
         AccountDetailsComponent,
         AccountListingComponent,
         LoanReviewComponent,

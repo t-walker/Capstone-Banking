@@ -221,6 +221,18 @@ def my_loan_applications():
     return jsonify({'result': result.data}), 200
 
 
+@app.route('/api/review/loans', methods=['GET'])
+@login_required
+def loans_to_review():
+    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+
+    applications = db.session.query(InitialLoanApplication).filter_by(status='Pending').all()
+
+    result = loanapplication_schema.dump(applications)
+
+    return jsonify({'result': result.data}), 200
+
+
 @app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
 def my_account_transactions(account_id):
     transaction_schema = TransactionSchema(many=True)
