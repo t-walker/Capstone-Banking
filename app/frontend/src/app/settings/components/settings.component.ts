@@ -109,7 +109,34 @@ export class SettingsComponent implements OnInit {
   }
 
   onSave(field) {
+         switch (field) {
+      case 'name':
+        // code...
+        this.editingName = false;
+        break;
+      case 'username':
+        // code...
+        this.editingUsername = false;
 
+        break;
+      case 'email':
+        // code...
+        this.editingEmail = false;
+
+        break;
+      case 'password':
+        // code...
+        this.editingPassword = false;
+
+        break;
+      
+      case 'defaultDeposit':
+        this.editingDefaultDeposit = false;
+        break;
+      default:
+        // code...
+        break;
+      }
   }
 
   deactivate() {
