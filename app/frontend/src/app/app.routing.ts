@@ -13,7 +13,9 @@ import {AccountDetailsComponent} from "./account/details/details.component";
 import {TransferComponent} from "./transfer/transfer/transfer.component";
 
 import {LoanApplicationComponent} from "./loan/application/application.component";
-import {LoanListingComponent} from "./loan/listing/listing.component";
+import {UserLoanListingComponent} from "./loan/userlisting/userlisting.component";
+import {OfficerLoanListingComponent} from "./loan/officerlisting/officerlisting.component";
+
 import {LoanReviewComponent} from "./loan/review/review.component";
 
 import {LandingComponent} from "./landing/components/landing.component";
@@ -27,9 +29,10 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent, data: {title: 'Login'}},
     {path: 'landing', component: LandingComponent, data: {title: 'Landing'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
-    {path: 'application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
+    {path: 'loan_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
     {path: 'loans/review/:id', component: LoanReviewComponent, data: {title: 'Loan Approval'}},
-    {path: 'loans', component: LoanListingComponent, data: {title: 'Loans'}},
+    {path: 'my/loans', component: UserLoanListingComponent, data: {title: 'Your Loans'}},
+    {path: 'review/loans', component: OfficerLoanListingComponent, data: {title: 'Your Loans'}},
     {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}},
     {path: 'transfer', component: TransferComponent, data: {title: 'Transfer'}},
     {path: 'initial_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
