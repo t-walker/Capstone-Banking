@@ -102,6 +102,6 @@ gulp.task('images', () =>
 /**
  * Build the project.
  */
-gulp.task("build", ['compile', 'sass', 'resources', 'libs'], () => {
+gulp.task("build", ['compile', 'sass', 'resources', 'libs', 'images'], () => {
     console.log("Building the project ...");
 });

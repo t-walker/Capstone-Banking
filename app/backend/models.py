@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(1000), unique=False)
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
     role = db.Column(db.String(120), default="user")
+    default_account = db.Column(db.Integer, unique=True)
 
     def __init__(self, email="", first_name="", last_name="", password="", role=""):
         self.email = email

@@ -7,7 +7,7 @@ import {FooterComponent} from "./layout/footer/footer.component";
 
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/home/home.component";
-import {SettingsComponent} from "./settings/components/settings.component";
+import {SettingsComponent} from "./settings/settings/settings.component";
 
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
