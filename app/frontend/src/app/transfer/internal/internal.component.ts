@@ -27,11 +27,13 @@ export class TransferInternalComponent implements OnInit {
   }
 
   ngOnInit() {
+
     console.log("Transfer component initialized ............");
 
     this.userService.getAccounts().subscribe(accounts => {
       this.accounts = accounts.result;
     });
+    
   }
 
   transferMoney() {
@@ -51,5 +53,4 @@ export class TransferInternalComponent implements OnInit {
       }
     );
   }
-
 }

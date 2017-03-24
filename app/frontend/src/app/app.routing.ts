@@ -3,6 +3,7 @@ import {ModuleWithProviders} from "@angular/core";
 
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/home/home.component";
+import {SettingsComponent} from "./settings/settings/settings.component";
 
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}},
     {path: 'transfer', component: TransferComponent, data: {title: 'Transfer'}},
     {path: 'initial_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
+    {path: 'settings', component: SettingsComponent, data: {title: 'Settings'}}
 ];
 
 export const appRoutingProviders: any[] = [];

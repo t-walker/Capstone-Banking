@@ -100,12 +100,17 @@ def create_user():
     print (request)
 
     user = User(**request.json)
+    account = Account()
+    account.account_type = "Investment"
+
+    user.accounts.append(account)
 
     print(user)
 
     try:
         db.session.add(user)
         db.session.commit()
+        user.default_account = Account.query.filter_by(user_id=user.id).first()
     except:
         db.session.rollback()
         return "<h1>ERROR</h1>"
@@ -208,6 +213,34 @@ def my_accounts():
 
     return jsonify({'result': result.data}), 200
 
+@app.route('/api/my/profile', methods=['POST'])
+@login_required
+def my_edit():
+    user = current_user
+
+    body = request.json
+
+    if "first_name" in body:
+        if body['first_name'] != user.first_name:
+            user.first_name = body['first_name']
+
+    if "last_name" in body:
+        if body['last_name'] != user.last_name:
+            user.last_name = body['last_name']
+
+    if "email" in body:
+        if body['email'] != user.email:
+            user.email = body['email']
+
+    if "new_password" in body and "old_password" in body:
+        if user.check_password(body['old_password']):
+            user.set_password(body['new_password'])
+
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({'result': 'success'}), 200
+
 
 @app.route('/api/my/loans', methods=['GET'])
 @login_required
@@ -266,7 +299,7 @@ def transfer():
         except:
             return jsonify({'result': "Destination account does not exist."}), 500
 
-        if origin.total < amount:
+        if origin.total < float(body['amount']):
             return jsonify({'result': "You do not have sufficent funds."}), 500
         else:
             origin.withdraw(body['amount'], destination.account_type)
