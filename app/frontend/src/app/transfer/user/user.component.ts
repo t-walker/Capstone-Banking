@@ -19,15 +19,23 @@ export class TransferUserComponent implements OnInit {
   private amount: number;
 
   private accounts;
+  private defaultAccountFirst = {};
+  private defaultAccountSecond = {};
+
 
   constructor(private transferService: TransferService, private userService: UserService, private router: Router) {
+
   }
 
   ngOnInit() {
     console.log("TransferUser component initialized ............");
-
+    
     this.userService.getAccounts().subscribe(accounts => {
       this.accounts = accounts.result;
+      this.defaultAccountFirst = this.accounts[0];
+      this.defaultAccountSecond = this.accounts[1];
+      console.log(this.defaultAccountFirst);
+      console.log(this.defaultAccountSecond);
     });
   }
 

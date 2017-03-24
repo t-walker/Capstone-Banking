@@ -22,6 +22,7 @@ export class TransferInternalComponent implements OnInit {
   private accounts = [];
   private hasError = false;
   private errorMsg = "";
+  private defaultAccount;
 
   constructor(private transferService: TransferService, private userService: UserService, private router: Router) {
   }
@@ -33,7 +34,7 @@ export class TransferInternalComponent implements OnInit {
     this.userService.getAccounts().subscribe(accounts => {
       this.accounts = accounts.result;
     });
-    
+
   }
 
   transferMoney() {
@@ -42,6 +43,8 @@ export class TransferInternalComponent implements OnInit {
       data => {
         this.userService.getAccounts().subscribe(accounts => {
           this.accounts = accounts.result;
+          console.log(this.accounts[0]);
+          this.defaultAccount = this.accounts[0];
         });
       },
       err => {
