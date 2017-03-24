@@ -299,7 +299,7 @@ def transfer():
         except:
             return jsonify({'result': "Destination account does not exist."}), 500
 
-        if origin.total < amount:
+        if origin.total < float(body['amount']):
             return jsonify({'result': "You do not have sufficent funds."}), 500
         else:
             origin.withdraw(body['amount'], destination.account_type)

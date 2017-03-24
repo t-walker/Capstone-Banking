@@ -47,7 +47,9 @@ export class SettingsComponent implements OnInit {
     accountData['new_password'] = this.new_password;
 
     this.settingsService.onSubmit(accountData).subscribe(
-      result => {},
+      result => {
+        this.userService.getCurrentUser();
+      },
       err => {},
       () => {}
     );

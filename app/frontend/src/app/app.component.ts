@@ -9,6 +9,7 @@ import {UserService} from "./user/services/user.service";
 
 export class AppComponent implements OnInit {
   constructor(private localStorage: LocalStorageService, private userService: UserService) {
+    this.userService.grabUser();
   }
 
   ngOnInit() {
