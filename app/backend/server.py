@@ -236,6 +236,10 @@ def my_edit():
         if user.check_password(body['old_password']):
             user.set_password(body['new_password'])
 
+    if "default_account" in body:
+        if body['default_account'] != user.default_account:
+            user.default_account = body['default_account']
+
     db.session.add(user)
     db.session.commit()
 

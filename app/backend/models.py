@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(120), default="user")
     default_account = db.Column(db.Integer, unique=True)
 
+
     def __init__(self, email="", first_name="", last_name="", password="", role=""):
         self.email = email
         self.first_name = first_name
@@ -153,7 +154,7 @@ class InitialLoanApplication(db.Model):
 class UserSchema(ModelSchema):
 
     class Meta:
-        fields = ('email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name', 'default_account')
 
 
 class InitialLoanApplicationSchema(ModelSchema):

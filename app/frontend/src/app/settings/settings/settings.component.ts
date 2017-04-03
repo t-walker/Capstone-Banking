@@ -10,13 +10,14 @@ import {SettingsService} from './settings.service';
 export class SettingsComponent implements OnInit {
   private user;
 
+  private account;
   private fname: string;
   private lname: string;
   private email: string;
   private old_password: string;
   private new_password: string;
   private confirm_password: string;
-  private defaultDeposit = "Checking";
+  private defaultDepositId: number;
 
   private accounts;
 
@@ -27,6 +28,7 @@ export class SettingsComponent implements OnInit {
         this.fname = this.user['first_name'];
         this.lname = this.user['last_name'];
         this.email = this.user['email'];
+        this.defaultDepositId = this.user['default_account'];
       }
     );
 
@@ -45,6 +47,9 @@ export class SettingsComponent implements OnInit {
     accountData['email'] = this.email;
     accountData['old_password'] = this.old_password;
     accountData['new_password'] = this.new_password;
+    accountData['default_account'] = this.account;
+    console.log(this.account);
+
 
     this.settingsService.onSubmit(accountData).subscribe(
       result => {
