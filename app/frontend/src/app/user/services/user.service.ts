@@ -66,6 +66,21 @@ export class UserService {
     return body.result || [];
   }
 
+  grabUser() {
+    this.getCurrentUser().subscribe(
+      data => {
+        this.isLoggedIn.next(true);
+        this.user.next(data.result);
+      },
+      err => {
+        this.isLoggedIn.next(false);
+      },
+      () => {
+
+      }
+    );
+  }
+
   getCurrentUser() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

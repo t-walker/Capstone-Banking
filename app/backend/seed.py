@@ -9,7 +9,7 @@ users.append({'email': 'twalker@email.com',
               'first_name': 'Tyler',
               'last_name': 'Walker',
               'password': 'password1',
-              'role': 'admin'})
+              })
 
 users.append({'email': 'mjenkins@email.com',
               'first_name': 'Micah',

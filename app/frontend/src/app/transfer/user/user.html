@@ -1,16 +1,22 @@
 <form>
   <div class="form-group">
     <label for="accountF"><b>From</b></label>
-    <select [(ngModel)]="accountF" name="accountF" class="form-control" id="accountF" placeholder="">
-      <option value="" disabled="true" selected>Choose an Account...</option>
-      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    <select [(ngModel)]="accountF" name="accountF" class="form-control" id="accountF">
+      <option *ngFor="let accountF of accounts"
+              [value]="accountF.id"
+              [attr.selected]="accountF.id === defaultAccountFirst.id">
+              {{accountF.account_type}} ({{accountF.total | currency:'USD':true}})
+      </option>
     </select>
   </div>
   <div class="form-group">
     <label for="accountT"><b>To</b></label>
-    <select [(ngModel)]="accountT" name="accountT" class="form-control" id="accountT" placeholder="">
-      <option value="" disabled="true" selected>Choose an Account...</option>
-      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    <select [(ngModel)]="accountT" name="accountT" class="form-control" id="accountT">
+      <option *ngFor="let accountT of accounts"
+              [value]="accountT.id"
+              [attr.selected]="accountT.id === defaultAccountSecond.id">
+              {{accountT.account_type}} ({{accountT.total | currency:'USD':true}})
+      </option>
     </select>
   </div>
   <div class="form-group">

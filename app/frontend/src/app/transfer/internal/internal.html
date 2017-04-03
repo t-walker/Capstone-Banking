@@ -10,9 +10,12 @@
   </div>
   <div class="form-group" [ngClass]="{'has-danger': hasError}">
     <label for="account"><b>Accounts</b></label>
-    <select [(ngModel)]="account" name="account" class="form-control" id="account">
-      <option value="" disabled="true" selected>Choose an Account...</option>
-      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+    <select [(ngModel)]="account" name="account" class="form-control" id="account" ngModel>
+      <option *ngFor="let account of accounts"
+              [value]="account.id"
+              [selected]="account == defaultAccount">
+              {{account.account_type}} ({{account.total | currency:'USD':true}})
+      </option>
     </select>
   </div>
   <div class="form-group" [ngClass]="{'has-danger': hasError}">

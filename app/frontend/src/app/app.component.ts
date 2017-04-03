@@ -9,15 +9,7 @@ import {UserService} from "./user/services/user.service";
 
 export class AppComponent implements OnInit {
   constructor(private localStorage: LocalStorageService, private userService: UserService) {
-    this.userService.getCurrentUser().subscribe(
-      data => {
-        this.userService.isLoggedIn.next(true);
-        this.userService.user.next(data.result);
-      },
-      err => {
-        this.userService.isLoggedIn.next(false);
-      }
-    );
+    this.userService.grabUser();
   }
 
   ngOnInit() {
