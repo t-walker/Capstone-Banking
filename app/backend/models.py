@@ -34,14 +34,21 @@ class User(db.Model, UserMixin):
     def set_password(self, password):
         return generate_password_hash(password)
 
+
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
 
     def is_authenticated(self):
         return True  # If it's assigned to here, they are authenticated.
 
+
     def is_anonymous(self):
         return False
+
+
+    def can_review(self):
+        return self.role == 'admin' or self.role == 'officer'
 
 
 @lm.user_loader
@@ -131,16 +138,28 @@ class InitialLoanApplication(db.Model):
         "LoanTag", secondary=loan_loantag)
 
 
+    def approve(self):
+        # check if user can approve
+        self.status = "Approved"
+
+
+    def deny(self, user):
+        # check if user can approve
+        self.status = "Denied"
+
+
 # Schemas
 class UserSchema(ModelSchema):
 
     class Meta:
         fields = ('email', 'first_name', 'last_name')
 
+
 class InitialLoanApplicationSchema(ModelSchema):
 
     class Meta:
         fields = ('id', 'name', 'status', 'requested_amount', 'term', 'description')
+
 
 class TransactionSchema(ModelSchema):
     account_id = fields.Integer()

@@ -10,17 +10,20 @@ export class LoanReviewService {
   constructor(private http: Http) { }
 
   getLoan(id) {
-   return this.http
-     .get(
-       '/api/loan/' + id
-     ).map(this.extractData);
- }
+    return this.http
+      .get(
+      '/api/loan/' + id
+      ).map(res => res.json());
+  }
+  
+  reviewLoan(id, action) {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-   private extractData(res: Response) {
-    let body = res.json();
+    var body = {};
+    body['action'] = action;
 
-    console.log("extract data");
-    console.log(body);
-    return body.result || [];
+    return this.http.post('api/loan/' + id + '/review', body, { headers: headers })
+      .map(res => res.json());
   }
 }

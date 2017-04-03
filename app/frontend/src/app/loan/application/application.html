@@ -107,9 +107,9 @@
           <label for="exampleSelect2"><b>Funding Sources</b></label>
           <select [(ngModel)]="funding" name="funding" class="form-control" id="exampleSelect2" placeholder="">
             <option value="" disabled="true" [selected]="true">Choose One...</option>
-            <option>Direct Loan (Bank)</option>
-            <option>Peer Loan (Single-Payer)</option>
-            <option>Community Loan (Multiple-Payer)</option>
+            <option value="bank">Direct Loan (Bank)</option>
+            <option value="peer">Peer Loan (Single-Payer)</option>
+            <option value="community">Community Loan (Multiple-Payer)</option>
           </select>
         </div>
       </div>

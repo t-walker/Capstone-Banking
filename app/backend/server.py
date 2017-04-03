@@ -322,14 +322,48 @@ def create_loan_application():
 
 
 @app.route('/api/loan/<int:loan_id>', methods=['GET'])
-def loan_approval(loan_id):
+def loan_view(loan_id):
     loan_schema = InitialLoanApplicationSchema(many=False)
 
     loans = db.session.query(InitialLoanApplication).filter_by(id=int(loan_id)).first()
     result = loan_schema.dump(loans)
 
-
     return jsonify({'result': result.data})
+
+@app.route('/api/loan/<int:loan_id>/review', methods=['POST'])
+def loan_review(loan_id):
+    body = request.json
+
+    loan = db.session.query(InitialLoanApplication).filter_by(id=int(loan_id)).first()
+
+    if body['action'] == 'approve':
+        try:
+            if current_user.can_review():
+                loan.approve()
+                if loan.funding == "bank":
+                    user = db.session.query(User).filter_by(id=loan.user_id).first()
+                    user.accounts[0].depost(loan.amount)
+
+                db.session.add(loan)
+                db.session.add(user)
+                db.session.commit()
+            else:
+                return jsonify({'result': "user cannot review"}), 500
+        except:
+            return jsonify({'result': "error approving"}), 500
+
+    if body['action'] == 'deny':
+        try:
+            if current_user.can_review():
+                loan.deny()
+                db.session.add(loan)
+                db.session.commit()
+            else:
+                return jsonify({'result': ""}), 200
+        except:
+            return jsonify({'result': "error denying"}), 500
+
+
 
 
 @app.route('/api/accounts', methods=['GET'])

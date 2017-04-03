@@ -10,7 +10,7 @@ export class UserService {
 
   public isLoggedIn = new BehaviorSubject<boolean>(false);
   public user = new BehaviorSubject({});
-  
+
   constructor(private http: Http, private localStorage: LocalStorageService, private router: Router) {
     this.isLoggedIn.next(!!localStorage.get('user'));
   }
@@ -30,8 +30,6 @@ export class UserService {
       .map((res) => {
         this.isLoggedIn.next(true);
         this.user.next(res.result[0]);
-        this.isLoggedIn.next(true);
-        this.localStorage.set('logged_in', 'true');
       });
   }
 
@@ -82,7 +80,7 @@ export class UserService {
 
   logout() {
     this.isLoggedIn.next(false);
-    this.http.get('/api/logout');
+    this.http.get('/api/logout').subscribe();
     this.router.navigate(['home']);
   }
 }
