@@ -69,11 +69,10 @@
   </div>
 
   <div class="col-md-6">
-    <select [(ngModel)]="account" name="account" class="form-control" id="account">
+    <select [(ngModel)]="defaultAccount" name="account" class="form-control" id="account">
       <option value="" disabled="true" [selected]="true">Choose One...</option>
       <option *ngFor="let accountD of accounts"
-              [value]="accountD.id"
-              [attr.selected]="accountD.id === defaultDepositId">
+              [ngValue]="accountD">
               {{accountD.account_type}} ({{accountD.total | currency:'USD':true}})
       </option>
     </select>
