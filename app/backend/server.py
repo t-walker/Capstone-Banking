@@ -15,7 +15,6 @@ from flask.ext.marshmallow import Marshmallow  # Data serialization
 
 sleep(5)  # Delay is required for allowing the Database to startup
 
-
 app = Flask(__name__)
 app.secret_key = "ASECRETKEYGOESHERE"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://pgdbuser:pgdbpassword@db/varda"
@@ -35,9 +34,8 @@ db.create_all()
 # INITIALIZE LOGIN MANAGEMENT
 lm.init_app(app)
 
+
 # ROUTES
-
-
 @app.route('/api/add/<int:param1>/<int:param2>')
 def add(param1, param2):
     task = celery.send_task('add', args=[param1, param2], kwargs={})
@@ -212,6 +210,7 @@ def my_accounts():
 
     return jsonify({'result': result.data}), 200
 
+
 @app.route('/api/my/profile', methods=['POST'])
 @login_required
 def my_edit():
@@ -342,6 +341,7 @@ def transfer():
 
     return jsonify({'result': "Transaction successful"}), 200
 
+
 @app.route('/api/loan/apply', methods=['POST'])
 def create_loan_application():
     loan = InitialLoanApplication(**request.json)
@@ -365,6 +365,7 @@ def loan_view(loan_id):
     result = loan_schema.dump(loans)
 
     return jsonify({'result': result.data})
+
 
 @app.route('/api/loan/<int:loan_id>/review', methods=['POST'])
 def loan_review(loan_id):
@@ -398,8 +399,6 @@ def loan_review(loan_id):
                 return jsonify({'result': ""}), 200
         except:
             return jsonify({'result': "error denying"}), 500
-
-
 
 
 @app.route('/api/accounts', methods=['GET'])
