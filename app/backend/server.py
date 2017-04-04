@@ -80,7 +80,6 @@ def login():
         result = user_schema.dump(current_user)
         return jsonify({'result': result})
 
-
     return jsonify({'error': 'could not find user'}), 500
 
 

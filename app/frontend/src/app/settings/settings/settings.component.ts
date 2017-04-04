@@ -8,7 +8,8 @@ import {SettingsService} from './settings.service';
 })
 
 export class SettingsComponent implements OnInit {
-  private user;
+  private user: any = null;
+  private accounts: any = null;
 
   private fname: string;
   private lname: string;
@@ -18,9 +19,8 @@ export class SettingsComponent implements OnInit {
   private confirm_password: string;
   private defaultAccount: any = null;
   private defaultAccountId: number;
-  private accounts: any = null;
 
-  constructor(private userService: UserService, private settingsService: SettingsService) {}
+  constructor(private userService: UserService, private settingsService: SettingsService) { }
 
   ngOnInit() {
     console.log("Settings component initialized ...");
@@ -41,13 +41,18 @@ export class SettingsComponent implements OnInit {
       result => {
         this.refreshAccounts();
       },
-      err => {},
-      () => {}
+      err => {
+
+      },
+      () => {
+
+      }
     );
 
   }
 
   refreshAccounts() {
+    this.userService.grabUser();
     this.userService.user.subscribe(
       user => {
         this.user = user;

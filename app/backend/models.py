@@ -154,7 +154,7 @@ class InitialLoanApplication(db.Model):
 class UserSchema(ModelSchema):
 
     class Meta:
-        fields = ('email', 'first_name', 'last_name', 'default_account')
+        fields = ('email', 'first_name', 'last_name', 'default_account', 'role')
 
 
 class InitialLoanApplicationSchema(ModelSchema):

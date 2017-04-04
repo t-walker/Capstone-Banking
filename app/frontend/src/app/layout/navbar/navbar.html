@@ -22,13 +22,13 @@
           <a class="nav-link" [routerLink]="['accounts']" [routerLinkActive]="['is-active']">Accounts</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn">
-          <a class="nav-link" [routerLink]="['/review', 'loans']" [routerLinkActive]="['is-active']">Review Loans</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [routerLink]="['transfer']">Transfer</a>
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" [routerLink]="['/review', 'loans']" [routerLinkActive]="['is-active']">Admin</a>
+        </li>
         <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [routerLink]="['settings']" [routerLinkActive]="['is-active']">Settings</a>
         </li>

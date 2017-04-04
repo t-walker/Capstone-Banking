@@ -6,11 +6,11 @@
 <form>
   <div class="form-group" [ngClass]="{'has-danger': hasError}">
     <label for="destination">To</label>
-    <input [(ngModel)]="destination" name="destination" type="email" class="form-control">
+    <input [(ngModel)]="destination" name="destination" type="email" class="form-control" placeholder="Destination address...">
   </div>
   <div class="form-group" [ngClass]="{'has-danger': hasError}">
     <label for="account"><b>Accounts</b></label>
-    <select [(ngModel)]="account" name="account" class="form-control" id="account" ngModel>
+    <select [(ngModel)]="account" name="account" class="form-control" id="account">
       <option *ngFor="let accountDs of accounts"
               [ngValue]="accountDs">
               {{accountDs.account_type}} ({{accountDs.total | currency:'USD':true}})
@@ -21,7 +21,7 @@
     <label for="amount"><b>Amount</b></label>
     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
       <div class="input-group-addon">$</div>
-      <input [(ngModel)]="amount" name="requested_amount" type="text" class="form-control" id="amount">
+      <input [(ngModel)]="amount" name="requested_amount" type="text" class="form-control" id="amount" placeholder="Amount...">
     </div>
   </div>
   <button type="submit" class="btn btn-success" (click)="transferMoney()">Send</button>
