@@ -2,7 +2,6 @@ import sys
 
 from time import sleep # Wait for the DB to be ready.
 
-from worker import celery
 from flask import Flask, send_file, jsonify, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
