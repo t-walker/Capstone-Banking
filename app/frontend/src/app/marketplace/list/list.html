@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Loan Marketplace</h1>
+  </div>
+</div>
+
+<!-- <div class="row" *ngFor="let row of loanGrid">
+  <div class="card-columns">
+    <div class="card" *ngFor="let loan of row">
+      <div class="card-block">
+        <h4 class="card-title">{{loan.name}}</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row" >
+  <div class="card-columns">
+    <div class="card" *ngFor="let loan of loans">
+      <div class="card-block">
+        <h4 class="card-title">{{loan.name}}</h4>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a [routerLink]="['/loan', 'marketplace', loan.id]" class="btn btn-primary">View Loan</a>
+      </div>
+    </div>
+  </div>
+</div>

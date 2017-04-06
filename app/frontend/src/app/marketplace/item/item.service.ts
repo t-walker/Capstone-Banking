@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class LoanReviewService {
+export class MarketItemService {
 
   constructor(private http: Http) { }
 
@@ -14,16 +14,5 @@ export class LoanReviewService {
       .get(
       '/api/loan/' + id
       ).map(res => res.json());
-  }
-  
-  reviewLoan(id, action) {
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    var body = {};
-    body['action'] = action;
-
-    return this.http.post('api/loan/' + id + '/review', body, { headers: headers })
-      .map(res => res.json());
   }
 }

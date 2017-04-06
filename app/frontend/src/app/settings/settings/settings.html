@@ -69,9 +69,12 @@
   </div>
 
   <div class="col-md-6">
-    <select [(ngModel)]="account" name="account" class="form-control" id="account">
+    <select [(ngModel)]="defaultAccount" name="account" class="form-control" id="account">
       <option value="" disabled="true" [selected]="true">Choose One...</option>
-      <option *ngFor="let account of accounts" [value]="account.id">{{account.account_type}} ({{account.total | currency:'USD':true}})</option>
+      <option *ngFor="let accountD of accounts"
+              [ngValue]="accountD">
+              {{accountD.account_type}} ({{accountD.total | currency:'USD':true}})
+      </option>
     </select>
     <label for="account" class="control-label" style="padding: 0; margin: 0;">Where Your Transfers Will Be Deposited</label>
 

@@ -1,21 +1,16 @@
 import sys
 
-from time import sleep # Wait for the DB to be ready.
+from time import sleep  # Wait for the DB to be ready.
 
-from worker import celery
 from flask import Flask, send_file, jsonify, request, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-from flask.ext.seasurf import SeaSurf
-from werkzeug.security import generate_password_hash, check_password_hash
-
 from flask.ext.seasurf import SeaSurf
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy  # Database management
 from flask.ext.marshmallow import Marshmallow  # Data serialization
 
-sleep(5)  # Delay is required for allowing the Database to startup
+from werkzeug.security import generate_password_hash, check_password_hash
 
+sleep(5)  # Delay is required for allowing the Database to startup
 
 app = Flask(__name__)
 app.secret_key = "ASECRETKEYGOESHERE"
@@ -36,9 +31,8 @@ db.create_all()
 # INITIALIZE LOGIN MANAGEMENT
 lm.init_app(app)
 
+
 # ROUTES
-
-
 @app.route('/api/add/<int:param1>/<int:param2>')
 def add(param1, param2):
     task = celery.send_task('add', args=[param1, param2], kwargs={})
@@ -61,7 +55,7 @@ def current():
         if current_user.is_authenticated():
             result = user_schema.dump(current_user)
         else:
-           return jsonify({'error': "no user logged in ... not authenticated"}), 500
+            return jsonify({'error': "no user logged in ... not authenticated"}), 500
     except:
         return jsonify({'error': "no user logged in"}), 500
 
@@ -82,7 +76,6 @@ def login():
         login_user(user, remember=False)
         result = user_schema.dump(current_user)
         return jsonify({'result': result})
-
 
     return jsonify({'error': 'could not find user'}), 500
 
@@ -139,7 +132,8 @@ def get_account_transactions(account_id):
 
     try:
         account = db.session.query(Account).filter_by(id=account_id).first()
-        transactions = account.transactions.order_by(desc(Transaction.amount)).limit(500).all()
+        transactions = account.transactions.order_by(
+            desc(Transaction.amount)).limit(500).all()
         transactions = transactions[::-1]
         result = transactions_schema.dump(transactions)
     except:
@@ -168,7 +162,8 @@ def get_users():
         result = users_schema.dump(users)
         #result['data'] = ["one", "two", "three"]
     except Exception as inst:
-        s = '<h1>ERROR GET USERS .{0}. .{1}. .{2}.</h1>'.format(type(inst), inst.args, inst)
+        s = '<h1>ERROR GET USERS .{0}. .{1}. .{2}.</h1>'.format(
+            type(inst), inst.args, inst)
         return s
 
     return jsonify({'result': result.data})
@@ -213,6 +208,7 @@ def my_accounts():
 
     return jsonify({'result': result.data}), 200
 
+
 @app.route('/api/my/profile', methods=['POST'])
 @login_required
 def my_edit():
@@ -236,6 +232,10 @@ def my_edit():
         if user.check_password(body['old_password']):
             user.set_password(body['new_password'])
 
+    if "default_account" in body:
+        if body['default_account'] != user.default_account:
+            user.default_account = body['default_account']
+
     db.session.add(user)
     db.session.commit()
 
@@ -245,9 +245,10 @@ def my_edit():
 @app.route('/api/my/loans', methods=['GET'])
 @login_required
 def my_loan_applications():
-    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+    loanapplication_schema = LoanApplicationSchema(many=True)
 
-    applications = db.session.query(InitialLoanApplication).filter_by(user_id=current_user.id).all()
+    applications = db.session.query(LoanApplication).filter_by(
+        user_id=current_user.id).order_by(LoanApplication.status).all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -257,9 +258,23 @@ def my_loan_applications():
 @app.route('/api/review/loans', methods=['GET'])
 @login_required
 def loans_to_review():
-    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+    loanapplication_schema = LoanApplicationSchema(many=True)
 
-    applications = db.session.query(InitialLoanApplication).filter_by(status='Pending').all()
+    applications = db.session.query(
+        LoanApplication).filter_by(status='Pending').all()
+
+    result = loanapplication_schema.dump(applications)
+
+    return jsonify({'result': result.data}), 200
+
+
+@app.route('/api/loans/marketplace', methods=['GET'])
+@login_required
+def loans_for_marketplace():
+    loanapplication_schema = LoanApplicationSchema(many=True)
+
+    applications = db.session.query(
+        LoanApplication).filter_by(status='Approved', funding='community').all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -271,7 +286,8 @@ def my_account_transactions(account_id):
     transaction_schema = TransactionSchema(many=True)
 
     try:
-        transactions = db.session.query(Transaction).filter_by(account_id=account_id).order_by(Transaction.timestamp.desc()).limit(500).all()
+        transactions = db.session.query(Transaction).filter_by(
+            account_id=account_id).order_by(Transaction.timestamp.desc()).limit(500).all()
         result = transaction_schema.dump(transactions)
     except:
         return jsonify({'error': "accounts invalid"}), 500
@@ -290,12 +306,14 @@ def transfer():
 
     if body['type'] == 'user':
         try:
-            origin = db.session.query(Account).filter_by(id=body['accountF']).first()
+            origin = db.session.query(Account).filter_by(
+                id=body['accountF']).first()
         except:
             return jsonify({'result': "Origin account does not exist."}), 500
 
         try:
-            destination = db.session.query(Account).filter_by(id=body['accountT']).first()
+            destination = db.session.query(Account).filter_by(
+                id=body['accountT']).first()
         except:
             return jsonify({'result': "Destination account does not exist."}), 500
 
@@ -306,7 +324,8 @@ def transfer():
             destination.deposit(body['amount'], origin.account_type)
     elif body['type'] == 'internal':
         try:
-            destination = db.session.query(User).filter_by(email=body['destination']).first()
+            destination = db.session.query(User).filter_by(
+                email=body['destination']).first()
         except:
             return jsonify({result: "The user you are sending to does not exist."})
 
@@ -316,7 +335,8 @@ def transfer():
             return jsonify({'result': "You did not provide a valid account."}), 500
 
         try:
-            from_account = current_user.accounts.filter_by(id=int(body['account'])).first()
+            from_account = current_user.accounts.filter_by(
+                id=int(body['account'])).first()
         except:
             return jsonify({'result': "Your account choice is invalid."}), 500
 
@@ -339,9 +359,10 @@ def transfer():
 
     return jsonify({'result': "Transaction successful"}), 200
 
+
 @app.route('/api/loan/apply', methods=['POST'])
 def create_loan_application():
-    loan = InitialLoanApplication(**request.json)
+    loan = LoanApplication(**request.json)
     loan.user_id = current_user.id
 
     try:
@@ -355,14 +376,49 @@ def create_loan_application():
 
 
 @app.route('/api/loan/<int:loan_id>', methods=['GET'])
-def loan_approval(loan_id):
-    loan_schema = InitialLoanApplicationSchema(many=False)
+def loan_view(loan_id):
+    loan_schema = LoanApplicationSchema(many=False)
 
-    loans = db.session.query(InitialLoanApplication).filter_by(id=int(loan_id)).first()
+    loans = db.session.query(LoanApplication).filter_by(
+        id=int(loan_id)).first()
     result = loan_schema.dump(loans)
 
-
     return jsonify({'result': result.data})
+
+
+@app.route('/api/loan/<int:loan_id>/review', methods=['POST'])
+def loan_review(loan_id):
+    body = request.json
+
+    loan = db.session.query(LoanApplication).filter_by(
+        id=int(loan_id)).first()
+
+    if body['action'] == 'approve':
+        if current_user.can_review():
+            loan.approve()
+            if loan.funding == "bank":
+                user = db.session.query(User).filter_by(
+                    id=loan.user_id).first()
+                user.accounts[0].depost(loan.amount)
+                db.session.add(user)
+
+            db.session.add(loan)
+            db.session.commit()
+            return jsonify({'result': ""}), 200
+        else:
+            return jsonify({'result': "user cannot review"}), 500
+
+
+    if body['action'] == 'deny':
+        try:
+            if current_user.can_review():
+                loan.deny()
+                db.session.add(loan)
+                db.session.commit()
+            else:
+                return jsonify({'result': ""}), 200
+        except:
+            return jsonify({'result': "error denying"}), 500
 
 
 @app.route('/api/accounts', methods=['GET'])

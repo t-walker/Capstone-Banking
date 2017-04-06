@@ -15,42 +15,42 @@ import { UserService } from '../../user/services/user.service';
 
 export class TransferInternalComponent implements OnInit {
 
-  private destination: string;
   private amount: number;
-  private account: number;
+  private accountId: number;
+  private destination: string;
 
-  private accounts = [];
-  private hasError = false;
+  private accounts: any = [];
+  private account: any = null;
+
   private errorMsg = "";
+  private hasError: boolean = false;
 
-  constructor(private transferService: TransferService, private userService: UserService, private router: Router) {
-  }
+  constructor(private transferService: TransferService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-
     console.log("Transfer component initialized ............");
-
-    this.userService.getAccounts().subscribe(accounts => {
-      this.accounts = accounts.result;
-    });
-    
+    this.refreshAccounts();
   }
 
   transferMoney() {
-  	this.transferService.transferFundsInternal(this.destination, this.amount, this.account)
+  	this.transferService.transferFundsInternal(this.destination, this.amount, this.account.id)
     .subscribe(
       data => {
-        this.userService.getAccounts().subscribe(accounts => {
-          this.accounts = accounts.result;
-        });
+        this.refreshAccounts();
       },
       err => {
         this.hasError = true;
         this.errorMsg = err.json().result;
       },
       () => {
-
       }
     );
+  }
+
+  refreshAccounts() {
+    this.userService.getAccounts().subscribe(accounts => {
+      this.accounts = accounts.result;
+      this.account = this.accounts[0];
+    });
   }
 }

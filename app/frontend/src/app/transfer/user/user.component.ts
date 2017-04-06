@@ -13,31 +13,23 @@ import { UserService } from '../../user/services/user.service';
 })
 
 export class TransferUserComponent implements OnInit {
-
-  private accountF: number;
-  private accountT: number;
   private amount: number;
+  private accounts: any = null;
+  private accountF: any = null;
+  private accountT: any = null;
 
-  private accounts;
-
-  constructor(private transferService: TransferService, private userService: UserService, private router: Router) {
-  }
+  constructor(private transferService: TransferService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     console.log("TransferUser component initialized ............");
-
-    this.userService.getAccounts().subscribe(accounts => {
-      this.accounts = accounts.result;
-    });
+    this.refreshAccounts();
   }
 
   transferMoney() {
-  	this.transferService.transferFundsUser(this.accountF, this.accountT, this.amount)
+  	this.transferService.transferFundsUser(this.accountF.id, this.accountT.id, this.amount)
     .subscribe(
       data => {
-        this.userService.getAccounts().subscribe(accounts => {
-          this.accounts = accounts.result;
-        });
+        this.refreshAccounts();
       },
       err => {
 
@@ -48,4 +40,11 @@ export class TransferUserComponent implements OnInit {
     );
   }
 
+  refreshAccounts() {
+    this.userService.getAccounts().subscribe(accounts => {
+      this.accounts = accounts.result;
+      this.accountF = this.accounts[0];
+      this.accountT = this.accounts[1];
+    });
+  }
 }
