@@ -21,6 +21,8 @@ class User(db.Model, UserMixin):
     accounts = db.relationship("Account", backref="user", lazy="dynamic")
     role = db.Column(db.String(120), default="user")
     default_account = db.Column(db.Integer, unique=True)
+    loan_applications = db.relationship('LoanApplication', backref='LoanApplication', lazy='dynamic', primaryjoin="User.id==LoanApplication.user_id")
+
 
     def __init__(self, email="", first_name="", last_name="", password="", role=""):
         self.email = email
@@ -111,21 +113,7 @@ class Transaction(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
 
-class LoanTag(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    tag = db.Column(db.String(200), unique=False)
-
-
-loan_loantag = db.Table('loan_loantag',
-                        db.Column('loan_id', db.Integer, db.ForeignKey(
-                            'initial_loan_application.id')),
-                        db.Column('tag_id', db.Integer,
-                                  db.ForeignKey('loan_tag.id'))
-                        )
-
-
-class InitialLoanApplication(db.Model):
-    __tablename__ = "initial_loan_application"
+class LoanApplication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(200), unique=False)
@@ -137,8 +125,7 @@ class InitialLoanApplication(db.Model):
     funding = db.Column(db.String(50), unique=False)
     payment = db.Column(db.String(50), unique=False)
     submitted = db.Column(db.DateTime, default=datetime.datetime.now)
-    tags = db.relationship(
-        "LoanTag", secondary=loan_loantag)
+
 
     def approve(self):
         # check if user can approve
@@ -150,32 +137,23 @@ class InitialLoanApplication(db.Model):
 
 
 # Schemas
-class UserSchema(ModelSchema):
-
+class LoanApplicationSchema(ModelSchema):
     class Meta:
-        fields = ('email', 'first_name', 'last_name',
-                  'default_account', 'role')
-
-
-class InitialLoanApplicationSchema(ModelSchema):
-
-    class Meta:
-        fields = ('id', 'name', 'status',
-                  'requested_amount', 'term', 'description', 'funding')
+        model = LoanApplication
 
 
 class TransactionSchema(ModelSchema):
-    account_id = fields.Integer()
-    tx_type = fields.String()
-    tx_from = fields.String()
-    tx_to = fields.String()
-    amount = fields.Float()
-
     class Meta:
-        fields = ('account_id', 'tx_type', 'tx_from',
-                  'tx_to', 'amount', 'timestamp')
+        model = Transaction
 
 
 class AccountSchema(ModelSchema):
     class Meta:
-        fields = ('id', 'user_id', 'account_type', 'total')
+        model = Account
+
+class UserSchema(ModelSchema):
+    accounts = ma.Nested(AccountSchema)
+    loan_applications = ma.Nested(LoanApplicationSchema)
+
+    class Meta:
+        fields = ('email', 'first_name', 'last_name', 'accounts', 'role', 'default_account', 'loan_applications')

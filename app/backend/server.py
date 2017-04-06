@@ -245,10 +245,10 @@ def my_edit():
 @app.route('/api/my/loans', methods=['GET'])
 @login_required
 def my_loan_applications():
-    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+    loanapplication_schema = LoanApplicationSchema(many=True)
 
-    applications = db.session.query(InitialLoanApplication).filter_by(
-        user_id=current_user.id).order_by(InitialLoanApplication.status).all()
+    applications = db.session.query(LoanApplication).filter_by(
+        user_id=current_user.id).order_by(LoanApplication.status).all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -258,10 +258,10 @@ def my_loan_applications():
 @app.route('/api/review/loans', methods=['GET'])
 @login_required
 def loans_to_review():
-    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+    loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(
-        InitialLoanApplication).filter_by(status='Pending').all()
+        LoanApplication).filter_by(status='Pending').all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -271,10 +271,10 @@ def loans_to_review():
 @app.route('/api/loans/marketplace', methods=['GET'])
 @login_required
 def loans_for_marketplace():
-    loanapplication_schema = InitialLoanApplicationSchema(many=True)
+    loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(
-        InitialLoanApplication).filter_by(status='Approved', funding='community').all()
+        LoanApplication).filter_by(status='Approved', funding='community').all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -362,7 +362,7 @@ def transfer():
 
 @app.route('/api/loan/apply', methods=['POST'])
 def create_loan_application():
-    loan = InitialLoanApplication(**request.json)
+    loan = LoanApplication(**request.json)
     loan.user_id = current_user.id
 
     try:
@@ -377,9 +377,9 @@ def create_loan_application():
 
 @app.route('/api/loan/<int:loan_id>', methods=['GET'])
 def loan_view(loan_id):
-    loan_schema = InitialLoanApplicationSchema(many=False)
+    loan_schema = LoanApplicationSchema(many=False)
 
-    loans = db.session.query(InitialLoanApplication).filter_by(
+    loans = db.session.query(LoanApplication).filter_by(
         id=int(loan_id)).first()
     result = loan_schema.dump(loans)
 
@@ -390,7 +390,7 @@ def loan_view(loan_id):
 def loan_review(loan_id):
     body = request.json
 
-    loan = db.session.query(InitialLoanApplication).filter_by(
+    loan = db.session.query(LoanApplication).filter_by(
         id=int(loan_id)).first()
 
     if body['action'] == 'approve':

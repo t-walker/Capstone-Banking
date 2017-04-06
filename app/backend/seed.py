@@ -86,7 +86,7 @@ for user in db.session.query(User).all():
     print("LOG: Adding user: " + user.first_name + " loans.")
 
     for i in range(50):
-        loan = InitialLoanApplication(user_id=user.id, name="loan" + str(i), type="personal", requested_amount=i*50, funding='community')
+        loan = LoanApplication(user_id=user.id, name="loan" + str(i), type="personal", requested_amount=i*50, funding='community')
         db.session.add(loan)
 
 db.session.commit()
