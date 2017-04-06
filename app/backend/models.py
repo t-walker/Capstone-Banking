@@ -22,7 +22,6 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(120), default="user")
     default_account = db.Column(db.Integer, unique=True)
 
-
     def __init__(self, email="", first_name="", last_name="", password="", role=""):
         self.email = email
         self.first_name = first_name
@@ -32,22 +31,17 @@ class User(db.Model, UserMixin):
         if role:
             self.role = role
 
-
     def set_password(self, password):
         return generate_password_hash(password)
-
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-
     def is_authenticated(self):
         return True  # If it's assigned to here, they are authenticated.
 
-
     def is_anonymous(self):
         return False
-
 
     def can_review(self):
         return self.role == 'admin' or self.role == 'officer'
@@ -84,7 +78,8 @@ class Account(db.Model):
         else:
             user = self.user_id
 
-        tx = {'account_id': self.id, 'tx_type': 'D', 'tx_from': str(tx_from), 'tx_to': user, 'amount': amount}
+        tx = {'account_id': self.id, 'tx_type': 'D', 'tx_from': str(
+            tx_from), 'tx_to': user, 'amount': amount}
         tx = Transaction(**tx)
         db.session.add(tx)
         db.session.commit()
@@ -98,7 +93,8 @@ class Account(db.Model):
         else:
             user = self.user_id
 
-        tx = {'account_id': self.id, 'tx_type': 'W', 'tx_from': user, 'tx_to': str(tx_to), 'amount': amount}
+        tx = {'account_id': self.id, 'tx_type': 'W',
+              'tx_from': user, 'tx_to': str(tx_to), 'amount': amount}
         tx = Transaction(**tx)
         db.session.add(tx)
         db.session.commit()
@@ -114,14 +110,19 @@ class Transaction(db.Model):
     amount = db.Column(db.Float, unique=False)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
 
+
 class LoanTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(200), unique=False)
 
+
 loan_loantag = db.Table('loan_loantag',
-    db.Column('loan_id', db.Integer, db.ForeignKey('initial_loan_application.id')),
-    db.Column('tag_id', db.Integer, db.ForeignKey('loan_tag.id'))
-)
+                        db.Column('loan_id', db.Integer, db.ForeignKey(
+                            'initial_loan_application.id')),
+                        db.Column('tag_id', db.Integer,
+                                  db.ForeignKey('loan_tag.id'))
+                        )
+
 
 class InitialLoanApplication(db.Model):
     __tablename__ = "initial_loan_application"
@@ -139,11 +140,9 @@ class InitialLoanApplication(db.Model):
     tags = db.relationship(
         "LoanTag", secondary=loan_loantag)
 
-
     def approve(self):
         # check if user can approve
         self.status = "Approved"
-
 
     def deny(self, user):
         # check if user can approve
@@ -154,13 +153,15 @@ class InitialLoanApplication(db.Model):
 class UserSchema(ModelSchema):
 
     class Meta:
-        fields = ('email', 'first_name', 'last_name', 'default_account', 'role')
+        fields = ('email', 'first_name', 'last_name',
+                  'default_account', 'role')
 
 
 class InitialLoanApplicationSchema(ModelSchema):
 
     class Meta:
-        fields = ('id', 'name', 'status', 'requested_amount', 'term', 'description')
+        fields = ('id', 'name', 'status',
+                  'requested_amount', 'term', 'description', 'funding')
 
 
 class TransactionSchema(ModelSchema):
@@ -171,7 +172,8 @@ class TransactionSchema(ModelSchema):
     amount = fields.Float()
 
     class Meta:
-        fields = ('account_id', 'tx_type', 'tx_from', 'tx_to', 'amount', 'timestamp')
+        fields = ('account_id', 'tx_type', 'tx_from',
+                  'tx_to', 'amount', 'timestamp')
 
 
 class AccountSchema(ModelSchema):
