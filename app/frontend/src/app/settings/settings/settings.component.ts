@@ -66,7 +66,7 @@ export class SettingsComponent implements OnInit {
             this.accounts = data.result;
 
             for (let account of this.accounts) {
-              if (account.id == this.defaultAccountId) {
+              if (account.id === this.defaultAccountId) {
                 this.defaultAccount = account;
               }
             }
