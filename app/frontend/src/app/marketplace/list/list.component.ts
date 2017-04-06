@@ -13,31 +13,28 @@ export class MarketplaceListComponent implements OnInit {
   constructor(private marketService: MarketplaceListService) { }
 
   ngOnInit() {
-    this.loanGrid = [[{}, {}, {}], [{}, {}, {}], [{}, {}, {}]];
-    //
-    // this.marketService.getLoans().subscribe(
-    //   data => {
-    //     this.loans = data.result;
-    //     this.populateGrid();
-    //   },
-    //   err => { },
-    //   () => { }
-    // );
-  }
+    this.marketService.getLoans().subscribe(
+      data => {
+        this.loans = data;
 
-  populateGrid() {
-    // var i = 0;
-    // var tmp = [];
-    //
-    // for (let loan of this.loans) {
-    //   if (i === 2) {
-    //     this.loanGrid.push(tmp);
-    //     tmp = [];
-    //   }
-    //   tmp.push(loan);
-    //   i++;
-    // }
+        var i = 0;
+        var tmp = [];
 
-    this.loanGrid = [[{}, {}, {}], [{}, {}, {}], [{}, {}, {}]];
+        console.log(this.loans.length);
+
+        for (let loan of this.loans) {
+          console.log("iteration" + i );
+          if (i % 3 === 0) {
+            this.loanGrid.push(tmp);
+            tmp = [];
+          }
+          tmp.push(loan);
+          i++;
+        }
+        console.log(this.loanGrid);
+      },
+      err => { },
+      () => { }
+    );
   }
 }

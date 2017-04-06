@@ -68,7 +68,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         TransferInternalComponent,
         TransferUserComponent,
         SettingsComponent,
-        MarketplaceListComponent
+        MarketplaceListComponent,
+        MarketplaceItemComponent
     ],
     providers: [
         appRoutingProviders,
