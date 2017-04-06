@@ -4,6 +4,7 @@ import {ModuleWithProviders} from "@angular/core";
 import {AboutComponent} from "./about/components/about.component";
 import {HomeComponent} from "./home/home/home.component";
 import {SettingsComponent} from "./settings/settings/settings.component";
+import {LandingComponent} from "./landing/components/landing.component";
 
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
@@ -15,11 +16,10 @@ import {TransferComponent} from "./transfer/transfer/transfer.component";
 import {LoanApplicationComponent} from "./loan/application/application.component";
 import {UserLoanListingComponent} from "./loan/userlisting/userlisting.component";
 import {OfficerLoanListingComponent} from "./loan/officerlisting/officerlisting.component";
-
 import {LoanReviewComponent} from "./loan/review/review.component";
 
-import {LandingComponent} from "./landing/components/landing.component";
-
+import {MarketplaceItemComponent} from "./marketplace/item/item.component";
+import {MarketplaceListComponent} from "./marketplace/list/list.component";
 
 const appRoutes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,8 +29,9 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent, data: {title: 'Login'}},
     {path: 'landing', component: LandingComponent, data: {title: 'Landing'}},
     {path: 'accounts', component: AccountsComponent, data: {title: 'Accounts'}},
-    {path: 'loan_application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
+    {path: 'loan/application', component: LoanApplicationComponent, data: {title: 'Loan Application'}},
     {path: 'loans/review/:id', component: LoanReviewComponent, data: {title: 'Loan Approval'}},
+    {path: 'loan/marketplace', component: MarketplaceListComponent, data: {title: 'Loan Market'}},
     {path: 'my/loans', component: UserLoanListingComponent, data: {title: 'Your Loans'}},
     {path: 'review/loans', component: OfficerLoanListingComponent, data: {title: 'Your Loans'}},
     {path: 'account/:id', component: AccountDetailsComponent, data: {title: 'AccountDetails'}},

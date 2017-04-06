@@ -9,16 +9,24 @@
     <h5>Title:</h5>
     <p>{{loan.name}}</p>
 
-    <h5>Description:</h5>
-    <p>{{loan.description}}</p>
+    <div *ngIf="loan.description">
+      <h5>Description:</h5>
+      <p>{{loan.description}}</p>
+    </div>
+
 
     <h5>Requested Amount:</h5>
     <p>{{loan.requested_amount | currency:'USD':true}}</p>
 
+    <div *ngIf="loan.funding">
+      <h5>Funding Source:</h5>
+      <p>{{loan.funding}}</p>
+    </div>
 
-    <h5>Term:</h5>
-    <p>{{loan.term}}</p>
-
+    <div *ngIf="loan.term">
+      <h5>Term:</h5>
+      <p>{{loan.term}}</p>
+    </div>
 
     <button class="btn btn-success" (click)="approveLoan()">Approve</button>
     <button class="btn btn-danger"  (click)="denyLoan()">Deny</button>

@@ -9,6 +9,7 @@ users.append({'email': 'twalker@email.com',
               'first_name': 'Tyler',
               'last_name': 'Walker',
               'password': 'password1',
+              'role': 'admin'
               })
 
 users.append({'email': 'mjenkins@email.com',
@@ -79,5 +80,13 @@ for user in db.session.query(User).all():
                 account.withdraw(amount, 'bank')
             if wd == "D":
                 account.deposit(amount, 'bank')
+
+    loans = []
+
+    print("LOG: Adding user: " + user.first_name + " loans.")
+
+    for i in range(50):
+        loan = InitialLoanApplication(user_id=user.id, name="loan" + str(i), type="personal", requested_amount=i*50, funding='community')
+        db.session.add(loan)
 
 db.session.commit()

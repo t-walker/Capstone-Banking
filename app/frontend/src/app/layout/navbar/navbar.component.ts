@@ -7,15 +7,20 @@ import {Subscription} from 'rxjs/Rx';
   templateUrl: "./app/layout/navbar/navbar.html",
 })
 export class NavComponent implements OnInit {
-  ngOnInit() {
 
-  }
-
-  private isLoggedIn;
+  private isLoggedIn: any;
+  private user: any;
   private subscription: Subscription;
 
   constructor(private userService: UserService) {
-    this.subscription = this.userService.isLoggedIn.subscribe(value => {this.isLoggedIn = value; console.log(value); } );
+    this.subscription = this.userService.isLoggedIn.subscribe(value => { this.isLoggedIn = value; console.log(value); });
+    this.user = this.userService.user.subscribe(
+      user => { this.user = user; }
+    );
+  }
+
+  ngOnInit() {
+
   }
 
   logout() {
