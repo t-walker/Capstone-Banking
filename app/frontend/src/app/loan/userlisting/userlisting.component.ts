@@ -32,8 +32,7 @@ export class UserLoanListingComponent implements OnInit {
     this.listingService.getLoans()
       .subscribe(
       loans => {
-        this.loans = loans;
-        console.log(this.loans);
+        this.loans = loans.slice(0, 5);
       },
       err => console.log(err),
       () => console.log('finished'));

@@ -21,8 +21,8 @@
     <div class="card" *ngFor="let loan of loans">
       <div class="card-block">
         <h4 class="card-title">{{loan.name}}</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a [routerLink]="['/loan', 'marketplace', loan.id]" class="btn btn-primary">View Loan</a>
+        <p class="card-text">{{loan.description}}</p>
+        <a class="btn btn-primary" [routerLink]="['/loan/marketplace/', loan.id]">View Loan</a>
       </div>
     </div>
   </div>
