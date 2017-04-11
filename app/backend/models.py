@@ -6,7 +6,7 @@ from flask_login import UserMixin, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import fields
 from marshmallow_sqlalchemy import ModelSchema
-from sqlalchemy import events
+from sqlalchemy import func
 
 # MODELS
 string_maximum = 255
@@ -124,14 +124,14 @@ class LoanApplication(db.Model):
     description = db.Column(db.String(2000), unique=False)
     funding = db.Column(db.String(50), unique=False)
     payment = db.Column(db.String(50), unique=False)
-    submitted = db.Column(db.DateTime, default=datetime.datetime.now)
-
+    submitted = db.Column(db.DateTime, default=func.now())
+    updated = db.Column(db.DateTime, onupdate=func.now())
 
     def approve(self):
         # check if user can approve
         self.status = "Approved"
 
-    def deny(self, user):
+    def deny(self):
         # check if user can approve
         self.status = "Denied"
 
