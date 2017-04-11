@@ -8,8 +8,8 @@ import { MarketItemService } from './item.service';
 })
 
 export class MarketplaceItemComponent implements OnInit {
-  private loanId: number;
-  private loan;
+  private loanId: number = 0;
+  private loan: any = {};
 
   constructor (private route: ActivatedRoute, private marketItemService: MarketItemService) {
     this.route.params.subscribe(params => {

@@ -248,7 +248,7 @@ def my_loan_applications():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(LoanApplication).filter_by(
-        user_id=current_user.id).order_by(LoanApplication.status).all()
+        user_id=current_user.id, LoanApplication.updated != None).order_by(LoanApplication.updated).all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -261,7 +261,7 @@ def loans_to_review():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(
-        LoanApplication).filter_by(status='Pending').all()
+        LoanApplication).filter_by(LoanApplication.status == 'Pending').all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -399,7 +399,7 @@ def loan_review(loan_id):
             if loan.funding == "bank":
                 user = db.session.query(User).filter_by(
                     id=loan.user_id).first()
-                user.accounts[0].depost(loan.amount)
+                user.accounts[0].deposit(loan.amount)
                 db.session.add(user)
 
             db.session.add(loan)
@@ -410,15 +410,14 @@ def loan_review(loan_id):
 
 
     if body['action'] == 'deny':
-        try:
-            if current_user.can_review():
-                loan.deny()
-                db.session.add(loan)
-                db.session.commit()
-            else:
-                return jsonify({'result': ""}), 200
-        except:
-            return jsonify({'result': "error denying"}), 500
+        if current_user.can_review():
+            loan.deny()
+            db.session.add(loan)
+            db.session.commit()
+            return jsonify({'result': ""}), 200
+        else:
+            return jsonify({'result': "user cannot review"}), 200
+
 
 
 @app.route('/api/accounts', methods=['GET'])

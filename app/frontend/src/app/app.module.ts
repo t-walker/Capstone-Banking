@@ -2,6 +2,7 @@ import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {routing, appRoutingProviders} from './app.routing';
+import {RouterModule} from '@angular/router';
 
 import {AppComponent} from "./app.component";
 import {NavComponent} from "./layout/navbar/navbar.component";
@@ -41,6 +42,7 @@ import {LocalStorageModule} from 'angular-2-local-storage';
 @NgModule({
     imports: [
         BrowserModule,
+        RouterModule,
         HttpModule,
         FormsModule,
         HttpModule,

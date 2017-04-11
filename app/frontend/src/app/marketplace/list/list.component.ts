@@ -23,7 +23,6 @@ export class MarketplaceListComponent implements OnInit {
         console.log(this.loans.length);
 
         for (let loan of this.loans) {
-          console.log("iteration" + i );
           if (i % 3 === 0) {
             this.loanGrid.push(tmp);
             tmp = [];
@@ -31,7 +30,6 @@ export class MarketplaceListComponent implements OnInit {
           tmp.push(loan);
           i++;
         }
-        console.log(this.loanGrid);
       },
       err => { },
       () => { }
