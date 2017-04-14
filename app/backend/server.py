@@ -231,6 +231,9 @@ def my_edit():
     if "new_password" in body and "old_password" in body:
         if user.check_password(body['old_password']):
             user.set_password(body['new_password'])
+        else:
+            return jsonify({'result': 'wrong password'}), 500
+
 
     if "default_account" in body:
         if body['default_account'] != user.default_account:

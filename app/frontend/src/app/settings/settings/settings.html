@@ -4,6 +4,18 @@
   </div>
 </div>
 
+<div class="row" *ngIf="notificationShow">
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass]="{'alert-success': notificationResult, 'alert-danger': !notificationResult}">
+      <button type="button" class="close" data-dismiss="alert" (click)="dismiss()">&times;</button>
+      <p *ngIf="notificationResult">Your settings have been changed.</p>
+      <p *ngIf="!notificationResult">There was an issue saving your changes.</p>
+    </div>
+  </div>
+</div>
+
+
+
 <br/>
 
 <div class="row">
@@ -12,12 +24,12 @@
   </div>
 
   <div class="form-group col-xs-5 col-md-3">
-    <input type="text" [(ngModel)]="fname" class="form-control" id="fname" placeholder="" />
+    <input type="text" [(ngModel)]="fname" class="form-control" id="fname" placeholder="" disabled/>
     <label for="name" class="control-label" style="padding: 0; margin: 0;">First Name</label>
   </div>
 
   <div class="form-group col-xs-5 col-md-3">
-    <input type="text" [(ngModel)]="lname" class="form-control" id="lname" placeholder="" />
+    <input type="text" [(ngModel)]="lname" class="form-control" id="lname" placeholder="" disabled/>
     <label for="name" class="control-label" style="padding: 0; margin: 0;">Last Name</label>
   </div>
 </div>
