@@ -248,7 +248,7 @@ def my_loan_applications():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(LoanApplication).filter_by(
-        user_id=current_user.id, LoanApplication.updated != None).order_by(LoanApplication.updated).all()
+        LoanApplication.updated != None, user_id=current_user.id).order_by(LoanApplication.updated).all()
 
     result = loanapplication_schema.dump(applications)
 
