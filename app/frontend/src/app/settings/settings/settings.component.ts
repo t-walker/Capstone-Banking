@@ -11,6 +11,9 @@ export class SettingsComponent implements OnInit {
   private user: any = null;
   private accounts: any = null;
 
+  private notificationShow: boolean = false;
+  private notificationResult: boolean;
+
   private fname: string;
   private lname: string;
   private email: string;
@@ -27,6 +30,10 @@ export class SettingsComponent implements OnInit {
     this.refreshAccounts();
   }
 
+  dismiss() {
+    this.notificationShow = false;
+  }
+
   submit() {
     let accountData = {};
 
@@ -40,12 +47,15 @@ export class SettingsComponent implements OnInit {
     this.settingsService.onSubmit(accountData).subscribe(
       result => {
         this.refreshAccounts();
+        this.notificationResult = true;
+        this.notificationShow = true;
+
       },
       err => {
-
+        this.notificationResult = false;
+        this.notificationShow = true;
       },
       () => {
-
       }
     );
 

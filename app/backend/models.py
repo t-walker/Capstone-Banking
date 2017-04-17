@@ -136,6 +136,15 @@ class LoanApplication(db.Model):
         self.status = "Denied"
 
 
+class LoanContribution(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    lender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    loan_id = db.Column(db.Integer, db.ForeignKey('loan_application.id'))
+    amount= db.Column(db.Integer, unique=False)
+    submitted = db.Column(db.DateTime, default=func.now())
+    updated = db.Column(db.DateTime, onupdate=func.now())
+
+
 # Schemas
 class LoanApplicationSchema(ModelSchema):
     class Meta:

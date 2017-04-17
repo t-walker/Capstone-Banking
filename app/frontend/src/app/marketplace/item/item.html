@@ -31,5 +31,12 @@
 <div class="row">
   <div class="col-md-12">
     <h3>Sponsor This Loan</h3>
+    <div class="form-group col-md-6">
+      <label for="loanAmount"><b>Requested Amount</b></label>
+      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon">$</div>
+        <input [(ngModel)]="requested_amount" name="requested_amount" type="text" class="form-control" id="loanAmount" placeholder="500.00">
+      </div>
+    </div>
   </div>
 </div>
