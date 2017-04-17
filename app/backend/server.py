@@ -5,9 +5,9 @@ from time import sleep  # Wait for the DB to be ready.
 from flask import Flask, send_file, jsonify, request, url_for
 from flask.ext.seasurf import SeaSurf
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
-from flask.ext.sqlalchemy import SQLAlchemy  # Database management
+from flask.ext.sqlalchemy import SQLAlchemy # Database management
 from flask.ext.marshmallow import Marshmallow  # Data serialization
-
+from sqlalchemy import func
 from werkzeug.security import generate_password_hash, check_password_hash
 
 sleep(5)  # Delay is required for allowing the Database to startup
@@ -251,7 +251,7 @@ def my_loan_applications():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(LoanApplication).filter_by(
-        LoanApplication.updated != None, user_id=current_user.id).order_by(LoanApplication.updated).all()
+        LoanApplication.updated != None, LoanApplication.user_id == current_user.id).order_by(LoanApplication.updated).all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -282,6 +282,31 @@ def loans_for_marketplace():
     result = loanapplication_schema.dump(applications)
 
     return jsonify({'result': result.data}), 200
+
+
+@app.route('/api/loans/contribute', methods=['POST'])
+@login_required
+def contribute_to_loan():
+    body = request.json
+
+    loan = db.session.query(LoanApplication).filter_by(id=body['loan_id']).first()
+
+    total = db.session.query(func.sum(LoanContribution.amount)).filter_by(loan_id=body['loan_id']).all()
+
+    if total >= loan.amount:
+        return jsonify({'result': "loan is funded"}), 500
+    elif total + float(body['amount']) >= loan.amount:
+        return jsonify({'result': "donation is too much"}), 500
+
+    contribution = LoanContribution()
+    contribution.lender_id = current_user.id
+    contribution.loan_id = loan.id
+    contribuion.amount = body['amount']
+
+    db.session.add(contribuion)
+    db.session.commit()
+
+    return jsonify({'result': 'successful'}), 200
 
 
 @app.route('/api/my/accounts/<int:account_id>/transactions', methods=['GET'])
@@ -384,9 +409,15 @@ def loan_view(loan_id):
 
     loans = db.session.query(LoanApplication).filter_by(
         id=int(loan_id)).first()
-    result = loan_schema.dump(loans)
 
-    return jsonify({'result': result.data})
+    amount = db.session.query(fun.sum(LoanContribution.amount)).filter_by(loan_id=body['loan_id']).all()
+
+    result = {}
+    result['loan'] = loan_schema.dump(loans)
+    result['total'] = amount
+
+
+    return jsonify({'result': result.data })
 
 
 @app.route('/api/loan/<int:loan_id>/review', methods=['POST'])
