@@ -7,7 +7,8 @@ from flask.ext.seasurf import SeaSurf
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 from flask.ext.sqlalchemy import SQLAlchemy # Database management
 from flask.ext.marshmallow import Marshmallow  # Data serialization
-from sqlalchemy import func
+from sqlalchemy import func, and_
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 sleep(5)  # Delay is required for allowing the Database to startup
@@ -250,8 +251,8 @@ def my_edit():
 def my_loan_applications():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
-    applications = db.session.query(LoanApplication).filter_by(
-        LoanApplication.updated != None, LoanApplication.user_id == current_user.id).order_by(LoanApplication.updated).all()
+
+    applications = db.session.query(LoanApplication).filter(and_(LoanApplication.updated != None, LoanApplication.user_id == current_user.id)).order_by(LoanApplication.updated).all()
 
     result = loanapplication_schema.dump(applications)
 
@@ -264,7 +265,7 @@ def loans_to_review():
     loanapplication_schema = LoanApplicationSchema(many=True)
 
     applications = db.session.query(
-        LoanApplication).filter_by(LoanApplication.status == 'Pending').all()
+        LoanApplication).filter_by(status='Pending').all()
 
     result = loanapplication_schema.dump(applications)
 
