@@ -81,6 +81,23 @@ export class UserService {
     );
   }
 
+  getCreditScore() {
+    let headers = new Headers();
+
+    return this.http
+      .get(
+        '/api/creditScore'
+        ).map(res => res)
+        .catch(err => err);
+
+  }
+
+  public handleNoCreditError(error: Response) {
+    console.log("error");
+    console.error(error);
+    return 30;
+  }
+
   getCurrentUser() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

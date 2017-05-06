@@ -404,14 +404,11 @@ def loan_view(loan_id):
     loans = db.session.query(LoanApplication).filter_by(
         id=int(loan_id)).first()
 
-    amount = db.session.query(fun.sum(LoanContribution.amount)).filter_by(loan_id=body['loan_id']).all()
+    amount = db.session.query(func.sum(LoanContribution.amount)).filter_by(loan_id=loan_id).first()
 
-    result = {}
-    result['loan'] = loan_schema.dump(loans)
-    result['total'] = amount
+    result = loan_schema.dump(loans)
 
-
-    return jsonify({'result': result.data })
+    return jsonify({'result': result.data})
 
 
 @app.route('/api/loan/<int:loan_id>/review', methods=['POST'])

@@ -3,7 +3,6 @@ import {OnInit} from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
 import { Headers, RequestOptions} from '@angular/http';
 import { UserService } from '../../user/services/user.service';
-
 import {CreateAccountComponent} from "../create/create.component";
 import {AccountListingComponent} from "../listing/listing.component";
 

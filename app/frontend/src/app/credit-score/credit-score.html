@@ -1,0 +1,37 @@
+<style type="text/css">
+	.low {
+		background: none;
+		background-color: red !important;
+	}
+
+	.mid {
+		background: none;
+		background-color: yellow !important;
+	}
+
+	.high {
+		background: none;
+		background-color: green !important;
+	}
+
+	meter::-webkit-meter-bar {
+  background: none; /* Required to get rid of the default background property */
+  background-color: whiteSmoke;
+  box-shadow: 0 5px 5px -5px #333 inset;
+}
+</style>
+
+<!-- style="background: linear-gradient(90deg, #ff3232, #FDFF32, #00FF85); border: white 5px solid; padding: 7px; width: 200px; text-align: center;" -->
+
+<div class="container-fluid" width="220px">
+
+
+
+<meter style="margin-left=10px;" max="100" min="0" low="33" optimum="90" high="67" value="{{score}}" title="GB" [ngClass]="{ 'low' : lowCredit, 'mid' : midCredit, 'high' : highCredit }"></meter>
+
+
+<h5 style="color: white; margin-top: 5px;">
+{{score}}<span style="color: #919aa1;">/100</span>
+</h5>
+
+</div>

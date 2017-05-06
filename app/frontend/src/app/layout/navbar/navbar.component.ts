@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { UserService } from '../../user/services/user.service';
+import {CreditScoreComponent} from '../../credit-score/credit-score.component';
 import {Subscription} from 'rxjs/Rx';
 
 @Component({

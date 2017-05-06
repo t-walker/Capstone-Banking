@@ -16,6 +16,8 @@ import {SettingsComponent} from "./settings/settings/settings.component";
 import {RegisterComponent} from "./register/components/register.component";
 import {LoginComponent} from "./login/components/login.component";
 
+import {CreditScoreComponent} from "./credit-score/credit-score.component";
+
 import {AccountsComponent} from "./account/account/accounts.component";
 import {CreateAccountComponent} from "./account/create/create.component";
 import {AccountDetailsComponent} from "./account/details/details.component";
@@ -71,7 +73,8 @@ import {LocalStorageModule} from 'angular-2-local-storage';
         TransferUserComponent,
         SettingsComponent,
         MarketplaceListComponent,
-        MarketplaceItemComponent
+        MarketplaceItemComponent,
+        CreditScoreComponent
     ],
     providers: [
         appRoutingProviders,
